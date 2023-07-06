@@ -1,0 +1,91 @@
+---
+title: "Decomposition of X-11 algorithm"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Decomposition of X-11 algorithm}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(rjd3filters)
+# y2 <- ts(c(115.7, 109.8, 100.6, 106.6, 98.7, 103.9, 109.5, 97.7,
+#           103.7, 99.7, 65.7, 105.2, 117.1, 108.3, 104.4, 100.5, 103.2,
+#           112.9, 107.1, 100, 108.3, 101.8, 68.7, 108.7, 116.9, 114.7, 110,
+#           107.7, 110.2, 118.7, 108.1, 107.4, 114.7, 101.2, 76, 114.6, 117.9,
+#           121.3, 114.7, 117.9, 112.2, 120.2, 114.7, 110.5, 120.3, 105.6,
+#           79.4, 114.2, 126.7, 126.8, 112.7, 121.1, 112.5, 123.6, 116.1,
+#           115.6, 116.8, 111.8, 83.3, 114.6, 132, 127.1, 110.8, 123.3, 112.8,
+#           119.3, 119.4, 113.3, 116.7, 115.3, 81.6, 116.4, 132.4, 124.8,
+#           115.8, 123.5, 116.9, 124, 120, 109.8, 118.7, 112.1, 80, 119.3,
+#           129, 122.1, 113.8, 113.7, 113.1, 122.7, 114.2, 107.9, 117.1,
+#           108.1, 79.7, 114.8, 121, 121.7, 114.8, 116.3, 111.5, 124, 115.4,
+#           114, 121, 109.5, 85.4, 120.6, 126.4, 127.7, 120, 124.1, 116.3,
+#           130.2), start = c(1985, 10), frequency = 12)
+y <- rjd3toolkit::ABS$X0.2.09.10.M  # b1
+tc<-lp_filter(horizon = 6, ic = 3.5)
+x11_step <- rjd3filters::x11(y, trend.coefs = tc,
+                            extreme.lsig = 300, extreme.usig = 400, mul = FALSE,
+                            seas.s0 = "S3X3",
+                            seas.s1 = "S3X5",
+                            userdefined = sprintf("b%i", 1:11))
+compare <- function(x, id, ...){
+  res = cbind(na.omit(x), x11_step$user_defined[[id]])
+  all.equal(res[,1], res[,2], ...)
+}
+compare(y, "b1")
+
+e1 <- simple_ma(12, - 6)
+e2 <- simple_ma(12, - 5)
+# used to have the 1rst estimate of the trend
+tc_1 <- M2X12 <- (e1 + e2)/2
+coef(M2X12) |> round(3)
+M2X12 * y # b2
+compare(M2X12 * y , "b2")
+si_1 <- 1 - tc_1
+si_1 * y # b3
+compare(si_1 * y , "b3")
+
+M3X3 <- macurves("S3x3")
+M3X3_s <- to_seasonal(M3X3, 12)
+s_1 <- M3X3_s * si_1
+s_1_norm <- M2X12 * s_1
+s_1_norm <- impute_last_obs(s_1_norm, n = 6, nperiod = 1)
+s_1_demean <- s_1 - s_1_norm
+s_1_f <- impute_last_obs(s_1_demean, n = 6, nperiod = 12)
+s_1_f * y # b5
+compare(s_1_f * y , "b5")
+sa_1 <- 1- s_1_f
+sa_1 * y # b6
+compare(sa_1 * y , "b6")
+
+h13 <- lp_filter(horizon = 6, ic = 3.5)
+tc_2 <- h13 * sa_1
+tc_2 * y # b7
+compare(tc_2 * y , "b7")
+
+si_2 <- 1 - tc_2
+si_2 * y # b8
+compare(si_2 * y , "b8")
+
+M3X5 <- macurves("S3x5")
+M3X5_s <- to_seasonal(M3X5, 12)
+s_2 <- M3X5_s * si_2
+s_2_norm <- M2X12 * s_2
+s_2_norm <- impute_last_obs(s_2_norm, n = 6, nperiod = 1)
+s_2_demean <- s_2 - s_2_norm
+s_2_f <- impute_last_obs(s_2_demean, n = 6, nperiod = 12)
+s_2_f * y # b10
+compare(s_2_f * y , "b10")
+sa_2 <- 1 - s_2_f
+sa_2 * y # b11
+compare(sa_2 * y , "b11")
+```
+
