@@ -27,9 +27,10 @@ or later version is required.
 
 ``` r
 # Install development version from GitHub
-# install.packages("devtools")
-devtools::install_github("rjdemetra/rjd3toolkit")
-devtools::install_github("rjdemetra/rj3dfilters")
+# install.packages("remotes")
+remotes::install_github("rjdemetra/rjd3toolkit")
+remotes::install_github("rjdemetra/rjd3x11plus")
+remotes::install_github("rjdemetra/rjd3filters")
 ```
 
 ## Basic example
