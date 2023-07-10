@@ -14,44 +14,40 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r setup, include=FALSE}
+library(rjd3filters)
+```
+
+rjd3filters allows to reproduce the entire X-11 process
+
+# X-11 without outlier correction
+
 ```{r}
 library(rjd3filters)
-# y2 <- ts(c(115.7, 109.8, 100.6, 106.6, 98.7, 103.9, 109.5, 97.7,
-#           103.7, 99.7, 65.7, 105.2, 117.1, 108.3, 104.4, 100.5, 103.2,
-#           112.9, 107.1, 100, 108.3, 101.8, 68.7, 108.7, 116.9, 114.7, 110,
-#           107.7, 110.2, 118.7, 108.1, 107.4, 114.7, 101.2, 76, 114.6, 117.9,
-#           121.3, 114.7, 117.9, 112.2, 120.2, 114.7, 110.5, 120.3, 105.6,
-#           79.4, 114.2, 126.7, 126.8, 112.7, 121.1, 112.5, 123.6, 116.1,
-#           115.6, 116.8, 111.8, 83.3, 114.6, 132, 127.1, 110.8, 123.3, 112.8,
-#           119.3, 119.4, 113.3, 116.7, 115.3, 81.6, 116.4, 132.4, 124.8,
-#           115.8, 123.5, 116.9, 124, 120, 109.8, 118.7, 112.1, 80, 119.3,
-#           129, 122.1, 113.8, 113.7, 113.1, 122.7, 114.2, 107.9, 117.1,
-#           108.1, 79.7, 114.8, 121, 121.7, 114.8, 116.3, 111.5, 124, 115.4,
-#           114, 121, 109.5, 85.4, 120.6, 126.4, 127.7, 120, 124.1, 116.3,
-#           130.2), start = c(1985, 10), frequency = 12)
-y <- rjd3toolkit::ABS$X0.2.09.10.M  # b1
-tc<-lp_filter(horizon = 6, ic = 3.5)
-x11_step <- rjd3filters::x11(y, trend.coefs = tc,
-                            extreme.lsig = 300, extreme.usig = 400, mul = FALSE,
-                            seas.s0 = "S3X3",
-                            seas.s1 = "S3X5",
-                            userdefined = sprintf("b%i", 1:11))
-compare <- function(x, id, ...){
-  res = cbind(na.omit(x), x11_step$user_defined[[id]])
-  all.equal(res[,1], res[,2], ...)
+b1 <- rjd3toolkit::ABS$X0.2.09.10.M 
+x11_step <- rjd3filters::x11(b1, trend.coefs = lp_filter(horizon = 6, ic = 3.5),
+                             extreme.lsig = 300, extreme.usig = 400, mul = FALSE,
+                             seas.s0 = "S3X3",
+                             seas.s1 = "S3X5",
+                             userdefined = sprintf("b%i", 1:11))
+compare <- function(x, id, na.rm = TRUE){
+  if (na.rm)
+    x <- na.omit(x)
+  res = cbind(x, x11_step$user_defined[[id]])
+  all.equal(res[,1], res[,2], check.attributes = FALSE)
 }
-compare(y, "b1")
+compare(b1, "b1")
 
 e1 <- simple_ma(12, - 6)
 e2 <- simple_ma(12, - 5)
 # used to have the 1rst estimate of the trend
 tc_1 <- M2X12 <- (e1 + e2)/2
 coef(M2X12) |> round(3)
-M2X12 * y # b2
-compare(M2X12 * y , "b2")
+M2X12 * b1 # b2
+compare(M2X12 * b1 , "b2")
 si_1 <- 1 - tc_1
-si_1 * y # b3
-compare(si_1 * y , "b3")
+si_1 * b1 # b3
+compare(si_1 * b1 , "b3")
 
 M3X3 <- macurves("S3x3")
 M3X3_s <- to_seasonal(M3X3, 12)
@@ -60,20 +56,20 @@ s_1_norm <- M2X12 * s_1
 s_1_norm <- impute_last_obs(s_1_norm, n = 6, nperiod = 1)
 s_1_demean <- s_1 - s_1_norm
 s_1_f <- impute_last_obs(s_1_demean, n = 6, nperiod = 12)
-s_1_f * y # b5
-compare(s_1_f * y , "b5")
+s_1_f * b1 # b5
+compare(s_1_f * b1 , "b5")
 sa_1 <- 1- s_1_f
-sa_1 * y # b6
-compare(sa_1 * y , "b6")
+sa_1 * b1 # b6
+compare(sa_1 * b1 , "b6")
 
 h13 <- lp_filter(horizon = 6, ic = 3.5)
 tc_2 <- h13 * sa_1
-tc_2 * y # b7
-compare(tc_2 * y , "b7")
+tc_2 * b1 # b7
+compare(tc_2 * b1 , "b7")
 
 si_2 <- 1 - tc_2
-si_2 * y # b8
-compare(si_2 * y , "b8")
+si_2 * b1 # b8
+compare(si_2 * b1 , "b8")
 
 M3X5 <- macurves("S3x5")
 M3X5_s <- to_seasonal(M3X5, 12)
@@ -82,10 +78,182 @@ s_2_norm <- M2X12 * s_2
 s_2_norm <- impute_last_obs(s_2_norm, n = 6, nperiod = 1)
 s_2_demean <- s_2 - s_2_norm
 s_2_f <- impute_last_obs(s_2_demean, n = 6, nperiod = 12)
-s_2_f * y # b10
-compare(s_2_f * y , "b10")
+s_2_f * b1 # b10
+compare(s_2_f * b1 , "b10")
 sa_2 <- 1 - s_2_f
-sa_2 * y # b11
-compare(sa_2 * y , "b11")
+sa_2 * b1 # b11
+compare(sa_2 * b1 , "b11")
+```
+
+# X-11 with outlier correction
+
+```{r}
+if (!exists("sa_2")) {
+  # we redefined the moving averages if they don't exist
+  tc_1 <- M2X12 <- (simple_ma(12, - 6) + simple_ma(12, - 5))/2
+  si_1 <- 1 - tc_1
+  M3X3 <- macurves("S3x3")
+  M3X3_s <- to_seasonal(M3X3, 12)
+  s_1 <- M3X3_s * si_1
+  s_1_norm <- M2X12 * s_1
+  s_1_norm <- impute_last_obs(s_1_norm, n = 6, nperiod = 1)
+  s_1_demean <- s_1 - s_1_norm
+  s_1_f <- impute_last_obs(s_1_demean, n = 6, nperiod = 12)
+  sa_1 <- 1- s_1_f
+  h13 <- lp_filter(horizon = 6, ic = 3.5)
+  tc_2 <- h13 * sa_1
+  si_2 <- 1 - tc_2
+  M3X5 <- macurves("S3x5")
+  M3X5_s <- to_seasonal(M3X5, 12)
+  s_2 <- M3X5_s * si_2
+  s_2_norm <- M2X12 * s_2
+  s_2_norm <- impute_last_obs(s_2_norm, n = 6, nperiod = 1)
+  s_2_demean <- s_2 - s_2_norm
+  s_2_f <- impute_last_obs(s_2_demean, n = 6, nperiod = 12)
+  sa_2 <- 1 - s_2_f
+}
+compare <- function(x, id, na.rm = TRUE){
+  if (na.rm)
+    x <- na.omit(x)
+  res = cbind(x, x11_step$user_defined[[id]])
+  all.equal(res[,1], res[,2], check.attributes = FALSE)
+}
+ud_var <- c("b1", "b2", "b3", "b4", "b4a", "b4d", "b5", 
+            "b6", "b7", "b8", "b9", "b10", "b11", "b13", "b17", "b20", "c1", 
+            "c2", "c4", "c5", "c6", "c7", "c9", "c10", "c11", "c13", 
+            "c17", "c20", "d1", "d2", "d4", "d5", "d6", "d7", "d8", 
+            "d10", "d11", "d12", "d13", "d10bis", "d11bis")
+b1 <- rjd3toolkit::ABS$X0.2.09.10.M  # b1
+x11_step <- rjd3filters::x11(b1, trend.coefs = lp_filter(horizon = 6, ic = 3.5),
+                             mul = FALSE,
+                             seas.s0 = "S3X3",
+                             seas.s1 = "S3X5",
+                             userdefined = ud_var)
+
+# B tables
+compare(b1, "b1")
+b2 <- tc_1 * b1
+compare(b2, "b2")
+b3 <- si_1 * b1
+compare(b3, "b3")
+
+b4a <- M3X3_s * 
+  b3
+compare(b4a, "b4a")
+
+b4norm <- b4a  - 
+  impute_last_obs(finite_filters(M2X12), n = 6, nperiod = 1) * 
+  b4a 
+b4d <- b3 - b4norm
+compare(b4d, "b4d")
+
+corr <- x11_extreme_values_corr(x = b4d,
+                                corrected_s = b3, mul = FALSE, start = 6)
+b4 <- corr[, "correction_factors"]
+b4g <- b3
+b4g[!is.nan(b4)] <- b4[!is.nan(b4)]
+compare(window(b4, start = start(na.omit(b3)), end = end(na.omit(b3))),
+        "b4",
+        na.rm = FALSE)
+
+b5a <- M3X3_s * b4g
+b5 <- b5a  - 
+  impute_last_obs(finite_filters(M2X12), n = 6, nperiod = 1) * 
+  b5a 
+b5 <- filter(b5, impute_last_obs(moving_average(c(rep(0,6),1, rep(0,6)), lags = -6),
+                                 n = 6, nperiod = 12), remove_missing = FALSE)
+compare(b5, "b5")
+b6 <- b1 - b5
+compare(b6, "b6")
+b7 <- h13 * b6
+compare(b7, "b7")
+
+b8 <- b1 - b7
+compare(b8, "b8")
+
+b9a <- M3X5_s * b8
+b9c <-  b9a - impute_last_obs(finite_filters(M2X12), n = 6, nperiod = 1) * 
+  b9a 
+b9d <-  b8 - b9c
+corr <- x11_extreme_values_corr(x = b9d,
+                                corrected_s = b8, mul = FALSE, start = 0)
+b9 <- corr[, "correction_factors"]
+b9g <- b8
+b9g[!is.nan(b9)] <- b9[!is.nan(b9)]
+compare(b9, "b9", na.rm = FALSE)
+
+b10a <- M3X5_s * b9g
+b10 <-  b10a - impute_last_obs(finite_filters(M2X12), n = 6, nperiod = 1) * 
+  b10a 
+b11 <-  b1 - b10
+b13 <-  b11 - b7
+compare(b10,  "b10")
+compare(b11,  "b11")
+compare(b13,  "b13")
+
+
+corr <- x11_extreme_values_corr(x = b13, mul = FALSE, start = 0)
+b17 <- corr[, "obs_weight"]
+b20 <- corr[, "correction_factors"]
+compare(b17,  "b17")
+compare(b20,  "b20")
+
+# C tables
+c1 <- b1 - b20
+compare(c1,  "c1")
+c2 <- tc_1 * c1
+compare(c2,  "c2")
+c4 <- c1 - c2
+compare(c4,  "c4")
+c5 <- s_1_f * c1
+compare(c5,  "c5")
+c6 <- sa_1 * c1
+compare(c6 , "c6")
+c7 <- tc_2 * c1
+compare(c7 , "c7")
+c9 <- si_2 * c1
+compare(c9 , "c9")
+c10 <- s_2_f * c1
+compare(c10 , "c10")
+c11 <- b1 - c10
+compare(c11 , "c11")
+c13 <- c11 - c7
+compare(c13 , "c13")
+
+corr <- x11_extreme_values_corr(x = c13, mul = FALSE, start = 0)
+c17 <- corr[, "obs_weight"]
+c20 <- corr[, "correction_factors"]
+compare(c17,  "c17")
+compare(c20,  "c20")
+
+# D tables
+d1 <- b1 - c20
+compare(d1,  "d1")
+d2 <- tc_1 * d1
+compare(d2,  "d2")
+d4 <- d1 - d2
+compare(d4,  "d4")
+d5 <- s_1_f * d1
+compare(d5,  "d5")
+d6 <- sa_1 * d1
+compare(d6 , "d6")
+d7 <- tc_2 * d1
+compare(d7 , "d7")
+d8 <- b1 - d7
+compare(d8 , "d8")
+d9bis <- d1 - d7
+d10bis <- M3X5_s * d9bis
+compare(d10bis , "d10bis")
+d10 <- d10bis - impute_last_obs(finite_filters(M2X12), n = 6, nperiod = 1) * 
+  d10bis 
+compare(d10 , "d10")
+d11bis <- d1 - d10
+compare(d11bis , "d11bis")
+d11 <- b1 - d10
+compare(d11 , "d11")
+d12 <- h13 * d11bis
+compare(d12 , "d12")
+d13 <- d11 - d12
+compare(d13 , "d13")
 ```
 
