@@ -20,7 +20,7 @@
 #' Note that this is solved numerically: the solution isn't exact.
 #' @inheritParams filter
 #' @examples
-#' x <- retailsa$AllOtherGenMerchandiseStores
+#' x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 #' lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' f_ql <- implicit_forecast(x, ql)
@@ -45,9 +45,7 @@ implicit_forecast.default <- function(x, coefs){
   }
   jffilters <- .finite_filters2jd(coefs)
 
-  jx <- .jcall("jdplus/toolkit/base/api/data/DoubleSeq",
-               "Ljdplus/toolkit/base/api/data/DoubleSeq;", "of",
-               as.numeric(tail(x,abs(lower_bound(coefs@sfilter))+1)))
+  jx <- .r2jd_doubleseq(tail(x,abs(lower_bound(coefs@sfilter))+1))
   prev <- .jcall("jdplus/toolkit/base/core/math/linearfilters/AsymmetricFiltersFactory",
          "[D","implicitForecasts",
          jffilters$jsymf,
