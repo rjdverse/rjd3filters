@@ -34,7 +34,7 @@ which is equivalent to
 Note that this is solved numerically: the solution isn't exact.
 }
 \examples{
-x <- retailsa$AllOtherGenMerchandiseStores
+x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
 ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 f_ql <- implicit_forecast(x, ql)

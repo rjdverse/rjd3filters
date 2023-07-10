@@ -53,7 +53,7 @@ to_seasonal(x, s)
 Manipulation of moving averages
 }
 \examples{
-y <- retailsa$AllOtherGenMerchandiseStores
+y <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
 e1 <- moving_average(rep(1,12), lags = -6)
 e1 <- e1/sum(e1)
 e2 <- moving_average(rep(1/12, 12), lags = -5)
