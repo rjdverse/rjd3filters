@@ -27,12 +27,3 @@ NULL
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
   packageStartupMessage("Java requirements fullfilled, found version ",jversion)
 }
-
-
-#' Retail sales data
-#'
-#' A dataset containing monthly retailed sales
-#'
-#' @docType data
-#' @format A \code{list} of \code{ts} objects from january 1992 to december 2010.
-"retailsa"
