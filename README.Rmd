@@ -36,7 +36,7 @@ rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) pack
 # install.packages("devtools")
 devtools::install_github("rjdemetra/rjd3toolkit")
 devtools::install_github("rjdemetra/rjd3x11plus")
-devtools::install_github("palatej/rjd3filters")
+devtools::install_github("rjdemetra/rjd3filters")
 ```
 
 ## Basic example

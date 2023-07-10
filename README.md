@@ -28,8 +28,9 @@ or later version is required.
 ``` r
 # Install development version from GitHub
 # install.packages("devtools")
-devtools::install_github("palatej/rjd3toolkit")
-devtools::install_github("palatej/rj3dfilters")
+devtools::install_github("rjdemetra/rjd3toolkit")
+devtools::install_github("rjdemetra/rjd3x11plus")
+devtools::install_github("rjdemetra/rjd3filters")
 ```
 
 ## Basic example
@@ -196,11 +197,11 @@ M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3
 # M3X3 moving average applied to each month
 M3X3
-#> [1] "0,1111 B^2 + 0,2222 B + 0,3333 + 0,2222 F + 0,1111 F^2"
+#> [1] "0.1111 B^2 + 0.2222 B + 0.3333 + 0.2222 F + 0.1111 F^2"
 M3X3_seasonal <- to_seasonal(M3X3, 12)
 # M3X3_seasonal moving average applied to the global series
 M3X3_seasonal
-#> [1] "0,1111 B^24 + 0,2222 B^12 + 0,3333 + 0,2222 F^12 + 0,1111 F^24"
+#> [1] "0.1111 B^24 + 0.2222 B^12 + 0.3333 + 0.2222 F^12 + 0.1111 F^24"
 
 def.par <- par(no.readonly = TRUE)
 par(mai = c(0.5, 0.8, 0.3, 0))
