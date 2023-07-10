@@ -29,7 +29,7 @@ dfa_filter <- function(horizon = 6, degree = 0,
     }
   }
   dfa_filter = J("jdplus/filters/base/r/DFAFilters")$filterProperties(
-    rev(targetfilter[seq_len(horizon+1)]),
+    targetfilter,
     as.integer(horizon), as.integer(degree), density=="rw",
     passband,
     accuracy.weight, smoothness.weight, timeliness.weight

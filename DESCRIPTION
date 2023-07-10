@@ -24,7 +24,7 @@ Depends:
 Imports:
   rJava (>= 1.0-6),
   rjd3toolkit (>= 2.9.0),
-  rjd3x11plus (>= 1.0.1),
+  rjd3x11plus (>= 1.0.0),
    methods,
    MASS,
    graphics,
@@ -32,7 +32,7 @@ Imports:
 SystemRequirements: Java (>= 17)
 License: EUPL
 LazyData: TRUE
-URL: https://github.com/palatej/rjd3filters
+URL: https://github.com/rjdemetra/rjd3filters
 Suggests:
     knitr,
     rmarkdown

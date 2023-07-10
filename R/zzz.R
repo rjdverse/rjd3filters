@@ -28,10 +28,9 @@ NULL
   packageStartupMessage("Java requirements fullfilled, found version ",jversion)
 }
 
-
-#' Retail sales data
+#' Seasonally Adjusted Retail Sales
 #'
-#' A dataset containing monthly retailed sales
+#' A dataset containing monthly seasonally adjusted retailed sales
 #'
 #' @docType data
 #' @format A \code{list} of \code{ts} objects from january 1992 to december 2010.

@@ -105,9 +105,7 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
     x2 <- x
   }
 
-  jx <- .jcall("jdplus/toolkit/base/api/data/DoubleSeq",
-               "Ljdplus/toolkit/base/api/data/DoubleSeq;",
-               "of", as.numeric(x2))
+  jx <- .r2jd_doubleseq(x2)
 
   result <- .jcall("jdplus/toolkit/base/core/math/linearfilters/FilterUtility",
                    "Ljdplus/toolkit/base/api/data/DoubleSeq;", "filter",
@@ -127,7 +125,11 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
     result <- ts(result,start = start(x), frequency = frequency(x))
   result
 }
-
+.r2jd_doubleseq <- function(x) {
+  .jcall("jdplus/toolkit/base/api/data/DoubleSeq",
+         "Ljdplus/toolkit/base/api/data/DoubleSeq;",
+         "of", as.numeric(x))
+}
 .finite_filters2jd <- function(ff) {
   jsymf <- .ma2jd(ff@sfilter)
   rfilters <- ff@rfilters
