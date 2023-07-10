@@ -298,11 +298,11 @@ as.matrix.finite_filters <- function(x, sfilter = TRUE, rfilters = TRUE, lfilter
     sfilter_s <- list(x@sfilter)
     index_s <- length(x@rfilters)
   }
-  if (lfilters) {
+  if (lfilters && length(x@lfilters) > 0) {
     lfilters_s <- x@lfilters
     index_l <- seq(0, -(length(x@lfilters) - 1))
   }
-  if (rfilters) {
+  if (rfilters && length(x@rfilters) > 0) {
     rfilters_s <- x@rfilters
     index_r <- seq(length(x@rfilters) - 1, 0)
   }
@@ -473,7 +473,7 @@ to_seasonal.finite_filters <- function(x, s){
 #'
 #'
 #' @examples
-#' y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
+#' y <- window(rjd3toolkit::retail$AllOtherGenMerchandiseStores, start = 2008)
 #' M3X3 <- macurves("S3X3")
 #' M2X12 <- (simple_ma(12, -6) + simple_ma(12, -5)) / 2
 #' composite_ma <- M3X3 * M2X12
@@ -487,6 +487,8 @@ to_seasonal.finite_filters <- function(x, s){
 #' impute_last_obs(composite_ma, n = 6, nperiod = 12) * y
 #' @export
 impute_last_obs <- function(x, n, nperiod = 1, backward = TRUE, forward = TRUE) {
+  if (is.moving_average(x))
+    x <- finite_filters(sfilter = x)
   nrfilters <- length(x@rfilters)
   nlfilters <- length(x@lfilters)
   if (missing(n))
