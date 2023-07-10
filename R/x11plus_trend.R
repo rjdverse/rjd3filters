@@ -11,15 +11,15 @@
 #' @param extreme.lsig,extreme.usig boundaries used for outlier correction in irregular.
 #' @param userdefined a vector containing the additional output variables.
 #' @examples
-#' x <- retailsa$AllOtherGenMerchandiseStores
-#' decomposition_lp <- x11(x, trend.coefs = lp_filter())
-#' decomposition_rkhs <- x11(x, trend.coefs = rkhs_filter())
+#' x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
+#' decomposition_lp <- x11plus_trend(x, trend.coefs = lp_filter())
+#' decomposition_rkhs <- x11plus_trend(x, trend.coefs = rkhs_filter())
 #' plot(x)
 #' lines(decomposition_lp$decomposition[,"t"], col = "red")
 #' lines(decomposition_rkhs$decomposition[,"t"], col = "green")
 #' @importFrom stats ts.union
 #' @export
-x11 <- function(x, period = frequency(x),
+x11plus_trend <- function(x, period = frequency(x),
                 trend.coefs,  mul=TRUE,
                 seas.s0=c("S3X3", "S3X1", "S3X5", "S3X9", "S3X15"),
                 seas.s1=c("S3X5", "S3X3", "S3X1", "S3X9", "S3X15"),
@@ -44,9 +44,7 @@ x11 <- function(x, period = frequency(x),
   }
   ltrendf <- rjd3toolkit::.r2jd_matrix(leftTrendFilter)
 
-  ctrendf <- .jcall("jdplus/toolkit/base/api/data/DoubleSeq",
-                   "Ljdplus/toolkit/base/api/data/DoubleSeq;",
-                   "of", coef(sym_filter))
+  ctrendf <- .r2jd_doubleseq(coef(sym_filter))
   # # check :
   # jf <- J("jdplus.filters.base.core.filters.Filtering")$of(ctrendf, ltrendf)
   # .jd2r_finitefilters(jf)

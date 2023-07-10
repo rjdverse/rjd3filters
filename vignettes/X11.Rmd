@@ -25,7 +25,7 @@ rjd3filters allows to reproduce the entire X-11 process
 ```{r}
 library(rjd3filters)
 b1 <- rjd3toolkit::ABS$X0.2.09.10.M 
-x11_step <- rjd3filters::x11(b1, trend.coefs = lp_filter(horizon = 6, ic = 3.5),
+x11_step <- rjd3filters::x11plus_trend(b1, trend.coefs = lp_filter(horizon = 6, ic = 3.5),
                              extreme.lsig = 300, extreme.usig = 400, mul = FALSE,
                              seas.s0 = "S3X3",
                              seas.s1 = "S3X5",
@@ -124,7 +124,7 @@ ud_var <- c("b1", "b2", "b3", "b4", "b4a", "b4d", "b5",
             "c17", "c20", "d1", "d2", "d4", "d5", "d6", "d7", "d8", 
             "d10", "d11", "d12", "d13", "d10bis", "d11bis")
 b1 <- rjd3toolkit::ABS$X0.2.09.10.M  # b1
-x11_step <- rjd3filters::x11(b1, trend.coefs = lp_filter(horizon = 6, ic = 3.5),
+x11_step <- rjd3filters::x11plus_trend(b1, trend.coefs = lp_filter(horizon = 6, ic = 3.5),
                              mul = FALSE,
                              seas.s0 = "S3X3",
                              seas.s1 = "S3X5",
