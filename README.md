@@ -42,7 +42,7 @@ boundaries.
 
 ``` r
 library(rjd3filters)
-y <- window(rjd3toolkit::retail$AllOtherGenMerchandiseStores,start = 2000)
+y <- window(retailsa$AllOtherGenMerchandiseStores,start = 2000)
 musgrave <- lp_filter(horizon = 6, kernel = "Henderson",endpoints = "LC")
 
 # we put a large weight on the timeliness criteria

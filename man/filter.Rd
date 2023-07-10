@@ -36,7 +36,7 @@ time series \eqn{y[n-1]} (one future point known)...
 }
 }
 \examples{
-x <- rjd3toolkit::retail$DrinkingPlaces
+x <- retailsa$DrinkingPlaces
 
 lags <- 6
 leads <- 2

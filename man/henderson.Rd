@@ -22,7 +22,7 @@ the target signal.
 Apply Henderson Linear Filter
 }
 \examples{
-x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
+x <- retailsa$AllOtherGenMerchandiseStores
 trend <- henderson(x, length = 13)
 plot(x)
 lines(trend, col = "red")

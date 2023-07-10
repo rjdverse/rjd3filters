@@ -10,7 +10,7 @@ NULL
 #'
 #' @return the target signal.
 #' @examples
-#' x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
+#' x <- retailsa$AllOtherGenMerchandiseStores
 #' trend <- henderson(x, length = 13)
 #' plot(x)
 #' lines(trend, col = "red")
@@ -37,7 +37,7 @@ henderson<-function(x, length, musgrave=TRUE, ic=4.5){
 #'
 #' @return the target signal
 #' @examples
-#' x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
+#' x <- retailsa$AllOtherGenMerchandiseStores
 #' trend <- localpolynomials(x, horizon = 6)
 #' plot(x)
 #' lines(trend, col = "red")

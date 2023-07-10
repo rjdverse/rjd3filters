@@ -29,7 +29,7 @@ For example, using the M2X12 moving average (symmetric moving average with coeff
 \code{impute_last_obs()} allows to impute the first/last points using the \code{nperiod} previous filtered data. With \code{nperiod = 1}, the last filtered data is used for the imputation, with \code{nperiod = 12} and monthly data, the last year filtered data is used for the imputation, etc.
 }
 \examples{
-y <- window(rjd3toolkit::retail$AllOtherGenMerchandiseStores, start = 2008)
+y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
 M3X3 <- macurves("S3X3")
 M2X12 <- (simple_ma(12, -6) + simple_ma(12, -5)) / 2
 composite_ma <- M3X3 * M2X12

@@ -20,7 +20,7 @@
 #' Note that this is solved numerically: the solution isn't exact.
 #' @inheritParams filter
 #' @examples
-#' x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
+#' x <- retailsa$AllOtherGenMerchandiseStores
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 #' lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' f_ql <- implicit_forecast(x, ql)

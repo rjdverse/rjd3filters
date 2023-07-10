@@ -40,7 +40,7 @@ the target signal
 Apply Local Polynomials Filters
 }
 \examples{
-x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
+x <- retailsa$AllOtherGenMerchandiseStores
 trend <- localpolynomials(x, horizon = 6)
 plot(x)
 lines(trend, col = "red")

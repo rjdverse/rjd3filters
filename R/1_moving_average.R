@@ -25,7 +25,7 @@ NULL
 #' @param object `moving_average` object.
 #'
 #' @examples
-#' y <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
+#' y <- retailsa$AllOtherGenMerchandiseStores
 #' e1 <- moving_average(rep(1,12), lags = -6)
 #' e1 <- e1/sum(e1)
 #' e2 <- moving_average(rep(1/12, 12), lags = -5)

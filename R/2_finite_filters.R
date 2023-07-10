@@ -473,7 +473,7 @@ to_seasonal.finite_filters <- function(x, s){
 #'
 #'
 #' @examples
-#' y <- window(rjd3toolkit::retail$AllOtherGenMerchandiseStores, start = 2008)
+#' y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
 #' M3X3 <- macurves("S3X3")
 #' M2X12 <- (simple_ma(12, -6) + simple_ma(12, -5)) / 2
 #' composite_ma <- M3X3 * M2X12

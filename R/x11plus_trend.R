@@ -11,7 +11,7 @@
 #' @param extreme.lsig,extreme.usig boundaries used for outlier correction in irregular.
 #' @param userdefined a vector containing the additional output variables.
 #' @examples
-#' x <- rjd3toolkit::retail$AllOtherGenMerchandiseStores
+#' x <- retailsa$AllOtherGenMerchandiseStores
 #' decomposition_lp <- x11plus_trend(x, trend.coefs = lp_filter())
 #' decomposition_rkhs <- x11plus_trend(x, trend.coefs = rkhs_filter())
 #' plot(x)
