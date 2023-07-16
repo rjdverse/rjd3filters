@@ -33,10 +33,10 @@ rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) pack
 
 ```{r, eval = FALSE}
 # Install development version from GitHub
-# install.packages("devtools")
-devtools::install_github("rjdemetra/rjd3toolkit")
-devtools::install_github("rjdemetra/rjd3x11plus")
-devtools::install_github("rjdemetra/rjd3filters")
+# install.packages("remotes")
+remotes::install_github("rjdemetra/rjd3toolkit")
+remotes::install_github("rjdemetra/rjd3x11plus")
+remotes::install_github("rjdemetra/rjd3filters")
 ```
 
 ## Basic example
