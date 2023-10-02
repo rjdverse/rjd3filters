@@ -23,12 +23,15 @@ Depends:
   R (>= 3.6.0)
 Imports:
   rJava (>= 1.0-6),
+  methods,
+  MASS,
+  graphics,
+  stats,
   rjd3toolkit (>= 2.9.0),
-  rjd3x11plus (>= 1.0.0),
-   methods,
-   MASS,
-   graphics,
-   stats
+  rjd3x11plus (>= 1.0.0)
+Remotes:
+  github::rjdemetra/rjd3toolkit, 
+  github::rjdemetra/rjd3x11plus 
 SystemRequirements: Java (>= 17)
 License: EUPL
 LazyData: TRUE
