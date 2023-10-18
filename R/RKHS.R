@@ -33,7 +33,10 @@ rkhs_filter <- function(horizon = 6, degree = 2,
   asymmetricCriterion = match.arg(asymmetricCriterion)
   density = match.arg(density)
 
-  jrkhs_filter = J("jdplus/filters/base/r/RKHSFilters")$filterProperties(
+  jrkhs_filter =
+    .jcall("jdplus/filters/base/r/RKHSFilters",
+           "Ljdplus/filters/base/r/FiltersToolkit$FiniteFilters;",
+           "filterProperties",
     as.integer(horizon), as.integer(degree), kernel,
     optimalbw, asymmetricCriterion, density=="rw", passband,
     bandwidth, optimal.minBandwidth, optimal.maxBandwidth
