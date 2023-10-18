@@ -7,7 +7,7 @@
 #' \eqn{w_{-h}^q, \ldots, w_h^q} the coefficients of the asymmetric filter used to estimate
 #' the trend when \eqn{q} future values are known (with the convention \eqn{w_{q+1}^q=\ldots=w_h^q=0}).
 #' Let denote \eqn{y_{-h},\ldots, y_0} the las \eqn{h} available values of the input times series.
-#' Let us also note \eqn{y_{-h},\ldots,y_{0}} the observed series studied and \eqn{y_{1}^*,\dots y_h^*}the implicit forecast induced by \eqn{w^0,\dots w^{h-1}}.
+#' Let also note \eqn{y_{-h},\ldots,y_{0}} the observed series studied and \eqn{y_{1}^*,\dots y_h^*}the implicit forecast induced by \eqn{w^0,\dots w^{h-1}}.
 #' This means that e:
 #' \deqn{
 #' \forall q, \quad \sum_{i=-h}^0 v_iy_i + \sum_{i=1}^h v_iy_i^*
