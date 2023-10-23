@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup, include=FALSE}
-library(rjd3filters)
+library("rjd3filters")
 ```
 
 rjd3filters allows to reproduce the entire X-11 process
@@ -23,7 +23,7 @@ rjd3filters allows to reproduce the entire X-11 process
 # X-11 without outlier correction
 
 ```{r}
-library(rjd3filters)
+library("rjd3filters")
 b1 <- rjd3toolkit::ABS$X0.2.09.10.M 
 x11_step <- rjd3filters::x11plus_trend(b1, trend.coefs = lp_filter(horizon = 6, ic = 3.5),
                              extreme.lsig = 300, extreme.usig = 400, mul = FALSE,

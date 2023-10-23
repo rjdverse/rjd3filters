@@ -21,17 +21,24 @@ computed.
 
 ## Installation
 
-rjd3filters relies on the
-[rJava](https://CRAN.R-project.org/package=rJava) package and Java SE 17
-or later version is required.
+rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) package and Java SE 17 or later version is required.
 
-``` r
-# Install development version from GitHub
+To get the current stable version (from the latest release):
+
+```r
 # install.packages("remotes")
-remotes::install_github("rjdemetra/rjd3toolkit")
-remotes::install_github("rjdemetra/rjd3x11plus")
+remotes::install_github("rjdemetra/rjd3toolkit@*release")
+remotes::install_github("rjdemetra/rjd3x11plus@*release")
+remotes::install_github("rjdemetra/rjd3filters@*release")
+```
+
+To get the current development version from GitHub:
+
+```r
+# install.packages("remotes")
 remotes::install_github("rjdemetra/rjd3filters")
 ```
+
 
 ## Basic example
 
