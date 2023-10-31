@@ -7,8 +7,8 @@
 rkhs_filter(
   horizon = 6,
   degree = 2,
-  kernel = c("Biweight", "Henderson", "Epanechnikov", "Triangular", "Uniform",
-    "Triweight"),
+  kernel = c("BiWeight", "Henderson", "Epanechnikov", "Triangular", "Uniform",
+    "TriWeight"),
   asymmetricCriterion = c("Timeliness", "FrequencyResponse", "Accuracy", "Smoothness",
     "Undefined"),
   density = c("uniform", "rw"),

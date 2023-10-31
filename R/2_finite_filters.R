@@ -71,6 +71,7 @@ finite_filters.list <- function(sfilter,
   rfilters <- all_f[-1]
   finite_filters(sfilter = sfilter, rfilters = rfilters)
 }
+
 #' @export
 finite_filters.matrix <- function(sfilter,
                                   rfilters = NULL,
@@ -79,35 +80,49 @@ finite_filters.matrix <- function(sfilter,
   coefs <- lapply(1:ncol(sfilter), function(i) sfilter[,i])
   finite_filters(coefs, first_to_last = first_to_last)
 }
+
+
+#' @export
 .jd2r_finitefilters <- function(jf, first_to_last = TRUE){
-  if (.jinstanceof(jf, "jdplus/x11plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
-    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "symmetricFilter")
-    jlfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "leftEndPointsFilters")
-    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
+    jf<-.jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
+    if (! is.jnull(jf)) {
+      jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
+      jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
+      jlfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "leftEndPointsFilters")
 
-    sfilter = .jd2ma(jsfilter)
-    rfilters = lapply(jrfilter, .jd2ma)
-    lfilters = rev(lapply(jlfilter, .jd2ma))
-  } else if (.jinstanceof(jf, "jdplus/filters/base/r/FiltersToolkit$FiniteFilters")) {
-    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "getFilter")
-    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "getAfilters")
-    if (!first_to_last) # lp_filter
-      jrfilter <- rev(jrfilter)
-
-    while (is.jnull(jrfilter[[length(jrfilter)]])) { # DFA
-      jrfilter <- jrfilter[-length(jrfilter)]
+      sfilter = .jd2ma(jsfilter)
+      rfilters = lapply(jrfilter, .jd2ma)
+      lfilters = rev(lapply(jlfilter, .jd2ma))
     }
-    sfilter <- .jd2ma(jsfilter)
-    rfilters <- lapply(jrfilter, .jd2ma)
-    lfilters <- NULL
-  } else if (.jinstanceof(jf, "jdplus/filters/base/core/filters/Filtering")) {
-    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
-    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
+#  if (.jinstanceof(jf, "jdplus/x12plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
+#    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "symmetricFilter")
+#    jlfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "leftEndPointsFilters")
+#    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
 
-    sfilter <- .jd2ma(jsfilter)
-    rfilters <- lapply(jrfilter, .jd2ma)
-    lfilters <- NULL
-  }
+#    sfilter = .jd2ma(jsfilter)
+#    rfilters = lapply(jrfilter, .jd2ma)
+#    lfilters = rev(lapply(jlfilter, .jd2ma))
+#  } else if (.jinstanceof(jf, "jdplus/toolkit/base/core/math/linearfilters/FiltersToolkit$FiniteFilters")) {
+#    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "getFilter")
+#    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "getAfilters")
+#    if (!first_to_last) # lp_filter
+#      jrfilter <- rev(jrfilter)
+
+#    while (is.jnull(jrfilter[[length(jrfilter)]])) { # DFA
+#      jrfilter <- jrfilter[-length(jrfilter)]
+#    }
+#    sfilter <- .jd2ma(jsfilter)
+#    rfilters <- lapply(jrfilter, .jd2ma)
+#    lfilters <- NULL
+#  } else if (.jinstanceof(jf, "jdplus/filters/base/core/filters/Filtering")) {
+#    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
+#    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
+
+#    sfilter <- .jd2ma(jsfilter)
+#    rfilters <- lapply(jrfilter, .jd2ma)
+#    lfilters <- NULL
+#  }
+
   finite_filters(sfilter = sfilter,
                  rfilters = rfilters,
                  lfilters = lfilters)
@@ -474,7 +489,8 @@ to_seasonal.finite_filters <- function(x, s){
 #'
 #' @examples
 #' y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
-#' M3X3 <- macurves("S3X3")
+#' M3 <- moving_average(rep(1/3, 3), lags = -1)
+#' M3X3 <- M3 * M3
 #' M2X12 <- (simple_ma(12, -6) + simple_ma(12, -5)) / 2
 #' composite_ma <- M3X3 * M2X12
 #' # The last 6 points cannot be computed

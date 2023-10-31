@@ -7,38 +7,38 @@ rjd3filters is R package on linear filters for real-time trend-cycle
 estimates. It allows to create symmetric and asymmetric moving averages
 with:
 
-- local polynomial filters, as defined by Proietti and Luati (2008);
+-   local polynomial filters, as defined by Proietti and Luati (2008);
 
-- the FST approach of Grun-Rehomme, Guggemos, and Ladiray (2018), based
-  on the optimization of the three criteria Fidelity, Smoothness and
-  Timeliness;
+-   the FST approach of Grun-Rehomme, Guggemos, and Ladiray (2018),
+    based on the optimization of the three criteria Fidelity, Smoothness
+    and Timeliness;
 
-- the Reproducing Kernel Hilbert Space (RKHS) of Dagum and Bianconcini
-  (2008).
+-   the Reproducing Kernel Hilbert Space (RKHS) of Dagum and Bianconcini
+    (2008).
 
 Some quality criteria defined by Wildi and McElroy (2019) can also be
 computed.
 
 ## Installation
 
-rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) package and Java SE 17 or later version is required.
+rjd3filters relies on the
+[rJava](https://CRAN.R-project.org/package=rJava) package and Java SE 17
+or later version is required.
 
 To get the current stable version (from the latest release):
 
-```r
+``` r
 # install.packages("remotes")
 remotes::install_github("rjdemetra/rjd3toolkit@*release")
-remotes::install_github("rjdemetra/rjd3x11plus@*release")
 remotes::install_github("rjdemetra/rjd3filters@*release")
 ```
 
 To get the current development version from GitHub:
 
-```r
+``` r
 # install.packages("remotes")
 remotes::install_github("rjdemetra/rjd3filters")
 ```
-
 
 ## Basic example
 
@@ -230,83 +230,6 @@ s <- si * M3X3_seasonal
 # or equivalently:
 s_mm <- M3X3_seasonal * (1 - M2X12)
 s <- y * s_mm
-```
-
-### Manipulate finite filters
-
-`finite_filters` object are a combination of a central filter (used for
-the final estimates) and different asymmetric filters used for
-intermediate estimates at the beginning/end of the series when the
-central filter cannot be applied.
-
-``` r
-musgrave
-#>             q=6          q=5          q=4          q=3          q=2
-#> t-6 -0.01934985 -0.016609040 -0.011623676 -0.009152423 -0.016139228
-#> t-5 -0.02786378 -0.025914479 -0.022541271 -0.020981640 -0.024948087
-#> t-4  0.00000000  0.001157790  0.002918842  0.003566851  0.002620762
-#> t-3  0.06549178  0.065858066  0.066006963  0.065743350  0.067817618
-#> t-2  0.14735651  0.146931288  0.145468029  0.144292794  0.149387420
-#> t-1  0.21433675  0.213120014  0.210044599  0.207957742  0.216072726
-#> t    0.24005716  0.238048915  0.233361346  0.230362866  0.241498208
-#> t+1  0.21433675  0.211536998  0.205237273  0.201327171  0.215482871
-#> t+2  0.14735651  0.143765257  0.135853376  0.131031652  0.148207710
-#> t+3  0.06549178  0.061109020  0.051584983  0.045851637  0.000000000
-#> t+4  0.00000000 -0.005174272 -0.016310464  0.000000000  0.000000000
-#> t+5 -0.02786378 -0.033829557  0.000000000  0.000000000  0.000000000
-#> t+6 -0.01934985  0.000000000  0.000000000  0.000000000  0.000000000
-#>              q=1         q=0
-#> t-6 -0.037925830 -0.07371504
-#> t-5 -0.035216813 -0.04601336
-#> t-4  0.003869912  0.01806602
-#> t-3  0.080584644  0.11977342
-#> t-2  0.173672322  0.23785375
-#> t-1  0.251875504  0.34104960
-#> t    0.288818862  0.40298562
-#> t+1  0.274321400  0.00000000
-#> t+2  0.000000000  0.00000000
-#> t+3  0.000000000  0.00000000
-#> t+4  0.000000000  0.00000000
-#> t+5  0.000000000  0.00000000
-#> t+6  0.000000000  0.00000000
-M3X3 <- macurves("S3X3")
-musgrave * M3X3
-#>              q=8          q=7          q=6          q=5          q=4
-#> t-8 -0.002149983 -0.002149983 -0.002149983 -0.001845449 -0.001291520
-#> t-7 -0.007395941 -0.007395941 -0.007395941 -0.006570284 -0.005087625
-#> t-6 -0.012641899 -0.012641899 -0.012641899 -0.011166476 -0.008559414
-#> t-5 -0.006311026 -0.006311026 -0.006311026 -0.004754208 -0.002114058
-#> t-4  0.022584742  0.022584742  0.022584742  0.023742532  0.025503585
-#> t-3  0.075295705  0.075295705  0.075295705  0.075661988  0.075810884
-#> t-2  0.137975973  0.137975973  0.137975973  0.137550748  0.136087489
-#> t-1  0.188629568  0.188629568  0.188629568  0.187412835  0.184337420
-#> t    0.208025720  0.208025720  0.208025720  0.206017479  0.201329910
-#> t+1  0.188629568  0.188629568  0.188629568  0.185829819  0.179530094
-#> t+2  0.137975973  0.137975973  0.137975973  0.134384717  0.127175208
-#> t+3  0.075295705  0.075295705  0.075295705  0.068215408  0.065454326
-#> t+4  0.022584742  0.022584742  0.020119429  0.013854891  0.021823700
-#> t+5 -0.006311026 -0.007027687 -0.010926323 -0.008333999  0.000000000
-#> t+6 -0.012641899 -0.013358560 -0.015107212  0.000000000  0.000000000
-#> t+7 -0.007395941 -0.008112602  0.000000000  0.000000000  0.000000000
-#> t+8 -0.002149983  0.000000000  0.000000000  0.000000000  0.000000000
-#>               q=3          q=2          q=1         q=0
-#> t-8 -0.0010169359 -0.001793248 -0.004213981 -0.00819056
-#> t-7 -0.0043651651 -0.006358505 -0.012340941 -0.02149372
-#> t-6 -0.0073170774 -0.010632566 -0.020037912 -0.03278954
-#> t-5 -0.0009303015 -0.003784842 -0.010353070 -0.01439608
-#> t-4  0.0261515939  0.025205505  0.026454654  0.04065076
-#> t-3  0.0755472713  0.077621540  0.090388566  0.12957734
-#> t-2  0.1349122536  0.140006880  0.164291782  0.27095547
-#> t-1  0.1822505629  0.190365547  0.257185423  0.35665854
-#> t    0.1983314300  0.228425968  0.293999778  0.27902779
-#> t+1  0.1838694336  0.217863738  0.214625702  0.00000000
-#> t+2  0.1375457833  0.143079982  0.000000000  0.00000000
-#> t+3  0.0750211512  0.000000000  0.000000000  0.00000000
-#> t+4  0.0000000000  0.000000000  0.000000000  0.00000000
-#> t+5  0.0000000000  0.000000000  0.000000000  0.00000000
-#> t+6  0.0000000000  0.000000000  0.000000000  0.00000000
-#> t+7  0.0000000000  0.000000000  0.000000000  0.00000000
-#> t+8  0.0000000000  0.000000000  0.000000000  0.00000000
 ```
 
 ## Bibliography
