@@ -21,7 +21,7 @@
 #' }
 #' @export
 rkhs_filter <- function(horizon = 6, degree = 2,
-                        kernel = c("Biweight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "Triweight"),
+                        kernel = c("BiWeight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "TriWeight"),
                         asymmetricCriterion = c("Timeliness", "FrequencyResponse", "Accuracy", "Smoothness", "Undefined"),
                         density = c("uniform", "rw"),
                         passband = 2*pi/12,
@@ -35,8 +35,8 @@ rkhs_filter <- function(horizon = 6, degree = 2,
 
   jrkhs_filter =
     .jcall("jdplus/filters/base/r/RKHSFilters",
-           "Ljdplus/filters/base/r/FiltersToolkit$FiniteFilters;",
-           "filterProperties",
+           "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
+           "filters",
     as.integer(horizon), as.integer(degree), kernel,
     optimalbw, asymmetricCriterion, density=="rw", passband,
     bandwidth, optimal.minBandwidth, optimal.maxBandwidth

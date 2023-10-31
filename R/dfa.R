@@ -28,7 +28,7 @@ dfa_filter <- function(horizon = 6, degree = 0,
       targetfilter <- coef(targetfilter)
     }
   }
-  dfa_filter = J("jdplus/filters/base/r/DFAFilters")$filterProperties(
+  dfa_filter = J("jdplus/filters/base/r/DFAFilters")$filters(
     targetfilter,
     as.integer(horizon), as.integer(degree), density=="rw",
     passband,

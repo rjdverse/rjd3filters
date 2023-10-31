@@ -36,7 +36,6 @@ To get the current stable version (from the latest release):
 ```{r, eval = FALSE}
 # install.packages("remotes")
 remotes::install_github("rjdemetra/rjd3toolkit@*release")
-remotes::install_github("rjdemetra/rjd3x11plus@*release")
 remotes::install_github("rjdemetra/rjd3filters@*release")
 ```
 
@@ -197,16 +196,6 @@ s <- si * M3X3_seasonal
 # or equivalently:
 s_mm <- M3X3_seasonal * (1 - M2X12)
 s <- y * s_mm
-```
-
-### Manipulate finite filters
-
-`finite_filters` object are a combination of a central filter (used for the final estimates) and different asymmetric filters used for intermediate estimates at the beginning/end of the series when the central filter cannot be applied.
-
-```{r}
-musgrave
-M3X3 <- macurves("S3X3")
-musgrave * M3X3
 ```
 
 

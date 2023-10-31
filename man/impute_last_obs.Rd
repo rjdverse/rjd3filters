@@ -30,7 +30,8 @@ For example, using the M2X12 moving average (symmetric moving average with coeff
 }
 \examples{
 y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
-M3X3 <- macurves("S3X3")
+M3 <- moving_average(rep(1/3, 3), lags = -1)
+M3X3 <- M3 * M3
 M2X12 <- (simple_ma(12, -6) + simple_ma(12, -5)) / 2
 composite_ma <- M3X3 * M2X12
 # The last 6 points cannot be computed
