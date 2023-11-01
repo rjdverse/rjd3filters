@@ -67,6 +67,7 @@ filter.matrix <- function(x, coefs, remove_missing = TRUE){
   result
 }
 
+#' @importFrom stats is.ts start
 filter_ma <- function(x, coefs){
   # if (!is.moving_average(coefs)) {
   #   coefs <- moving_average(coefs, -abs(lags))

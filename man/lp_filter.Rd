@@ -24,6 +24,8 @@ lp_filter(
 
 \item{endpoints}{methode for endpoints.}
 
+\item{ic}{ic ratio.}
+
 \item{tweight}{timeliness weight.}
 
 \item{passband}{passband threshold.}

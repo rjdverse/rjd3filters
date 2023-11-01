@@ -3,12 +3,14 @@ NULL
 
 #' Apply Local Polynomials Filters
 #'
+#' @param x input time-series.
 #' @param horizon horizon (bandwidth) of the symmetric filter.
 #' @param degree degree of polynomial.
 #' @param kernel kernel uses.
 #' @param endpoints methode for endpoints.
 #' @param tweight timeliness weight.
 #' @param passband passband threshold.
+#' @param ic ic ratio.
 #'
 #' @return the target signal
 #' @examples

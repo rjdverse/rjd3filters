@@ -17,6 +17,8 @@ localpolynomials(
 )
 }
 \arguments{
+\item{x}{input time-series.}
+
 \item{horizon}{horizon (bandwidth) of the symmetric filter.}
 
 \item{degree}{degree of polynomial.}
@@ -24,6 +26,8 @@ localpolynomials(
 \item{kernel}{kernel uses.}
 
 \item{endpoints}{methode for endpoints.}
+
+\item{ic}{ic ratio.}
 
 \item{tweight}{timeliness weight.}
 
