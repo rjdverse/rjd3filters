@@ -198,6 +198,14 @@ s_mm <- M3X3_seasonal * (1 - M2X12)
 s <- y * s_mm
 ```
 
+### Manipulate finite filters
+
+`finite_filters` object are a combination of a central filter (used for the final estimates) and different asymmetric filters used for intermediate estimates at the beginning/end of the series when the central filter cannot be applied.
+
+```{r}
+musgrave 
+musgrave * M3X3
+```
 
 
 ## Bibliography
