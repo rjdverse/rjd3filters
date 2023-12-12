@@ -1,39 +1,16 @@
 #' @import rJava
 NULL
 
-#' Apply Henderson Linear Filter
-#'
-#' @param x input time-series.
-#' @param length length of the Henderson filter.
-#' @param musgrave boolean indicating if musgrave asymmetric filters should be used.
-#' @param ic ic ratio.
-#'
-#' @return the target signal.
-#' @examples
-#' x <- retailsa$AllOtherGenMerchandiseStores
-#' trend <- henderson(x, length = 13)
-#' plot(x)
-#' lines(trend, col = "red")
-#' @importFrom stats is.ts na.omit start
-#' @export
-henderson<-function(x, length, musgrave=TRUE, ic=4.5){
-  result <- .jcall("jdplus/x11plus/base/r/X11Decomposition", "[D", "henderson",
-                   as.numeric(x), as.integer(length), musgrave, ic)
-
-  if(is.ts(x))
-    result <- ts(result,start = start(x), frequency = frequency(x))
-  result
-}
-
 #' Apply Local Polynomials Filters
 #'
-#' @inheritParams henderson
+#' @param x input time-series.
 #' @param horizon horizon (bandwidth) of the symmetric filter.
 #' @param degree degree of polynomial.
 #' @param kernel kernel uses.
 #' @param endpoints methode for endpoints.
 #' @param tweight timeliness weight.
 #' @param passband passband threshold.
+#' @param ic ic ratio.
 #'
 #' @return the target signal
 #' @examples
@@ -101,8 +78,8 @@ lp_filter <- function(horizon = 6, degree = 3,
   kernel=match.arg(kernel)
   endpoints=match.arg(endpoints)
   jprops<-.jcall("jdplus/filters/base/r/LocalPolynomialFilters",
-                 "Ljdplus/filters/base/r/FiltersToolkit$FiniteFilters;",
-                 "filterProperties", as.integer(horizon),
+                 "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
+                 "filters", as.integer(horizon),
                  as.integer(degree), kernel, endpoints, d,
                  tweight, passband)
 

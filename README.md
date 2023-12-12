@@ -25,11 +25,21 @@ rjd3filters relies on the
 [rJava](https://CRAN.R-project.org/package=rJava) package and Java SE 17
 or later version is required.
 
+To get the current stable version (from the latest release):
+
 ``` r
-# Install development version from GitHub
 # install.packages("remotes")
+remotes::install_github("rjdemetra/rjd3toolkit@*release")
+remotes::install_github("rjdemetra/rjd3filters@*release")
+```
+
+To get the current development version from GitHub:
+
+``` r
+# install.packages("remotes")
+=======
+# Install development version from GitHub
 remotes::install_github("rjdemetra/rjd3toolkit")
-remotes::install_github("rjdemetra/rjd3x11plus")
 remotes::install_github("rjdemetra/rjd3filters")
 ```
 
@@ -41,16 +51,17 @@ consequence, the filtered time series is the same, except at the
 boundaries.
 
 ``` r
-library(rjd3filters)
-y <- window(retailsa$AllOtherGenMerchandiseStores,start = 2000)
-musgrave <- lp_filter(horizon = 6, kernel = "Henderson",endpoints = "LC")
+library("rjd3filters")
+
+y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2000)
+musgrave <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 
 # we put a large weight on the timeliness criteria
-fst_notimeliness_filter <- lapply(0:6, fst_filter,
-                                  lags = 6, smoothness.weight = 1/1000,
+fst_notimeliness_filter <- lapply(0:6, fst_filter, 
+                                  lags = 6, smoothness.weight = 1/1000, 
                                   timeliness.weight = 1-1/1000, pdegree =2)
-fst_notimeliness <- finite_filters(sfilter = fst_notimeliness_filter[[7]],
-                                   rfilters = fst_notimeliness_filter[-7],
+fst_notimeliness <- finite_filters(sfilter = fst_notimeliness_filter[[7]], 
+                                   rfilters = fst_notimeliness_filter[-7], 
                                    first_to_last = TRUE)
 # RKHS filters minimizing timeliness
 rkhs_timeliness <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
@@ -58,11 +69,11 @@ rkhs_timeliness <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
 trend_musgrave <- filter(y, musgrave)
 trend_fst <- filter(y, fst_notimeliness)
 trend_rkhs <- filter(y, rkhs_timeliness)
-plot(ts.union(y, trend_musgrave,trend_fst,trend_rkhs),plot.type = "single",
-     col = c("black","orange", "lightblue", "red"),
+plot(ts.union(y, trend_musgrave, trend_fst, trend_rkhs), plot.type = "single", 
+     col = c("black", "orange", "lightblue", "red"), 
      main = "Filtered time series", ylab=NULL)
-legend("topleft", legend = c("y","Musgrave", "FST", "RKHS"),
-       col= c("black","orange", "lightblue", "red"), lty = 1)
+legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"), 
+       col= c("black", "orange", "lightblue", "red"), lty = 1)
 ```
 
 <img src="man/figures/README-plot-global-1.png" style="display: block; margin: auto;" />
@@ -77,23 +88,23 @@ f_musgrave <- implicit_forecast(y, musgrave)
 f_fst <- implicit_forecast(y, fst_notimeliness)
 f_rkhs <- implicit_forecast(y, rkhs_timeliness)
 
-plot(window(y, start = 2007),
-     xlim = c(2007,2012), ylim = c(3600, 4600),
+plot(window(y, start = 2007), 
+     xlim = c(2007, 2012), ylim = c(3600, 4600), 
      main = "Last estimates and implicit forecast", ylab=NULL)
-lines(trend_musgrave,
+lines(trend_musgrave, 
       col = "orange")
-lines(trend_fst,
+lines(trend_fst, 
       col = "lightblue")
-lines(trend_rkhs,
+lines(trend_rkhs, 
       col = "red")
-lines(ts(c(tail(y,1), f_musgrave), frequency = frequency(y), start = end(y)),
+lines(ts(c(tail(y, 1), f_musgrave), frequency = frequency(y), start = end(y)), 
       col = "orange", lty = 2)
-lines(ts(c(tail(y,1), f_fst), frequency = frequency(y), start = end(y)),
+lines(ts(c(tail(y, 1), f_fst), frequency = frequency(y), start = end(y)), 
       col = "lightblue", lty = 2)
-lines(ts(c(tail(y,1), f_rkhs), frequency = frequency(y), start = end(y)),
+lines(ts(c(tail(y, 1), f_rkhs), frequency = frequency(y), start = end(y)), 
       col = "red", lty = 2)
-legend("topleft", legend = c("y","Musgrave", "FST", "RKHS", "Forecasts"),
-       col= c("black","orange", "lightblue", "red", "black"),
+legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS", "Forecasts"), 
+       col= c("black", "orange", "lightblue", "red", "black"), 
        lty = c(1, 1, 1, 1, 2))
 ```
 
@@ -103,17 +114,17 @@ The real-time estimates (when no future points are available) can also
 be compared:
 
 ``` r
-trend_henderson<- filter(y, musgrave[,"q=6"])
-trend_musgrave_q0 <- filter(y, musgrave[,"q=0"])
-trend_fst_q0 <- filter(y, fst_notimeliness[,"q=0"])
-trend_rkhs_q0 <- filter(y, rkhs_timeliness[,"q=0"])
-plot(window(ts.union(y, trend_musgrave_q0,trend_fst_q0,trend_rkhs_q0),
-            start = 2007),
-     plot.type = "single",
-     col = c("black","orange", "lightblue", "red"),
+trend_henderson<- filter(y, musgrave[, "q=6"])
+trend_musgrave_q0 <- filter(y, musgrave[, "q=0"])
+trend_fst_q0 <- filter(y, fst_notimeliness[, "q=0"])
+trend_rkhs_q0 <- filter(y, rkhs_timeliness[, "q=0"])
+plot(window(ts.union(y, trend_musgrave_q0, trend_fst_q0, trend_rkhs_q0), 
+            start = 2007), 
+     plot.type = "single", 
+     col = c("black", "orange", "lightblue", "red"), 
      main = "Real time estimates of the trend", ylab=NULL)
-legend("topleft", legend = c("y","Musgrave", "FST", "RKHS"),
-       col= c("black","orange", "lightblue", "red"), lty = 1)
+legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"), 
+       col= c("black", "orange", "lightblue", "red"), lty = 1)
 ```
 
 <img src="man/figures/README-plot-q0-1.png" style="display: block; margin: auto;" />
@@ -125,12 +136,12 @@ and McElroy(2019) can also be computed with the function
 `diagnostic_matrix()`:
 
 ``` r
-q_0_coefs <- list(Musgrave = musgrave[,"q=0"],
-                  fst_notimeliness = fst_notimeliness[,"q=0"],
-                  rkhs_timeliness = rkhs_timeliness[,"q=0"])
+q_0_coefs <- list(Musgrave = musgrave[, "q=0"], 
+                  fst_notimeliness = fst_notimeliness[, "q=0"], 
+                  rkhs_timeliness = rkhs_timeliness[, "q=0"])
 
-sapply(q_0_coefs, diagnostic_matrix,
-       lags = 6, sweight = musgrave[,"q=6"])
+sapply(q_0_coefs, diagnostic_matrix, 
+       lags = 6, sweight = musgrave[, "q=6"])
 #>         Musgrave fst_notimeliness rkhs_timeliness
 #> b_c  0.000000000     2.220446e-16     0.000000000
 #> b_l -0.575984377    -1.554312e-15    -0.611459167
@@ -151,24 +162,24 @@ The filters can also be compared by plotting there coefficients
 ``` r
 def.par <- par(no.readonly = TRUE)
 par(mai = c(0.3, 0.3, 0.2, 0))
-layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+layout(matrix(c(1, 1, 2, 3), 2, 2, byrow = TRUE))
 
 plot_coef(fst_notimeliness, q = 0, col = "lightblue")
 plot_coef(musgrave, q = 0, add = TRUE, col = "orange")
 plot_coef(rkhs_timeliness, q = 0, add = TRUE, col = "red")
-legend("topleft", legend = c("Musgrave", "FST", "RKHS"),
+legend("topleft", legend = c("Musgrave", "FST", "RKHS"), 
        col= c("orange", "lightblue", "red"), lty = 1)
 
 plot_gain(fst_notimeliness, q = 0, col = "lightblue")
-plot_gain(musgrave, q = 0, col = "orange",add = TRUE)
-plot_gain(rkhs_timeliness, q = 0,add = TRUE, col = "red")
-legend("topright", legend = c("Musgrave", "FST", "RKHS"),
+plot_gain(musgrave, q = 0, col = "orange", add = TRUE)
+plot_gain(rkhs_timeliness, q = 0, add = TRUE, col = "red")
+legend("topright", legend = c("Musgrave", "FST", "RKHS"), 
        col= c("orange", "lightblue", "red"), lty = 1)
 
 plot_phase(fst_notimeliness, q = 0, col = "lightblue")
-plot_phase(musgrave, q = 0, col = "orange",add = TRUE)
-plot_phase(rkhs_timeliness, q = 0,add = TRUE, col = "red")
-legend("topright", legend = c("Musgrave", "FST", "RKHS"),
+plot_phase(musgrave, q = 0, col = "orange", add = TRUE)
+plot_phase(rkhs_timeliness, q = 0, add = TRUE, col = "red")
+legend("topright", legend = c("Musgrave", "FST", "RKHS"), 
        col= c("orange", "lightblue", "red"), lty = 1)
 par(def.par)
 ```
@@ -184,7 +195,7 @@ in X-11, and the M3X3 moving average, applied to each months to extract
 seasonal component.
 
 ``` r
-e1 <- moving_average(rep(1,12), lags = -6)
+e1 <- moving_average(rep(1, 12), lags = -6)
 e1 <- e1/sum(e1)
 e2 <- moving_average(rep(1/12, 12), lags = -5)
 M2X12 <- (e1 + e2)/2
@@ -197,15 +208,15 @@ M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3
 # M3X3 moving average applied to each month
 M3X3
-#> [1] "0,1111 B^2 + 0,2222 B + 0,3333 + 0,2222 F + 0,1111 F^2"
+#> [1] "0.1111 B^2 + 0.2222 B + 0.3333 + 0.2222 F + 0.1111 F^2"
 M3X3_seasonal <- to_seasonal(M3X3, 12)
 # M3X3_seasonal moving average applied to the global series
 M3X3_seasonal
-#> [1] "0,1111 B^24 + 0,2222 B^12 + 0,3333 + 0,2222 F^12 + 0,1111 F^24"
+#> [1] "0.1111 B^24 + 0.2222 B^12 + 0.3333 + 0.2222 F^12 + 0.1111 F^24"
 
 def.par <- par(no.readonly = TRUE)
 par(mai = c(0.5, 0.8, 0.3, 0))
-layout(matrix(c(1,2), nrow = 1))
+layout(matrix(c(1, 2), nrow = 1))
 plot_gain(M3X3, main = "M3X3 applied to each month")
 plot_gain(M3X3_seasonal, main = "M3X3 applied to the global series")
 ```
@@ -232,7 +243,7 @@ intermediate estimates at the beginning/end of the series when the
 central filter cannot be applied.
 
 ``` r
-musgrave
+musgrave 
 #>             q=6          q=5          q=4          q=3          q=2
 #> t-6 -0.01934985 -0.016609040 -0.011623676 -0.009152423 -0.016139228
 #> t-5 -0.02786378 -0.025914479 -0.022541271 -0.020981640 -0.024948087
@@ -261,44 +272,43 @@ musgrave
 #> t+4  0.000000000  0.00000000
 #> t+5  0.000000000  0.00000000
 #> t+6  0.000000000  0.00000000
-M3X3 <- macurves("S3X3")
 musgrave * M3X3
-#>              q=8          q=7          q=6          q=5          q=4
-#> t-8 -0.002149983 -0.002149983 -0.002149983 -0.001845449 -0.001291520
-#> t-7 -0.007395941 -0.007395941 -0.007395941 -0.006570284 -0.005087625
-#> t-6 -0.012641899 -0.012641899 -0.012641899 -0.011166476 -0.008559414
-#> t-5 -0.006311026 -0.006311026 -0.006311026 -0.004754208 -0.002114058
-#> t-4  0.022584742  0.022584742  0.022584742  0.023742532  0.025503585
-#> t-3  0.075295705  0.075295705  0.075295705  0.075661988  0.075810884
-#> t-2  0.137975973  0.137975973  0.137975973  0.137550748  0.136087489
-#> t-1  0.188629568  0.188629568  0.188629568  0.187412835  0.184337420
-#> t    0.208025720  0.208025720  0.208025720  0.206017479  0.201329910
-#> t+1  0.188629568  0.188629568  0.188629568  0.185829819  0.179530094
-#> t+2  0.137975973  0.137975973  0.137975973  0.134384717  0.127175208
-#> t+3  0.075295705  0.075295705  0.075295705  0.068215408  0.065454326
-#> t+4  0.022584742  0.022584742  0.020119429  0.013854891  0.021823700
-#> t+5 -0.006311026 -0.007027687 -0.010926323 -0.008333999  0.000000000
-#> t+6 -0.012641899 -0.013358560 -0.015107212  0.000000000  0.000000000
-#> t+7 -0.007395941 -0.008112602  0.000000000  0.000000000  0.000000000
-#> t+8 -0.002149983  0.000000000  0.000000000  0.000000000  0.000000000
-#>               q=3          q=2          q=1         q=0
-#> t-8 -0.0010169359 -0.001793248 -0.004213981 -0.00819056
-#> t-7 -0.0043651651 -0.006358505 -0.012340941 -0.02149372
-#> t-6 -0.0073170774 -0.010632566 -0.020037912 -0.03278954
-#> t-5 -0.0009303015 -0.003784842 -0.010353070 -0.01439608
-#> t-4  0.0261515939  0.025205505  0.026454654  0.04065076
-#> t-3  0.0755472713  0.077621540  0.090388566  0.12957734
-#> t-2  0.1349122536  0.140006880  0.164291782  0.27095547
-#> t-1  0.1822505629  0.190365547  0.257185423  0.35665854
-#> t    0.1983314300  0.228425968  0.293999778  0.27902779
-#> t+1  0.1838694336  0.217863738  0.214625702  0.00000000
-#> t+2  0.1375457833  0.143079982  0.000000000  0.00000000
-#> t+3  0.0750211512  0.000000000  0.000000000  0.00000000
-#> t+4  0.0000000000  0.000000000  0.000000000  0.00000000
-#> t+5  0.0000000000  0.000000000  0.000000000  0.00000000
-#> t+6  0.0000000000  0.000000000  0.000000000  0.00000000
-#> t+7  0.0000000000  0.000000000  0.000000000  0.00000000
-#> t+8  0.0000000000  0.000000000  0.000000000  0.00000000
+#>              q=6          q=5          q=4           q=3          q=2
+#> t-8 -0.002149983 -0.001845449 -0.001291520 -0.0010169359 -0.001793248
+#> t-7 -0.007395941 -0.006570284 -0.005087625 -0.0043651651 -0.006358505
+#> t-6 -0.012641899 -0.011166476 -0.008559414 -0.0073170774 -0.010632566
+#> t-5 -0.006311026 -0.004754208 -0.002114058 -0.0009303015 -0.003784842
+#> t-4  0.022584742  0.023742532  0.025503585  0.0261515939  0.025205505
+#> t-3  0.075295705  0.075661988  0.075810884  0.0755472713  0.077621540
+#> t-2  0.137975973  0.137550748  0.136087489  0.1349122536  0.140006880
+#> t-1  0.188629568  0.187412835  0.184337420  0.1822505629  0.190365547
+#> t    0.208025720  0.206017479  0.201329910  0.1983314300  0.209466772
+#> t+1  0.188629568  0.185829819  0.179530094  0.1756199919  0.182437019
+#> t+2  0.137975973  0.134384717  0.126472836  0.1242017153  0.124120786
+#> t+3  0.075295705  0.070912941  0.066564227  0.0667717095  0.056877588
+#> t+4  0.022584742  0.020311263  0.021121328  0.0247483251  0.016467523
+#> t+5 -0.006311026 -0.005636466  0.002107117  0.0050946263  0.000000000
+#> t+6 -0.012641899 -0.008092598 -0.001812274  0.0000000000  0.000000000
+#> t+7 -0.007395941 -0.003758840  0.000000000  0.0000000000  0.000000000
+#> t+8 -0.002149983  0.000000000  0.000000000  0.0000000000  0.000000000
+#>              q=1         q=0
+#> t-8 -0.004213981 -0.00819056
+#> t-7 -0.012340941 -0.02149372
+#> t-6 -0.020037912 -0.03278954
+#> t-5 -0.010353070 -0.01439608
+#> t-4  0.026454654  0.04065076
+#> t-3  0.090388566  0.12957734
+#> t-2  0.164291782  0.22847321
+#> t-1  0.226168325  0.26940011
+#> t    0.232502524  0.23654553
+#> t+1  0.183608603  0.12744676
+#> t+2  0.093051296  0.04477618
+#> t+3  0.030480156  0.00000000
+#> t+4  0.000000000  0.00000000
+#> t+5  0.000000000  0.00000000
+#> t+6  0.000000000  0.00000000
+#> t+7  0.000000000  0.00000000
+#> t+8  0.000000000  0.00000000
 ```
 
 ## Bibliography

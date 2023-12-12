@@ -25,7 +25,7 @@
 fst_filter<-function(lags = 6, leads = 0, pdegree = 2,
                     smoothness.weight = 1, smoothness.degree = 3, timeliness.weight = 0,
                     timeliness.passband = pi/6, timeliness.antiphase = TRUE){
-  jobj<-.jcall("jdplus/filters/base/r/FiltersToolkit", "Ljdplus/filters/base/r/FiltersToolkit$FSTResult;",
+  jobj<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;",
                "fstfilter", as.integer(lags), as.integer(leads), as.integer(pdegree), smoothness.weight, as.integer(smoothness.degree),
                timeliness.weight, timeliness.passband, as.logical(timeliness.antiphase))
   jfilter <- .jcall(jobj, "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;", "getFilter")
@@ -53,7 +53,7 @@ fst<-function(weights, lags, passband=pi/6){
     lags <- lower_bound(weights)
     weights <- coef(weights)
   }
-  jobj<-.jcall("jdplus/filters/base/r/FiltersToolkit", "Ljdplus/filters/base/r/FiltersToolkit$FSTResult;", "fst",
+  jobj<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;", "fst",
                weights, as.integer(lags), passband)
   criteria<-.jcall(jobj, "[D", "getCriterions")
   names(criteria) <- c("Fidelity", "Smoothness", "Timeliness")
@@ -93,7 +93,7 @@ mse<-function(sweights, aweights, density=c("uniform", "rw"), passband = pi/6){
     sweights <- sweights[-seq_len(n)]
   }
   spectral = match.arg(density)
-  rslt<-.jcall("jdplus/filters/base/r/FiltersToolkit", "[D", "mseDecomposition",
+  rslt<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "[D", "mseDecomposition",
                sweights, aweights, spectral, passband)
   return (c(accuracy=rslt[1], smoothness=rslt[2], timeliness=rslt[3], residual=rslt[4]))
 }

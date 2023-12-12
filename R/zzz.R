@@ -2,11 +2,10 @@
 #' @importFrom graphics axis lines plot matplot
 #' @importFrom stats frequency ts
 #' @importFrom rjd3toolkit .proc_data .proc_dictionary .jd2r_matrix .r2jd_matrix
-#' @import rjd3x11plus
 NULL
 
 .onLoad <- function(libname, pkgname) {
-  if (! requireNamespace("rjd3x11plus", quietly = T)) stop("Loading rjd3 libraries failed")
+  if (! requireNamespace("rjd3toolkit", quietly = T)) stop("Loading rjd3 libraries failed")
   # For debugts_ging: to see if Jars are effectively loaded
   # options(java.parameters = "-verbose:class")
 
@@ -28,10 +27,9 @@ NULL
   packageStartupMessage("Java requirements fullfilled, found version ",jversion)
 }
 
-
-#' Retail sales data
+#' Seasonally Adjusted Retail Sales
 #'
-#' A dataset containing monthly retailed sales
+#' A dataset containing monthly seasonally adjusted retailed sales
 #'
 #' @docType data
 #' @format A \code{list} of \code{ts} objects from january 1992 to december 2010.
