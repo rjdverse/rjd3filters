@@ -37,6 +37,9 @@ To get the current development version from GitHub:
 
 ``` r
 # install.packages("remotes")
+=======
+# Install development version from GitHub
+remotes::install_github("rjdemetra/rjd3toolkit")
 remotes::install_github("rjdemetra/rjd3filters")
 ```
 
