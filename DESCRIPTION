@@ -1,7 +1,7 @@
 Package: rjd3filters
 Type: Package
 Title: Trend-Cycle Extraction with Linear Filters
-Version: 1.1.0
+Version: 2.0.0
 Authors@R: c(
   person("Jean", "Palate", role = c("aut", "cre"),
                 email = "jean.palate@nbb.be"),
@@ -27,7 +27,7 @@ Imports:
   MASS,
   graphics,
   stats,
-  rjd3toolkit (>= 3.1.0)
+  rjd3toolkit (>= 3.2.1)
 Remotes:
   github::rjdemetra/rjd3toolkit
 SystemRequirements: Java (>= 17)
