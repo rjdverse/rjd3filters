@@ -6,7 +6,7 @@
 \usage{
 get_kernel(
   kernel = c("Henderson", "Uniform", "Triangular", "Epanechnikov", "Parabolic",
-    "Biweight", "Triweight", "Tricube", "Trapezoidal", "Gaussian"),
+    "BiWeight", "TriWeight", "Tricube", "Trapezoidal", "Gaussian"),
   horizon,
   sd_gauss = 0.25
 )
