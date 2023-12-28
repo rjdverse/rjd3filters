@@ -148,8 +148,8 @@ rkhs_optimal_bw <- function(horizon = 6,  degree = 2,
 rkhs_kernel <- function(kernel = c("Biweight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "Triweight"),
                         degree = 2, horizon = 6){
   kernel <- match.arg(tolower(kernel)[1],
-                      choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
-                                  "triweight"))
+                   choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
+                               "triweight"))
   kernel =  switch(tolower(kernel),
     "biweight" = "BiWeight",
     "triweight" ="TriWeight",
