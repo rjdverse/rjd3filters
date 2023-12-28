@@ -83,7 +83,7 @@ lp_filter <- function(horizon = 6, degree = 3,
                  as.integer(degree), kernel, endpoints, d,
                  tweight, passband)
 
-  return(.jd2r_finitefilters(jprops, first_to_last = FALSE))
+  return(.jd2r_finitefilters(jprops))
 }
 coefficients_names <- function(lb, ub){
   x <- sprintf("t%+i", seq(lb,ub))
