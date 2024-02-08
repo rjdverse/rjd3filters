@@ -49,8 +49,8 @@ get_properties_function.moving_average <- function(x,
                                                                  "Asymmetric Gain",
                                                                  "Asymmetric Phase",
                                                                  "Asymmetric transfer"), ...){
-  x = .ma2jd(x)
-  component = match.arg(component)
+  x <- .ma2jd(x)
+  component <- match.arg(component)
   switch(component,
          "Symmetric Gain" = {
            get_gain_function(x)
@@ -79,7 +79,7 @@ get_properties_function.finite_filters <- function(x,
                                                                  "Asymmetric Gain",
                                                                  "Asymmetric Phase",
                                                                  "Asymmetric transfer"), ...){
-  component = match.arg(component)
+  component <- match.arg(component)
   if (length(grep("Symmetric", component, fixed = TRUE)) > 0) {
     get_properties_function(x@sfilter, component = component)
   } else {

@@ -35,16 +35,16 @@ finite_filters.moving_average <- function(sfilter,
                                           first_to_last = FALSE){
   if (is.null(lfilters) & !is.null(rfilters)) {
     if (first_to_last) {
-      rfilters = rev(rfilters)
+      rfilters <- rev(rfilters)
     }
-    lfilters = rev(lapply(rfilters, rev.moving_average))
+    lfilters <- rev(lapply(rfilters, rev.moving_average))
   } else if (!is.null(lfilters) & is.null(rfilters)) {
     if (!first_to_last) {
-      lfilters = rev(lfilters)
+      lfilters <- rev(lfilters)
     }
-    rfilters = rev(lapply(lfilters, rev.moving_average))
+    rfilters <- rev(lapply(lfilters, rev.moving_average))
   } else if (is.null(lfilters) & is.null(rfilters)) {
-    rfilters = lfilters = list()
+    rfilters <- lfilters <- list()
 
   }
   res <- new("finite_filters",
@@ -90,9 +90,9 @@ finite_filters.matrix <- function(sfilter,
       jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
       jlfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "leftEndPointsFilters")
 
-      sfilter = .jd2ma(jsfilter)
-      rfilters = lapply(jrfilter, .jd2ma)
-      lfilters = rev(lapply(jlfilter, .jd2ma))
+      sfilter <- .jd2ma(jsfilter)
+      rfilters <- lapply(jrfilter, .jd2ma)
+      lfilters <- rev(lapply(jlfilter, .jd2ma))
     }
 #  if (.jinstanceof(jf, "jdplus/x12plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
 #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "symmetricFilter")
@@ -164,7 +164,7 @@ setMethod("*",
             all_f <- t(do.call(cbind,c(new_e1, new_e2)))
             mat_e1 <- all_f[seq_along(new_e1),]
             mat_e2 <- all_f[-seq_along(new_e1),]
-            new_mat = (mat_e1[, seq_along(new_e2)] %*% mat_e2)[seq_len(1 + length(e2@lfilters) + length(e2@rfilters)),]
+            new_mat <- (mat_e1[, seq_along(new_e2)] %*% mat_e2)[seq_len(1 + length(e2@lfilters) + length(e2@rfilters)),]
 
             max_lags <- min(sapply(new_e1, lower_bound), sapply(new_e2, lower_bound))
 
@@ -228,9 +228,9 @@ setMethod("+",
           signature(e1 = "finite_filters",
                     e2 = "moving_average"),
           function(e1, e2) {
-            e1@sfilter = e1@sfilter + e2
-            e1@lfilters = lapply(e1@lfilters, `+`, e2)
-            e1@rfilters = lapply(e1@rfilters, `+`, e2)
+            e1@sfilter <- e1@sfilter + e2
+            e1@lfilters <- lapply(e1@lfilters, `+`, e2)
+            e1@rfilters <- lapply(e1@rfilters, `+`, e2)
             e1
           })
 #' @rdname filters_operations
@@ -250,9 +250,9 @@ setMethod("-",
           signature(e1 = "finite_filters",
                     e2 = "missing"),
           function(e1, e2) {
-            e1@sfilter = - e1@sfilter
-            e1@lfilters = lapply(e1@lfilters, `-`)
-            e1@rfilters = lapply(e1@rfilters, `-`)
+            e1@sfilter <- - e1@sfilter
+            e1@lfilters <- lapply(e1@lfilters, `-`)
+            e1@rfilters <- lapply(e1@rfilters, `-`)
             e1
           })
 #' @rdname filters_operations
@@ -261,9 +261,9 @@ setMethod("-",
           signature(e1 = "finite_filters",
                     e2 = "moving_average"),
           function(e1, e2) {
-            e1@sfilter = e1@sfilter - e2
-            e1@lfilters = lapply(e1@lfilters, `-`, e2)
-            e1@rfilters = lapply(e1@rfilters, `-`, e2)
+            e1@sfilter <- e1@sfilter - e2
+            e1@lfilters <- lapply(e1@lfilters, `-`, e2)
+            e1@rfilters <- lapply(e1@rfilters, `-`, e2)
             e1
           })
 #' @rdname filters_operations
@@ -297,9 +297,9 @@ setMethod("/",
           signature(e1 = "finite_filters",
                     e2 = "numeric"),
           function(e1, e2) {
-            e1@sfilter = e1@sfilter / e2
-            e1@lfilters = lapply(e1@lfilters, `/`, e2)
-            e1@rfilters = lapply(e1@rfilters, `/`, e2)
+            e1@sfilter <- e1@sfilter / e2
+            e1@lfilters <- lapply(e1@lfilters, `/`, e2)
+            e1@rfilters <- lapply(e1@rfilters, `/`, e2)
             e1
           })
 #' @method as.matrix finite_filters
@@ -457,13 +457,13 @@ setMethod("[",
           })
 #' @export
 to_seasonal.finite_filters <- function(x, s){
-  x@sfilter = to_seasonal(x@sfilter, s)
-  x@rfilters = unlist(lapply(x@rfilters, function(x){
-    new_mm = to_seasonal(x, s)
+  x@sfilter <- to_seasonal(x@sfilter, s)
+  x@rfilters <- unlist(lapply(x@rfilters, function(x){
+    new_mm <- to_seasonal(x, s)
     rep(list(new_mm), s)
   }))
-  x@lfilters = unlist(lapply(x@lfilters, function(x){
-    new_mm = to_seasonal(x, s)
+  x@lfilters <- unlist(lapply(x@lfilters, function(x){
+    new_mm <- to_seasonal(x, s)
     rep(list(new_mm), s)
   }))
   x

@@ -16,9 +16,9 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
                                   "Trapezoidal", "Gaussian"),
                        horizon,
                        sd_gauss = 0.25){
-  kernel = match.arg(kernel)
+  kernel <- match.arg(kernel)
   if(kernel == "Parabolic")
-    kernel = "Epanechnikov"
+    kernel <- "Epanechnikov"
   h <- as.integer(horizon)
   if(kernel == "Gaussian"){
     jkernel <- .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",
@@ -30,9 +30,9 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
                       tolower(kernel), h)
   }
 
-  coef = sapply(as.integer(seq.int(from = 0, to = horizon, by = 1)),
+  coef <- sapply(as.integer(seq.int(from = 0, to = horizon, by = 1)),
                 jkernel$applyAsDouble)
-  m = horizon
+  m <- horizon
   result <- list(coef = coef, m = m)
   attr(result, "name") <- kernel
   attr(result, "class") <- "tskernel"
