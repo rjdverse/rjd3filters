@@ -83,7 +83,7 @@ finite_filters.matrix <- function(sfilter,
 
 
 #' @export
-.jd2r_finitefilters <- function(jf, first_to_last = TRUE){
+.jd2r_finitefilters <- function(jf, first_to_last){
     jf<-.jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
     if (! is.jnull(jf)) {
       jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
@@ -93,6 +93,24 @@ finite_filters.matrix <- function(sfilter,
       sfilter <- .jd2ma(jsfilter)
       rfilters <- lapply(jrfilter, .jd2ma)
       lfilters <- rev(lapply(jlfilter, .jd2ma))
+
+      if (missing(first_to_last)) {
+        if (all(diff(sapply(lfilters, length)) <= 0)) {
+          lfilters <- rev(lfilters)
+          rfilters <- rev(rfilters)
+        }
+      } else {
+        if(first_to_last) {
+          lfilters <- rev(lfilters)
+          rfilters <- rev(rfilters)
+        }
+      }
+
+      finite_filters(sfilter = sfilter,
+                     rfilters = rfilters,
+                     lfilters = lfilters)
+    } else {
+      NULL
     }
 #  if (.jinstanceof(jf, "jdplus/x12plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
 #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "symmetricFilter")
@@ -123,9 +141,6 @@ finite_filters.matrix <- function(sfilter,
 #    lfilters <- NULL
 #  }
 
-  finite_filters(sfilter = sfilter,
-                 rfilters = rfilters,
-                 lfilters = lfilters)
 }
 #' @rdname filters_operations
 #' @export
