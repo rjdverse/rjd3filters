@@ -76,17 +76,12 @@ lp_filter <- function(horizon = 6, degree = 3,
                       tweight = 0, passband = pi/12){
   if(2*horizon < degree)
     stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
-<<<<<<< HEAD
-  d <- 2/(sqrt(pi)*ic)
-  kernel <- match.arg(kernel)
-  endpoints <- match.arg(endpoints)
-=======
-  d<-2/(sqrt(pi)*ic)
-  kernel=match.arg(tolower(kernel),
+
+  d <- 2 / (sqrt(pi) * ic)
+  kernel <- match.arg(tolower(kernel),
                    choices = c("henderson", "uniform", "biweight", "trapezoidal", "triweight",
                                "tricube", "gaussian", "triangular", "parabolic"))
-  endpoints=match.arg(endpoints)
->>>>>>> c86391858c83f5f4db50a2c284232ca3d11c6aa5
+  endpoints <- match.arg(endpoints)
   jprops<-.jcall("jdplus/filters/base/r/LocalPolynomialFilters",
                  "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
                  "filters", as.integer(horizon),
