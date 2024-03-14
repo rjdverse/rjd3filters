@@ -92,7 +92,7 @@ mse<-function(sweights, aweights, density=c("uniform", "rw"), passband = pi/6){
     n <- (length(sweights)-1)/2
     sweights <- sweights[-seq_len(n)]
   }
-  spectral = match.arg(density)
+  spectral <- match.arg(density)
   rslt<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "[D", "mseDecomposition",
                sweights, aweights, spectral, passband)
   return (c(accuracy=rslt[1], smoothness=rslt[2], timeliness=rslt[3], residual=rslt[4]))
