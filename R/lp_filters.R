@@ -35,6 +35,17 @@ localpolynomials<-function(x,
   kernel=match.arg(tolower(kernel),
                    choices = c("henderson", "uniform", "biweight", "trapezoidal", "triweight",
                                "tricube", "gaussian", "triangular", "parabolic"))
+  kernel <- switch (kernel,
+                    henderson = "Henderson",
+                    uniform = "Uniform",
+                    biweight = "Biweight",
+                    trapezoidal = "Trapezoidal",
+                    triweight = "Triweight",
+                    tricube = "Tricube",
+                    gaussian = "Gaussian",
+                    triangular = "Triangular",
+                    parabolic = "Parabolic"
+  )
   endpoints=match.arg(endpoints)
   result <- .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "[D", "filter",
                    as.numeric(x), as.integer(horizon), as.integer(degree), kernel, endpoints, d,
@@ -80,6 +91,17 @@ lp_filter <- function(horizon = 6, degree = 3,
   kernel=match.arg(tolower(kernel),
                    choices = c("henderson", "uniform", "biweight", "trapezoidal", "triweight",
                                "tricube", "gaussian", "triangular", "parabolic"))
+  kernel <- switch (kernel,
+          henderson = "Henderson",
+          uniform = "Uniform",
+          biweight = "Biweight",
+          trapezoidal = "Trapezoidal",
+          triweight = "Triweight",
+          tricube = "Tricube",
+          gaussian = "Gaussian",
+          triangular = "Triangular",
+          parabolic = "Parabolic"
+  )
   endpoints=match.arg(endpoints)
   jprops<-.jcall("jdplus/filters/base/r/LocalPolynomialFilters",
                  "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
