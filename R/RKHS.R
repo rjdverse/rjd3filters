@@ -33,15 +33,6 @@ rkhs_filter <- function(horizon = 6, degree = 2,
   kernel <- match.arg(tolower(kernel)[1],
                    choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
                                "triweight"))
-  # In next release of Java files, remove next lines
-  kernel <- switch(tolower(kernel),
-                  "biweight" = "BiWeight",
-                  "triweight" ="TriWeight",
-                  "uniform" = "Uniform",
-                  "triangular" = "Triangular",
-                  "epanechnikov" = "Epanechnikov",
-                  "henderson" = "Henderson"
-  )
 
   asymmetricCriterion <- switch(tolower(asymmetricCriterion[1]),
                                timeliness = "Timeliness",
