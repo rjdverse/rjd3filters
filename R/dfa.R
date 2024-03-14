@@ -17,7 +17,7 @@ dfa_filter <- function(horizon = 6, degree = 0,
                        accuracy.weight = 1/3,
                        smoothness.weight = 1/3,
                        timeliness.weight = 1/3){
-  density = match.arg(density)
+  density <- match.arg(density)
   if (length(targetfilter) != 2*horizon + 1)
     stop("The symmetric targetfilter must be of length 2*horizon+1")
   if (is.moving_average(targetfilter)) {
@@ -28,7 +28,7 @@ dfa_filter <- function(horizon = 6, degree = 0,
       targetfilter <- coef(targetfilter)
     }
   }
-  dfa_filter = J("jdplus/filters/base/r/DFAFilters")$filters(
+  dfa_filter <- J("jdplus/filters/base/r/DFAFilters")$filters(
     targetfilter,
     as.integer(horizon), as.integer(degree), density=="rw",
     passband,
@@ -37,4 +37,3 @@ dfa_filter <- function(horizon = 6, degree = 0,
   return(.jd2r_finitefilters(dfa_filter))
 }
 #
-

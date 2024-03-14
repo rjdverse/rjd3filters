@@ -68,7 +68,7 @@ moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_
     lags <- lags - (length(new_x) - length(x))
     x <- new_x
   }
-  upper_bound = lags + length(x) -1
+  upper_bound <- lags + length(x) -1
   # remove 1 if it is >= 0 (central term)
   # upper_bound = upper_bound - (upper_bound >= 0)
 
@@ -86,7 +86,7 @@ moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_
 }
 .ma2jd <- function(x){
   lags <- lower_bound(x)
-  coefs = as.numeric(coef(x))
+  coefs <- as.numeric(coef(x))
   if (length(x) == 1){
     coefs <- .jarray(coefs)
   }
@@ -103,7 +103,7 @@ is.moving_average <- function(x){
 #' @importFrom stats coef coefficients
 #' @export
 coef.moving_average <- function(object, ...){
-  coefs = object@coefficients
+  coefs <- object@coefficients
   return(coefs)
 }
 #' @rdname moving_average
@@ -209,9 +209,9 @@ setReplaceMethod("[",
 #' @export
 cbind.moving_average <- function(...){
   all_mm <- list(...)
-  new_lb = min(sapply(all_mm, lower_bound))
-  new_ub = max(sapply(all_mm, upper_bound))
-  nb_uterms = max(sapply(all_mm, function(x) lower_bound(x) + length(x)))
+  new_lb <- min(sapply(all_mm, lower_bound))
+  new_ub <- max(sapply(all_mm, upper_bound))
+  nb_uterms <- max(sapply(all_mm, function(x) lower_bound(x) + length(x)))
   new_mm <- lapply(all_mm, function(x){
     c(rep(0, abs(new_lb - lower_bound(x))),
       coef(x),

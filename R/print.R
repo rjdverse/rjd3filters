@@ -11,6 +11,6 @@ setMethod(f = "show",
 setMethod(f = "show",
           signature = c("finite_filters"),
           definition = function(object){
-            x = as.matrix(object)
+            x <- as.matrix(object)
             print(x)
           })
