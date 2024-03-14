@@ -1,6 +1,6 @@
-#' Get properties of local polynomials filters
+#' Get properties of filters
 #'
-#' @param x a \code{"lp_filter"} object.
+#' @param x a \code{"moving_average"} or \code{"finite_filters"} object.
 #' @param component the component to extract.
 #' @param ... unused other arguments.
 #'

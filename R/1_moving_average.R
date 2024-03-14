@@ -18,11 +18,24 @@ NULL
 
 #' Manipulation of moving averages
 #'
-#' @param x vector of coefficients
+#' @param x vector of coefficients.
 #' @param lags integer indicating the number of lags of the moving average.
 #' @param trailing_zero,leading_zero boolean indicating wheter to remove leading/trailing zero and NA.
 #' @param s seasonal period for the \code{to_seasonal()} function.
 #' @param object `moving_average` object.
+#'
+#' @details
+#' A moving average is defined by a set of coefficient \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'}
+#' such all time series \eqn{X_t} are transformed as:
+#' \deqn{
+#' M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}
+#' }
+#' The integer \eqn{p} is defined by the parameter \code{lags}.
+#'
+#' The function `to_seasonal()` transforms the moving average \eqn{\boldsymbol \theta} to:
+#' \deqn{
+#' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
+#' }
 #'
 #' @examples
 #' y <- retailsa$AllOtherGenMerchandiseStores

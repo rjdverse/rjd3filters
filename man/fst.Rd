@@ -4,7 +4,7 @@
 \alias{fst}
 \title{FST criteria}
 \usage{
-fst(weights, lags, passband = pi/6)
+fst(weights, lags, passband = pi/6, ...)
 }
 \arguments{
 \item{weights}{either a \code{"moving_average"} or a numeric vector containing weights.}
@@ -24,5 +24,6 @@ filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 fst(filter[, "q=0"])
 }
 \references{
-Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment.
+Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment,
+\url{https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/ks-gq-18-001}.
 }
