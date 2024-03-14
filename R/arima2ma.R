@@ -67,7 +67,7 @@ get_moving_average.Arima <- function(x, ...){
 }
 #' @export
 get_moving_average.regarima <- function(x, period = 12, ...){
-  specif = x$specification$arima$specification
+  specif <- x$specification$arima$specification
   ar <- specif$arima.p
   ma <- specif$arima.q
   sar <- specif$arima.bp
