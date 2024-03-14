@@ -46,11 +46,11 @@ localpolynomials<-function(x,
                     triangular = "Triangular",
                     parabolic = "Parabolic"
   )
-  endpoints=match.arg(endpoints)
+  endpoints <- match.arg(endpoints)
   result <- .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "[D", "filter",
                    as.numeric(x), as.integer(horizon), as.integer(degree), kernel, endpoints, d,
                    tweight, passband)
-  if(is.ts(x))
+  if (is.ts(x))
     result <- ts(result,start = start(x), frequency = frequency(x))
   result
 }
