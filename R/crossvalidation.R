@@ -51,7 +51,7 @@ var_estimator <- function(x, coef, ...) {
   coef0 <- coefficients(coef)["t"]
   sigma2 <-  mean((x - sc)^2,
                  na.rm = TRUE)
-  sigma2 <- sigma2/(1- 2 * coef0 + sum(coef^2))
+  sigma2 <- sigma2/(1- 2 * coef0 + sum(coefficients(coef)^2))
   names(sigma2) <- NULL
   sigma2
 }
