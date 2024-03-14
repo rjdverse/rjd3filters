@@ -92,7 +92,6 @@ lp_filter <- function(horizon = 6, degree = 3,
   kernel <- match.arg(tolower(kernel),
                    choices = c("henderson", "uniform", "biweight", "trapezoidal", "triweight",
                                "tricube", "gaussian", "triangular", "parabolic"))
-<<<<<<< HEAD
   kernel <- switch (kernel,
           henderson = "Henderson",
           uniform = "Uniform",
@@ -104,15 +103,12 @@ lp_filter <- function(horizon = 6, degree = 3,
           triangular = "Triangular",
           parabolic = "Parabolic"
   )
-  endpoints=match.arg(endpoints)
-=======
   endpoints <- match.arg(endpoints)
->>>>>>> 4bfd240a59139f91c25ca884cc4c89b408846cb4
-  jprops<-.jcall("jdplus/filters/base/r/LocalPolynomialFilters",
-                 "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
-                 "filters", as.integer(horizon),
-                 as.integer(degree), kernel, endpoints, d,
-                 tweight, passband)
+  jprops <-.jcall("jdplus/filters/base/r/LocalPolynomialFilters",
+                  "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
+                  "filters", as.integer(horizon),
+                  as.integer(degree), kernel, endpoints, d,
+                  tweight, passband)
 
   return(.jd2r_finitefilters(jprops))
 }
