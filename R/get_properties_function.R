@@ -133,8 +133,8 @@ diagnostic_matrix <- function(x, lags, passband = pi/6,
                fst(x, lags, passband = passband))
   if(!missing(sweights)){
     results <- c(results,
-                 mse(sweights,
-                     x,
+                 mse(x,
+                     sweights,
                      passband = passband,
                      ...
                      )
