@@ -14,3 +14,4 @@ TODO.R
 workspace
 workspace.xml
 R/test_X11.R
+^\.github$
