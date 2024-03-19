@@ -88,6 +88,14 @@ optimisation. The weight associated to the residual is derived so that the sum o
 the four weights are equal to 1.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Moving average computed by a minimisation of a weighted mean of three criteria under polynomials constraints.
+The criteria come from the decomposition of the mean squared error between th trend-cycle</p>
+<p>Let \(\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'\) be a moving average where
+\(p\) and \(f\) are two integers defined by the parameter <code>lags</code> and <code>leads</code>.
+The three criteria are:</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

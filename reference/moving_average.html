@@ -80,7 +80,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
-<dd><p>vector of coefficients</p></dd>
+<dd><p>vector of coefficients.</p></dd>
 
 
 <dt>lags</dt>
@@ -99,6 +99,19 @@
 <dd><p><code>moving_average</code> object.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>A moving average is defined by a set of coefficient \(\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'\)
+such all time series \(X_t\) are transformed as:
+$$
+M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}
+$$
+The integer \(p\) is defined by the parameter <code>lags</code>.</p>
+<p>The function <code>to_seasonal()</code> transforms the moving average \(\boldsymbol \theta\) to:
+$$
+M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
+$$</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
