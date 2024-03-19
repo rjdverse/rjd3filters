@@ -4,7 +4,7 @@
 \alias{fst}
 \title{FST criteria}
 \usage{
-fst(weights, lags, passband = pi/6)
+fst(weights, lags, passband = pi/6, ...)
 }
 \arguments{
 \item{weights}{either a \code{"moving_average"} or a numeric vector containing weights.}
@@ -12,6 +12,8 @@ fst(weights, lags, passband = pi/6)
 \item{lags}{Lags of the moving average (when \code{weights} is not a \code{"moving_average"}).}
 
 \item{passband}{Passband threshold for timeliness criterion.}
+
+\item{...}{other unused arguments.}
 }
 \value{
 The values of the 3 criteria, the gain and phase of the associated filter.
@@ -22,7 +24,10 @@ Compute the Fidelity, Smoothness and Timeliness (FST) criteria
 \examples{
 filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 fst(filter[, "q=0"])
+# To compute the statistics on all filters:
+fst(filter)
 }
 \references{
-Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment.
+Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment,
+\url{https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/ks-gq-18-001}.
 }

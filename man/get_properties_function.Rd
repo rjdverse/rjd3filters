@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_properties_function.R
 \name{get_properties_function}
 \alias{get_properties_function}
-\title{Get properties of local polynomials filters}
+\title{Get properties of filters}
 \usage{
 get_properties_function(
   x,
@@ -12,14 +12,14 @@ get_properties_function(
 )
 }
 \arguments{
-\item{x}{a \code{"lp_filter"} object.}
+\item{x}{a \code{"moving_average"} or \code{"finite_filters"} object.}
 
 \item{component}{the component to extract.}
 
 \item{...}{unused other arguments.}
 }
 \description{
-Get properties of local polynomials filters
+Get properties of filters
 }
 \examples{
 filter <- lp_filter(3, kernel = "Henderson")

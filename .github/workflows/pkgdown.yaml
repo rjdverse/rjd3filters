@@ -38,7 +38,6 @@ jobs:
       - name: Set up for RProtoBuf
         run: sudo apt-get update -y && sudo apt-get install protobuf-compiler libprotobuf-dev libprotoc-dev
 
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::pkgdown, local::.
@@ -50,7 +49,7 @@ jobs:
 
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           clean: false
           branch: gh-pages

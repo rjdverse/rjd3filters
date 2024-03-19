@@ -2,3 +2,38 @@ url: https://rjdemetra.github.io/rjd3filters/
 template:
   bootstrap: 5
 
+reference:
+- title: Create Specific Moving Averages
+  contents:
+  - '`dfa_filter`'
+  - '`fst_filter`'
+  - '`localpolynomials`'
+  - '`lp_filter`'
+  - '`simple_ma`'
+  - '`rkhs_filter`'
+  - '`rkhs_kernel`'
+  - '`rkhs_optimal_bw`'
+  - '`rkhs_optimization_fun`'
+  - '`get_kernel`'
+- title: Stastics on Moving Averages and estimates
+  contents:
+  - '`cross_validation`'
+  - '`diagnostic_matrix`'
+  - '`fst`'
+  - '`implicit_forecast`'
+  - '`get_properties_function`'
+  - '`mse`'
+  - '`var_estimator`'
+
+- title: Manipulation of Moving Averages and Finite Filters
+  contents:
+  - '`filter`'
+  - '`filters_operations`'
+  - '`finite_filters`'
+  - '`get_moving_average`'
+  - '`impute_last_obs`'
+  - '`moving_average`'
+  - '`plot_filters`'
+- title: Data
+  contents:
+  - '`retailsa`'

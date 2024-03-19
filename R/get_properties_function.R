@@ -1,6 +1,6 @@
-#' Get properties of local polynomials filters
+#' Get properties of filters
 #'
-#' @param x a \code{"lp_filter"} object.
+#' @param x a \code{"moving_average"} or \code{"finite_filters"} object.
 #' @param component the component to extract.
 #' @param ... unused other arguments.
 #'
@@ -133,8 +133,8 @@ diagnostic_matrix <- function(x, lags, passband = pi/6,
                fst(x, lags, passband = passband))
   if(!missing(sweights)){
     results <- c(results,
-                 mse(sweights,
-                     x,
+                 mse(x,
+                     sweights,
                      passband = passband,
                      ...
                      )
