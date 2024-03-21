@@ -33,7 +33,7 @@ Remotes:
 SystemRequirements: Java (>= 17)
 License: EUPL
 LazyData: TRUE
-URL: https://github.com/rjdemetra/rjd3filters
+URL: https://github.com/rjdemetra/rjd3filters, https://rjdemetra.github.io/rjd3filters/
 Suggests:
     knitr,
     rmarkdown

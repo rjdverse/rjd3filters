@@ -6,6 +6,15 @@
 #' @param accuracy.weight,smoothness.weight,timeliness.weight the weight used for the
 #' optimisation. The weight associated to the residual is derived so that the sum of
 #' the four weights are equal to 1.
+#'
+#' @details
+#' Moving average computed by a minimisation of a weighted mean of three criteria under polynomials constraints.
+#' The criteria come from the decomposition of the mean squared error between th trend-cycle
+#'
+#' Let \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'} be a moving average where
+#' \eqn{p} and \eqn{f} are two integers defined by the parameter `lags` and `leads`.
+#' The three criteria are:
+#'
 #' @export
 #' @examples
 #' dfa_filter(horizon = 6, degree = 0)
