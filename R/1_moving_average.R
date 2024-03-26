@@ -220,15 +220,20 @@ setReplaceMethod("[",
                  })
 #' @rdname filters_operations
 #' @export
-cbind.moving_average <- function(...){
+cbind.moving_average <- function(..., zero_as_na = FALSE){
   all_mm <- list(...)
   new_lb <- min(sapply(all_mm, lower_bound))
   new_ub <- max(sapply(all_mm, upper_bound))
   nb_uterms <- max(sapply(all_mm, function(x) lower_bound(x) + length(x)))
+  if (zero_as_na) {
+      blank_value <- NA
+  } else {
+      blank_value <- 0
+  }
   new_mm <- lapply(all_mm, function(x){
-    c(rep(0, abs(new_lb - lower_bound(x))),
+    c(rep(blank_value, abs(new_lb - lower_bound(x))),
       coef(x),
-      rep(0, abs(nb_uterms - (lower_bound(x) + length(x))))
+      rep(blank_value, abs(nb_uterms - (lower_bound(x) + length(x))))
     )
   })
   new_mm <- do.call(cbind, new_mm)

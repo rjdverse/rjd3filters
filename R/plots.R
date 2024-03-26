@@ -71,9 +71,9 @@ plot_coef.moving_average <- function(x, nxlab = 7, add = FALSE, ...){
 plot_coef.finite_filters <- function(x, nxlab = 7, add = FALSE,
                                      zero_as_na = TRUE, q = 0, legend = length(q) > 1,
                                      legend.pos = "topright", ...){
-  plot_coef(x = as.matrix(x),
+  plot_coef(x = as.matrix(x, zero_as_na = zero_as_na),
             nxlab = nxlab, add = add,
-            zero_as_na = zero_as_na, q = q, legend = legend,
+            zero_as_na = FALSE, q = q, legend = legend,
             legend.pos = legend.pos, ...)
 }
 
