@@ -7,8 +7,22 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/rjdemetra/rjd3filters/compare/v2.0.0...HEAD
 
 ## [2.0.0] - 2023-12-12
 
-[2.0.0]: https://github.com/rjdemetra/rjd3filters/releases/tag/v2.0.0
+### Changed
+
+* Merge pull request #12 from rjdemetra/develop
+* Merge pull request #11 from rjdemetra/main
+
+
+## [1.0.0] - 2023-07-06
+
+### Added
+
+* New Jars
+
+
+[Unreleased]: https://github.com/rjdemetra/rjd3filters/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/rjdemetra/rjd3filters/releases/tag/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/rjdemetra/rjd3filters/releases/tag/v1.0.0

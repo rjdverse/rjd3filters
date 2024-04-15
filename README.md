@@ -332,11 +332,14 @@ timeliness and smoothness in real-time signal extraction”. In:
 *International Journal of Forecasting* 35.3, pp. 1072–1084. URL:
 [https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://EconPapers.repec.org/RePEc:eee:intfor:v:35:y:2019:i:3:p:1072-1084).
 
+## Package Maintenance and contributing
 
-## Contributing
-
-Any contribution is welcome and should be done through pull requests and/or issues.
+Any contribution is welcome and should be done through pull requests
+and/or issues. pull requests should include **updated tests** and
+**updated documentation**. If functionality is changed, docstrings
+should be added or updated.
 
 ## Licensing
 
-The code of this project is licensed under the [European Union Public Licence (EUPL)](https://joinup.ec.europa.eu/page/eupl-text-11-12).
+The code of this project is licensed under the [European Union Public
+Licence (EUPL)](https://joinup.ec.europa.eu/page/eupl-text-11-12).
