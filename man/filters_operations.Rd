@@ -54,7 +54,7 @@
 
 \S4method{[}{moving_average,ANY,missing,numeric}(x, i) <- value
 
-\method{cbind}{moving_average}(...)
+\method{cbind}{moving_average}(..., zero_as_na = FALSE)
 
 \method{rbind}{moving_average}(...)
 
