@@ -2,7 +2,10 @@
 #'
 #' @param x the object.
 #' @param ... unused parameters
-#'
+#' @examples
+#' fit <- stats::arima(log10(AirPassengers), c(0, 1, 1),
+#' seasonal = list(order = c(0, 1, 1), period = 12))
+#' get_moving_average(fit)
 #' @export
 get_moving_average <- function(x, ...) {
   UseMethod("get_moving_average", x)
@@ -64,7 +67,7 @@ get_moving_average.Arima <- function(x, ...){
 }
 #' @export
 get_moving_average.regarima <- function(x, period = 12, ...){
-  specif = x$specification$arima$specification
+  specif <- x$specification$arima$specification
   ar <- specif$arima.p
   ma <- specif$arima.q
   sar <- specif$arima.bp

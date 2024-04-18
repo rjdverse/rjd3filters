@@ -3,7 +3,8 @@
 ^_pkgdown\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^README\.Rmd$
+^.lintr$
+^README.Rmd$
 ^README-.*\.png$
 .travis.yml
 ^pkgdown$
@@ -14,3 +15,5 @@ TODO.R
 workspace
 workspace.xml
 R/test_X11.R
+^\.github$
+^LICENSE$

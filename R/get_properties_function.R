@@ -1,6 +1,6 @@
-#' Get properties of local polynomials filters
+#' Get properties of filters
 #'
-#' @param x a \code{"lp_filter"} object.
+#' @param x a \code{"moving_average"} or \code{"finite_filters"} object.
 #' @param component the component to extract.
 #' @param ... unused other arguments.
 #'
@@ -49,8 +49,8 @@ get_properties_function.moving_average <- function(x,
                                                                  "Asymmetric Gain",
                                                                  "Asymmetric Phase",
                                                                  "Asymmetric transfer"), ...){
-  x = .ma2jd(x)
-  component = match.arg(component)
+  x <- .ma2jd(x)
+  component <- match.arg(component)
   switch(component,
          "Symmetric Gain" = {
            get_gain_function(x)
@@ -79,7 +79,7 @@ get_properties_function.finite_filters <- function(x,
                                                                  "Asymmetric Gain",
                                                                  "Asymmetric Phase",
                                                                  "Asymmetric transfer"), ...){
-  component = match.arg(component)
+  component <- match.arg(component)
   if (length(grep("Symmetric", component, fixed = TRUE)) > 0) {
     get_properties_function(x@sfilter, component = component)
   } else {
@@ -133,8 +133,8 @@ diagnostic_matrix <- function(x, lags, passband = pi/6,
                fst(x, lags, passband = passband))
   if(!missing(sweights)){
     results <- c(results,
-                 mse(sweights,
-                     x,
+                 mse(x,
+                     sweights,
                      passband = passband,
                      ...
                      )

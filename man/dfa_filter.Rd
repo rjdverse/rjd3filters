@@ -33,6 +33,14 @@ the four weights are equal to 1.}
 \description{
 Direct Filter Approach
 }
+\details{
+Moving average computed by a minimisation of a weighted mean of three criteria under polynomials constraints.
+The criteria come from the decomposition of the mean squared error between th trend-cycle
+
+Let \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'} be a moving average where
+\eqn{p} and \eqn{f} are two integers defined by the parameter \code{lags} and \code{leads}.
+The three criteria are:
+}
 \examples{
 dfa_filter(horizon = 6, degree = 0)
 dfa_filter(horizon = 6, degree = 2)

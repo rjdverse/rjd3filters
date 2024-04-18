@@ -39,7 +39,7 @@ to_seasonal(x, s)
 \S4method{show}{moving_average}(object)
 }
 \arguments{
-\item{x}{vector of coefficients}
+\item{x}{vector of coefficients.}
 
 \item{lags}{integer indicating the number of lags of the moving average.}
 
@@ -51,6 +51,19 @@ to_seasonal(x, s)
 }
 \description{
 Manipulation of moving averages
+}
+\details{
+A moving average is defined by a set of coefficient \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'}
+such all time series \eqn{X_t} are transformed as:
+\deqn{
+M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}
+}
+The integer \eqn{p} is defined by the parameter \code{lags}.
+
+The function \code{to_seasonal()} transforms the moving average \eqn{\boldsymbol \theta} to:
+\deqn{
+M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
+}
 }
 \examples{
 y <- retailsa$AllOtherGenMerchandiseStores

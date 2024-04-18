@@ -18,11 +18,24 @@ NULL
 
 #' Manipulation of moving averages
 #'
-#' @param x vector of coefficients
+#' @param x vector of coefficients.
 #' @param lags integer indicating the number of lags of the moving average.
 #' @param trailing_zero,leading_zero boolean indicating wheter to remove leading/trailing zero and NA.
 #' @param s seasonal period for the \code{to_seasonal()} function.
 #' @param object `moving_average` object.
+#'
+#' @details
+#' A moving average is defined by a set of coefficient \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'}
+#' such all time series \eqn{X_t} are transformed as:
+#' \deqn{
+#' M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}
+#' }
+#' The integer \eqn{p} is defined by the parameter \code{lags}.
+#'
+#' The function `to_seasonal()` transforms the moving average \eqn{\boldsymbol \theta} to:
+#' \deqn{
+#' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
+#' }
 #'
 #' @examples
 #' y <- retailsa$AllOtherGenMerchandiseStores
@@ -68,7 +81,7 @@ moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_
     lags <- lags - (length(new_x) - length(x))
     x <- new_x
   }
-  upper_bound = lags + length(x) -1
+  upper_bound <- lags + length(x) -1
   # remove 1 if it is >= 0 (central term)
   # upper_bound = upper_bound - (upper_bound >= 0)
 
@@ -86,7 +99,7 @@ moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_
 }
 .ma2jd <- function(x){
   lags <- lower_bound(x)
-  coefs = as.numeric(coef(x))
+  coefs <- as.numeric(coef(x))
   if (length(x) == 1){
     coefs <- .jarray(coefs)
   }
@@ -103,7 +116,7 @@ is.moving_average <- function(x){
 #' @importFrom stats coef coefficients
 #' @export
 coef.moving_average <- function(object, ...){
-  coefs = object@coefficients
+  coefs <- object@coefficients
   return(coefs)
 }
 #' @rdname moving_average
@@ -209,9 +222,9 @@ setReplaceMethod("[",
 #' @export
 cbind.moving_average <- function(...){
   all_mm <- list(...)
-  new_lb = min(sapply(all_mm, lower_bound))
-  new_ub = max(sapply(all_mm, upper_bound))
-  nb_uterms = max(sapply(all_mm, function(x) lower_bound(x) + length(x)))
+  new_lb <- min(sapply(all_mm, lower_bound))
+  new_ub <- max(sapply(all_mm, upper_bound))
+  nb_uterms <- max(sapply(all_mm, function(x) lower_bound(x) + length(x)))
   new_mm <- lapply(all_mm, function(x){
     c(rep(0, abs(new_lb - lower_bound(x))),
       coef(x),

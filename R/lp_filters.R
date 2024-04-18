@@ -31,13 +31,26 @@ localpolynomials<-function(x,
   if(2*horizon < degree)
     stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
 
-  d<-2/(sqrt(pi)*ic)
-  kernel=match.arg(kernel)
-  endpoints=match.arg(endpoints)
+  d <- 2 / (sqrt(pi) * ic)
+  kernel <- match.arg(tolower(kernel),
+                   choices = c("henderson", "uniform", "biweight", "trapezoidal", "triweight",
+                               "tricube", "gaussian", "triangular", "parabolic"))
+  kernel <- switch (kernel,
+                    henderson = "Henderson",
+                    uniform = "Uniform",
+                    biweight = "Biweight",
+                    trapezoidal = "Trapezoidal",
+                    triweight = "Triweight",
+                    tricube = "Tricube",
+                    gaussian = "Gaussian",
+                    triangular = "Triangular",
+                    parabolic = "Parabolic"
+  )
+  endpoints <- match.arg(endpoints)
   result <- .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "[D", "filter",
                    as.numeric(x), as.integer(horizon), as.integer(degree), kernel, endpoints, d,
                    tweight, passband)
-  if(is.ts(x))
+  if (is.ts(x))
     result <- ts(result,start = start(x), frequency = frequency(x))
   result
 }
@@ -74,21 +87,33 @@ lp_filter <- function(horizon = 6, degree = 3,
                       tweight = 0, passband = pi/12){
   if(2*horizon < degree)
     stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
-  d<-2/(sqrt(pi)*ic)
-  kernel=match.arg(kernel)
-  endpoints=match.arg(endpoints)
-  jprops<-.jcall("jdplus/filters/base/r/LocalPolynomialFilters",
-                 "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
-                 "filters", as.integer(horizon),
-                 as.integer(degree), kernel, endpoints, d,
-                 tweight, passband)
 
-  return(.jd2r_finitefilters(jprops, first_to_last = FALSE))
+  d <- 2 / (sqrt(pi) * ic)
+  kernel <- match.arg(tolower(kernel),
+                   choices = c("henderson", "uniform", "biweight", "trapezoidal", "triweight",
+                               "tricube", "gaussian", "triangular", "parabolic"))
+  kernel <- switch (kernel,
+          henderson = "Henderson",
+          uniform = "Uniform",
+          biweight = "Biweight",
+          trapezoidal = "Trapezoidal",
+          triweight = "Triweight",
+          tricube = "Tricube",
+          gaussian = "Gaussian",
+          triangular = "Triangular",
+          parabolic = "Parabolic"
+  )
+  endpoints <- match.arg(endpoints)
+  jprops <-.jcall("jdplus/filters/base/r/LocalPolynomialFilters",
+                  "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
+                  "filters", as.integer(horizon),
+                  as.integer(degree), kernel, endpoints, d,
+                  tweight, passband)
+
+  return(.jd2r_finitefilters(jprops))
 }
 coefficients_names <- function(lb, ub){
   x <- sprintf("t%+i", seq(lb,ub))
   x <- sub("+0", "", x, fixed = TRUE)
   x
 }
-
-

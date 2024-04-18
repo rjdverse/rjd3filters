@@ -14,3 +14,8 @@ get_moving_average(x, ...)
 \description{
 Get Moving Averages from ARIMA model
 }
+\examples{
+fit <- stats::arima(log10(AirPassengers), c(0, 1, 1),
+seasonal = list(order = c(0, 1, 1), period = 12))
+get_moving_average(fit)
+}

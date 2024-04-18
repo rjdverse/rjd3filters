@@ -87,7 +87,7 @@ plot_gain <- function(x, nxlab = 7, add = FALSE,
 #' @export
 plot_gain.moving_average<- function(x, nxlab = 7, add = FALSE,
                                     xlim = c(0, pi), ...){
-  g = get_properties_function(x, "Symmetric Gain")
+  g <- get_properties_function(x, "Symmetric Gain")
   plot(g, type = "l",
        xaxt = "n", xlab = "",
        ylab = "gain", add = add, xlim = xlim, ...)
@@ -144,7 +144,7 @@ plot_phase <- function(x, nxlab = 7, add = FALSE,
 #' @export
 plot_phase.moving_average<- function(x, nxlab = 7, add = FALSE,
                                      xlim = c(0, pi), normalized = FALSE, ...){
-  p = get_properties_function(x, "Symmetric Phase")
+  p <- get_properties_function(x, "Symmetric Phase")
 
   if (normalized) {
     p_plot <- function(x) {
@@ -292,7 +292,7 @@ remove_bound_NA <- function(x) {
     # list(data = x, leading = 0,
     #      trailing = 0)
   } else{
-    x = x[- c(remove_i_first, remove_i_last)]
+    x <- x[- c(remove_i_first, remove_i_last)]
   }
 
   list(data = x, leading = length(remove_i_first),

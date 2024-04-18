@@ -12,27 +12,31 @@
 #' @examples
 #' get_kernel("Henderson", horizon = 3)
 get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
-                                  "Epanechnikov","Parabolic","Biweight", "Triweight","Tricube",
+                                  "Epanechnikov","Parabolic","BiWeight", "TriWeight","Tricube",
                                   "Trapezoidal", "Gaussian"),
                        horizon,
                        sd_gauss = 0.25){
-  kernel = match.arg(kernel)
-  if(kernel == "Parabolic")
-    kernel = "Epanechnikov"
+
+  kernel <- match.arg(tolower(kernel)[1],
+                     choices = c("henderson", "uniform", "triangular", "epanechnikov", "parabolic",
+                                 "biweight", "triweight", "tricube", "trapezoidal", "gaussian"
+                     ))
+  if(kernel == "parabolic")
+    kernel <- "epanechnikov"
   h <- as.integer(horizon)
-  if(kernel == "Gaussian"){
+  if(kernel == "gaussian"){
     jkernel <- .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",
                       "Ljava/util/function/IntToDoubleFunction;",
                       tolower(kernel), h, sd_gauss)
-  }else{
+  } else{
     jkernel <- .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",
                       "Ljava/util/function/IntToDoubleFunction;",
                       tolower(kernel), h)
   }
 
-  coef = sapply(as.integer(seq.int(from = 0, to = horizon, by = 1)),
+  coef <- sapply(as.integer(seq.int(from = 0, to = horizon, by = 1)),
                 jkernel$applyAsDouble)
-  m = horizon
+  m <- horizon
   result <- list(coef = coef, m = m)
   attr(result, "name") <- kernel
   attr(result, "class") <- "tskernel"

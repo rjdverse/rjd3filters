@@ -72,18 +72,18 @@ filter_ma <- function(x, coefs){
   # if (!is.moving_average(coefs)) {
   #   coefs <- moving_average(coefs, -abs(lags))
   # }
-  lb = lower_bound(coefs)
-  ub = upper_bound(coefs)
+  lb <- lower_bound(coefs)
+  ub <- upper_bound(coefs)
 
   if (length(x) <= length(coefs))
     return(x * NA)
 
-  DataBlock = J("jdplus.toolkit.base.core.data.DataBlock")
-  jx = DataBlock$of(as.numeric(x))
-  out = DataBlock$of(as.numeric(rep(NA, length(x) - length(coefs)+1)))
+  DataBlock <- J("jdplus.toolkit.base.core.data.DataBlock")
+  jx <- DataBlock$of(as.numeric(x))
+  out <- DataBlock$of(as.numeric(rep(NA, length(x) - length(coefs)+1)))
   .ma2jd(coefs)$apply(jx,
                      out)
-  result = out$toArray()
+  result <- out$toArray()
   result <- c(rep(NA, abs(min(lb, 0))),
               result,
               rep(NA, abs(max(ub, 0))))
@@ -119,7 +119,7 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
   result <- .jcall(result, "[D", "toArray")
 
   if (remove_missing){
-    result = c(rep(NA, data_clean$leading), result,
+    result <- c(rep(NA, data_clean$leading), result,
                rep(NA, data_clean$trailing))
   }
   if(is.ts(x))
