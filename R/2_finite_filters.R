@@ -319,7 +319,7 @@ setMethod("/",
           })
 #' @method as.matrix finite_filters
 #' @export
-as.matrix.finite_filters <- function(x, sfilter = TRUE, rfilters = TRUE, lfilters = FALSE, ...) {
+as.matrix.finite_filters <- function(x, sfilter = TRUE, rfilters = TRUE, lfilters = FALSE, zero_as_na = FALSE, ...) {
   sfilter_s <- rfilters_s <- lfilters_s <-
     index_s <- index_r <- index_l <- NULL
   if (!any(sfilter, rfilters, lfilters))
@@ -336,7 +336,8 @@ as.matrix.finite_filters <- function(x, sfilter = TRUE, rfilters = TRUE, lfilter
     rfilters_s <- x@rfilters
     index_r <- seq(length(x@rfilters) - 1, 0)
   }
-  mat <- do.call(cbind, c(lfilters_s, sfilter_s, rfilters_s))
+  mat <- do.call(cbind, c(lfilters_s, sfilter_s, rfilters_s,
+                          list(zero_as_na = zero_as_na)))
   colnames(mat) <- sprintf("q=%i", c(index_l, index_s, index_r))
   mat
 }
