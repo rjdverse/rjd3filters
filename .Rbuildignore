@@ -3,7 +3,8 @@
 ^_pkgdown\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^README\.Rmd$
+^.lintr$
+^README.Rmd$
 ^README-.*\.png$
 .travis.yml
 ^pkgdown$
