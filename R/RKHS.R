@@ -13,12 +13,7 @@
 #' @examples
 #' rkhs <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
 #' plot_coef(rkhs)
-#' @return An object of class \code{"rkhs_filter"}, which is a list of 4 elements:\itemize{
-#' \item{\code{"internal"}}{Java object used for internal functions}
-#' \item{\code{"filters.coef"}}{The coefficients of the selected filter}
-#' \item{\code{"filters.gain"}}{The gain function between 0 and pi (601 observations)}
-#' \item{\code{"filters.phase"}}{The phase function between 0 and pi (601 observations)}
-#' }
+#' @return a [finite_filters()] object.
 #' @export
 rkhs_filter <- function(horizon = 6, degree = 2,
                         kernel = c("BiWeight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "TriWeight"),
