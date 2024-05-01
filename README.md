@@ -22,8 +22,10 @@ computed.
 ## Installation
 
 rjd3filters relies on the
-[rJava](https://CRAN.R-project.org/package=rJava) package and Java SE 17
-or later version is required.
+[rJava](https://CRAN.R-project.org/package=rJava) package and running
+rjd3 packages requires Java 17 or higher. If you have troubles with the
+installation, check the [installation manual of
+`RJDemetra`](https://github.com/jdemetra/rjdemetra/wiki/Installation-manual).
 
 To get the current stable version (from the latest release):
 
@@ -184,6 +186,22 @@ par(def.par)
 ```
 
 <img src="man/figures/README-diagnostic-plots-1.png" style="display: block; margin: auto;" />
+
+Confidence intervals can also be computed with the `confint_filter`
+function:
+
+``` r
+confint <- confint_filter(y, musgrave)
+
+plot(confint, plot.type = "single",
+     col = c("red", "black", "black"),
+     lty = c(1, 2, 2), xlab = NULL, ylab = NULL)
+lines(y, col = "grey")
+legend("topleft", legend = c("y", "Smoothed", "CI (95%)"), 
+       col= c("grey", "red", "black"), lty = c(1, 1, 2))
+```
+
+<img src="man/figures/README-confint-plot-1.png" style="display: block; margin: auto;" />
 
 ### Manipulate moving averages
 
