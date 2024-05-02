@@ -73,18 +73,18 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>rjd3filters relies on the <a href="https://CRAN.R-project.org/package=rJava" class="external-link">rJava</a> package and Java SE 17 or later version is required.</p>
+<p>rjd3filters relies on the <a href="https://CRAN.R-project.org/package=rJava" class="external-link">rJava</a> package and running rjd3 packages requires Java 17 or higher. If you have troubles with the installation, check the <a href="https://github.com/jdemetra/rjdemetra/wiki/Installation-manual" class="external-link">installation manual of <code>RJDemetra</code></a>.</p>
 <p>To get the current stable version (from the latest release):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rjdemetra/rjd3toolkit@*release"</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rjdemetra/rjd3filters@*release"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rjdemetra/rjd3toolkit@*release"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rjdemetra/rjd3filters@*release"</span><span class="op">)</span></span></code></pre></div>
 <p>To get the current development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="co"># Install development version from GitHub</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rjdemetra/rjd3toolkit"</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rjdemetra/rjd3filters"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rjdemetra/rjd3toolkit"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rjdemetra/rjd3filters"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="basic-example">Basic example<a class="anchor" aria-label="anchor" href="#basic-example"></a>
@@ -201,12 +201,23 @@
 <span>       col<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"lightblue"</span>, <span class="st">"red"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">def.par</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-diagnostic-plots-1.png" style="display: block; margin: auto;"></p>
+<p>Confidence intervals can also be computed with the <code>confint_filter</code> function:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">confint</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/confint_filter.html">confint_filter</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">musgrave</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">confint</span>, plot.type <span class="op">=</span> <span class="st">"single"</span>,</span>
+<span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"black"</span>, <span class="st">"black"</span><span class="op">)</span>,</span>
+<span>     lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>, ylab <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">y</span>, col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"Smoothed"</span>, <span class="st">"CI (95%)"</span><span class="op">)</span>, </span>
+<span>       col<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey"</span>, <span class="st">"red"</span>, <span class="st">"black"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-confint-plot-1.png" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="manipulate-moving-averages">Manipulate moving averages<a class="anchor" aria-label="anchor" href="#manipulate-moving-averages"></a>
 </h3>
 <p>You can also create and manipulate moving averages with the class <code>moving_average</code>. In the next examples we show how to create the M2X12 moving average, the first moving average used to extract the trend-cycle in X-11, and the M3X3 moving average, applied to each months to extract seasonal component.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/moving_average.html">moving_average</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span><span class="op">)</span>, lags <span class="op">=</span> <span class="op">-</span><span class="fl">6</span><span class="op">)</span></span>
 <span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="va">e1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">e1</span><span class="op">)</span></span>
 <span><span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/moving_average.html">moving_average</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, <span class="fl">12</span><span class="op">)</span>, lags <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span></span>
@@ -232,7 +243,7 @@
 <span><span class="fu"><a href="reference/plot_filters.html">plot_gain</a></span><span class="op">(</span><span class="va">M3X3</span>, main <span class="op">=</span> <span class="st">"M3X3 applied to each month"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_filters.html">plot_gain</a></span><span class="op">(</span><span class="va">M3X3_seasonal</span>, main <span class="op">=</span> <span class="st">"M3X3 applied to the global series"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-mm-plots-1.png" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">def.par</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># To apply the moving average</span></span>
@@ -247,7 +258,7 @@
 <h3 id="manipulate-finite-filters">Manipulate finite filters<a class="anchor" aria-label="anchor" href="#manipulate-finite-filters"></a>
 </h3>
 <p><code>finite_filters</code> object are a combination of a central filter (used for the final estimates) and different asymmetric filters used for intermediate estimates at the beginning/end of the series when the central filter cannot be applied.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">musgrave</span> </span>
 <span><span class="co">#&gt;             q=6          q=5          q=4          q=3          q=2</span></span>
 <span><span class="co">#&gt; t-6 -0.01934985 -0.016609040 -0.011623676 -0.009152423 -0.016139228</span></span>
@@ -360,8 +371,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Jean Palate <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Alain Quartier-la-Tente <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7890-3857" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Jean Palate <br><small class="roles"> Author </small>  </li>
+<li>Alain Quartier-la-Tente <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7890-3857" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 

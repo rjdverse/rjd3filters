@@ -70,9 +70,20 @@
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>$$
-\hat\sigma^2=\frac{1}{n-2h}\sum_{t=h+1}^{n-h}\frac{(y_t-\hat \mu_t)^2}{1-2w_0^2+\sum w_i^2}
+    <p>Let \((\theta_i)_{-p\leq i \leq q}\) be a moving average of length \(p+q+1\) used
+to filter a time series \((y_i)_{1\leq i \leq n}\).
+It is equivalent to a local regression and the associated error variance \(\sigma^2\)
+can be estimated using the normalized residual sum of squares, which can be simplified as:
+$$
+\hat\sigma^2=\frac{1}{n-(p+q)}\sum_{t=p+1}^{n-q}
+\frac{(y_t-\hat \mu_t)^2}{1-2w_0^2+\sum_{i=-p}^q w_i^2}
 $$</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Loader, Clive. 1999.
+Local regression and likelihood.
+New York: Springer-Verlag.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
