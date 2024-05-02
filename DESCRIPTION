@@ -3,12 +3,12 @@ Type: Package
 Title: Trend-Cycle Extraction with Linear Filters
 Version: 2.1.1
 Authors@R: c(
-  person("Jean", "Palate", role = c("aut", "cre"),
-                email = "jean.palate@nbb.be"),
-  person("Alain", "Quartier-la-Tente", role = c("aut"),
-                 email = "alain.quartier@yahoo.fr",
-                 comment = c(ORCID = "0000-0001-7890-3857"))
-                )
+  person("Jean", "Palate", role = c("aut"),
+         email = "jean.palate@nbb.be"),
+  person("Alain", "Quartier-la-Tente", role = c("aut", "cre"),
+         email = "alain.quartier@yahoo.fr",
+         comment = c(ORCID = "0000-0001-7890-3857"))
+         )
 Description: This package provides functions to build and apply symmetric
   and asymmetric moving averages (= linear filters) for trend-cycle extraction.
   In particular, it implements several moderns approaches for real-time estimates
