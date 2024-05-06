@@ -2,6 +2,7 @@
 % Please edit documentation in R/2_finite_filters.R, R/print.R
 \name{finite_filters}
 \alias{finite_filters}
+\alias{is.finite_filters}
 \alias{show,finite_filters-method}
 \title{Manipulating Finite Filters}
 \usage{
@@ -11,6 +12,8 @@ finite_filters(
   lfilters = NULL,
   first_to_last = FALSE
 )
+
+is.finite_filters(x)
 
 \S4method{show}{finite_filters}(object)
 }
@@ -24,6 +27,8 @@ a \code{matrix} or \code{list} with all the coefficients.}
 
 \item{first_to_last}{boolean indicating if the first element of \code{rfilters} is the
 first asymmetric filter (when only one observation is missing) or the last one (real-time estimates).}
+
+\item{x}{object to test the class.}
 
 \item{object}{\code{finite_filters} object.}
 }

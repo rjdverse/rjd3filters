@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # rjd3filters
 
-rjd3filters is R package on linear filters for real-time trend-cycle estimates.
+rjd3filters is an R package on linear filters for real-time trend-cycle estimates.
 It allows to create symmetric and asymmetric moving averages with:
 
 - local polynomial filters, as defined by Proietti and Luati (2008);
@@ -29,16 +29,16 @@ Some quality criteria defined by Wildi and McElroy (2019) can also be computed.
 
 ## Installation
 
-rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) package and running rjd3 packages requires Java 17 or higher. How to set up such a configuration in R is explained [here](https://jdemetra-new-documentation.netlify.app/#installing-the-software).
+rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) package.
 
-
+Running rjd3 packages requires **Java 17 or higher**. How to set up such a configuration in R is explained [here](https://jdemetra-new-documentation.netlify.app/#Rconfig) 
 
 To get the current stable version (from the latest release):
 
 ```{r, eval = FALSE}
 # install.packages("remotes")
-remotes::install_github("rjdemetra/rjd3toolkit@*release")
-remotes::install_github("rjdemetra/rjd3filters@*release")
+remotes::install_github("rjdverse/rjd3toolkit@*release")
+remotes::install_github("rjdverse/rjd3filters@*release")
 ```
 
 To get the current development version from GitHub:
@@ -46,8 +46,8 @@ To get the current development version from GitHub:
 ```{r, eval = FALSE}
 # install.packages("remotes")
 # Install development version from GitHub
-remotes::install_github("rjdemetra/rjd3toolkit")
-remotes::install_github("rjdemetra/rjd3filters")
+remotes::install_github("rjdverse/rjd3toolkit")
+remotes::install_github("rjdverse/rjd3filters")
 ```
 
 
@@ -127,13 +127,16 @@ legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
 ### Comparison of the filters
 
 Different quality criteria from Grun-Rehomme *et al* (2018) and Wildi and McElroy(2019) can also be computed with the function `diagnostic_matrix()`:
+
 ```{r diagnostic-table, eval = TRUE}
 q_0_coefs <- list(Musgrave = musgrave[, "q=0"], 
                   fst_notimeliness = fst_notimeliness[, "q=0"], 
                   rkhs_timeliness = rkhs_timeliness[, "q=0"])
 
-sapply(q_0_coefs, diagnostic_matrix, 
-       lags = 6, sweight = musgrave[, "q=6"])
+sapply(X = q_0_coefs, 
+       FUN = diagnostic_matrix, 
+       lags = 6, 
+       sweights = musgrave[, "q=6"])
 ```
 
 The filters can also be compared by plotting there coefficients (`plot_coef`), gain function (`plot_gain`) and phase function (`plot_phase`):
@@ -164,6 +167,19 @@ par(def.par)
 ```
 
 ```{r, diagnostic-plots, eval = TRUE, echo=FALSE}
+```
+
+Confidence intervals can also be computed with the `confint_filter` function:
+
+```{r, confint-plot, eval = TRUE}
+confint <- confint_filter(y, musgrave)
+
+plot(confint, plot.type = "single",
+     col = c("red", "black", "black"),
+     lty = c(1, 2, 2), xlab = NULL, ylab = NULL)
+lines(y, col = "grey")
+legend("topleft", legend = c("y", "Smoothed", "CI (95%)"), 
+       col= c("grey", "red", "black"), lty = c(1, 1, 2))
 ```
 
 ### Manipulate moving averages

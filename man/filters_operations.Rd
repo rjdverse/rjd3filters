@@ -136,6 +136,9 @@
 \item{x, e1, e2}{object}
 
 \item{i, j, value}{indices specifying elements to extract or replace and the new value}
+
+\item{zero_as_na}{boolean indicating if, when merging several moving averages (\code{cbind})
+if trealing and leading zeros added to have a matrix form should be replaced by \code{NA}.}
 }
 \description{
 Manipulation of \code{\link[=moving_average]{moving_average()}} or \code{\link[=finite_filters]{finite_filters()}} objects

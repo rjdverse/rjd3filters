@@ -3,7 +3,7 @@
 
 # rjd3filters
 
-rjd3filters is R package on linear filters for real-time trend-cycle
+rjd3filters is an R package on linear filters for real-time trend-cycle
 estimates. It allows to create symmetric and asymmetric moving averages
 with:
 
@@ -22,15 +22,18 @@ computed.
 ## Installation
 
 rjd3filters relies on the
-[rJava](https://CRAN.R-project.org/package=rJava) package and Java SE 17
-or later version is required.
+[rJava](https://CRAN.R-project.org/package=rJava) package.
+
+Running rjd3 packages requires **Java 17 or higher**. How to set up such
+a configuration in R is explained
+[here](https://jdemetra-new-documentation.netlify.app/#Rconfig)
 
 To get the current stable version (from the latest release):
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("rjdemetra/rjd3toolkit@*release")
-remotes::install_github("rjdemetra/rjd3filters@*release")
+remotes::install_github("rjdverse/rjd3toolkit@*release")
+remotes::install_github("rjdverse/rjd3filters@*release")
 ```
 
 To get the current development version from GitHub:
@@ -38,8 +41,8 @@ To get the current development version from GitHub:
 ``` r
 # install.packages("remotes")
 # Install development version from GitHub
-remotes::install_github("rjdemetra/rjd3toolkit")
-remotes::install_github("rjdemetra/rjd3filters")
+remotes::install_github("rjdverse/rjd3toolkit")
+remotes::install_github("rjdverse/rjd3filters")
 ```
 
 ## Basic example
@@ -139,8 +142,10 @@ q_0_coefs <- list(Musgrave = musgrave[, "q=0"],
                   fst_notimeliness = fst_notimeliness[, "q=0"], 
                   rkhs_timeliness = rkhs_timeliness[, "q=0"])
 
-sapply(q_0_coefs, diagnostic_matrix, 
-       lags = 6, sweight = musgrave[, "q=6"])
+sapply(X = q_0_coefs, 
+       FUN = diagnostic_matrix, 
+       lags = 6, 
+       sweights = musgrave[, "q=6"])
 #>         Musgrave fst_notimeliness rkhs_timeliness
 #> b_c  0.000000000     2.220446e-16     0.000000000
 #> b_l -0.575984377    -1.554312e-15    -0.611459167
@@ -184,6 +189,22 @@ par(def.par)
 ```
 
 <img src="man/figures/README-diagnostic-plots-1.png" style="display: block; margin: auto;" />
+
+Confidence intervals can also be computed with the `confint_filter`
+function:
+
+``` r
+confint <- confint_filter(y, musgrave)
+
+plot(confint, plot.type = "single",
+     col = c("red", "black", "black"),
+     lty = c(1, 2, 2), xlab = NULL, ylab = NULL)
+lines(y, col = "grey")
+legend("topleft", legend = c("y", "Smoothed", "CI (95%)"), 
+       col= c("grey", "red", "black"), lty = c(1, 1, 2))
+```
+
+<img src="man/figures/README-confint-plot-1.png" style="display: block; margin: auto;" />
 
 ### Manipulate moving averages
 
@@ -251,12 +272,6 @@ musgrave
 #> t-2  0.14735651  0.146931288  0.145468029  0.144292794  0.149387420
 #> t-1  0.21433675  0.213120014  0.210044599  0.207957742  0.216072726
 #> t    0.24005716  0.238048915  0.233361346  0.230362866  0.241498208
-#> t+1  0.21433675  0.211536998  0.205237273  0.201327171  0.215482871
-#> t+2  0.14735651  0.143765257  0.135853376  0.131031652  0.148207710
-#> t+3  0.06549178  0.061109020  0.051584983  0.045851637  0.000000000
-#> t+4  0.00000000 -0.005174272 -0.016310464  0.000000000  0.000000000
-#> t+5 -0.02786378 -0.033829557  0.000000000  0.000000000  0.000000000
-#> t+6 -0.01934985  0.000000000  0.000000000  0.000000000  0.000000000
 #>              q=1         q=0
 #> t-6 -0.037925830 -0.07371504
 #> t-5 -0.035216813 -0.04601336
@@ -265,12 +280,7 @@ musgrave
 #> t-2  0.173672322  0.23785375
 #> t-1  0.251875504  0.34104960
 #> t    0.288818862  0.40298562
-#> t+1  0.274321400  0.00000000
-#> t+2  0.000000000  0.00000000
-#> t+3  0.000000000  0.00000000
-#> t+4  0.000000000  0.00000000
-#> t+5  0.000000000  0.00000000
-#> t+6  0.000000000  0.00000000
+#>  [ getOption("max.print") est atteint -- 6 lignes omises ]
 musgrave * M3X3
 #>              q=6          q=5          q=4           q=3          q=2
 #> t-8 -0.002149983 -0.001845449 -0.001291520 -0.0010169359 -0.001793248
@@ -280,16 +290,6 @@ musgrave * M3X3
 #> t-4  0.022584742  0.023742532  0.025503585  0.0261515939  0.025205505
 #> t-3  0.075295705  0.075661988  0.075810884  0.0755472713  0.077621540
 #> t-2  0.137975973  0.137550748  0.136087489  0.1349122536  0.140006880
-#> t-1  0.188629568  0.187412835  0.184337420  0.1822505629  0.190365547
-#> t    0.208025720  0.206017479  0.201329910  0.1983314300  0.209466772
-#> t+1  0.188629568  0.185829819  0.179530094  0.1756199919  0.182437019
-#> t+2  0.137975973  0.134384717  0.126472836  0.1242017153  0.124120786
-#> t+3  0.075295705  0.070912941  0.066564227  0.0667717095  0.056877588
-#> t+4  0.022584742  0.020311263  0.021121328  0.0247483251  0.016467523
-#> t+5 -0.006311026 -0.005636466  0.002107117  0.0050946263  0.000000000
-#> t+6 -0.012641899 -0.008092598 -0.001812274  0.0000000000  0.000000000
-#> t+7 -0.007395941 -0.003758840  0.000000000  0.0000000000  0.000000000
-#> t+8 -0.002149983  0.000000000  0.000000000  0.0000000000  0.000000000
 #>              q=1         q=0
 #> t-8 -0.004213981 -0.00819056
 #> t-7 -0.012340941 -0.02149372
@@ -298,16 +298,7 @@ musgrave * M3X3
 #> t-4  0.026454654  0.04065076
 #> t-3  0.090388566  0.12957734
 #> t-2  0.164291782  0.22847321
-#> t-1  0.226168325  0.26940011
-#> t    0.232502524  0.23654553
-#> t+1  0.183608603  0.12744676
-#> t+2  0.093051296  0.04477618
-#> t+3  0.030480156  0.00000000
-#> t+4  0.000000000  0.00000000
-#> t+5  0.000000000  0.00000000
-#> t+6  0.000000000  0.00000000
-#> t+7  0.000000000  0.00000000
-#> t+8  0.000000000  0.00000000
+#>  [ getOption("max.print") est atteint -- 10 lignes omises ]
 ```
 
 ## Bibliography
@@ -342,4 +333,5 @@ should be added or updated.
 ## Licensing
 
 The code of this project is licensed under the [European Union Public
-Licence (EUPL)](https://joinup.ec.europa.eu/page/eupl-text-11-12).
+Licence
+(EUPL)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).

@@ -12,6 +12,7 @@ setClass("finite_filters",
 #' @param first_to_last boolean indicating if the first element of `rfilters` is the
 #' first asymmetric filter (when only one observation is missing) or the last one (real-time estimates).
 #' @param object `finite_filters` object.
+#' @param x object to test the class.
 #'
 #' @examples
 #' ff_lp <- lp_filter()
@@ -81,6 +82,11 @@ finite_filters.matrix <- function(sfilter,
   finite_filters(coefs, first_to_last = first_to_last)
 }
 
+#' @rdname finite_filters
+#' @export
+is.finite_filters <- function(x){
+    is(x, "finite_filters")
+}
 
 #' @export
 .jd2r_finitefilters <- function(jf, first_to_last){

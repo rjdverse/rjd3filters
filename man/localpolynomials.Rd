@@ -49,5 +49,5 @@ lines(trend, col = "red")
 Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
 }
 \seealso{
-\code{\link{lp_filter}}
+\code{\link[=lp_filter]{lp_filter()}}.
 }
