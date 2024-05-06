@@ -29,7 +29,7 @@ Some quality criteria defined by Wildi and McElroy (2019) can also be computed.
 
 ## Installation
 
-rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) package and running rjd3 packages requires Java 17 or higher. How to set up such a configuration in R is explained [here](https://jdemetra-new-documentation.netlify.app/#installing-the-software) 
+rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) package and running rjd3 packages requires Java 17 or higher. How to set up such a configuration in R is explained [here](https://jdemetra-new-documentation.netlify.app/#installing-the-software).
 
 
 
@@ -231,4 +231,4 @@ pull requests should include **updated tests** and **updated documentation**. If
 
 ## Licensing
 
-The code of this project is licensed under the [European Union Public Licence (EUPL)](https://joinup.ec.europa.eu/page/eupl-text-11-12).
+The code of this project is licensed under the [European Union Public Licence (EUPL)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
