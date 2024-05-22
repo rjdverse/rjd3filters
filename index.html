@@ -164,8 +164,10 @@
 <span>                  fst_notimeliness <span class="op">=</span> <span class="va">fst_notimeliness</span><span class="op">[</span>, <span class="st">"q=0"</span><span class="op">]</span>, </span>
 <span>                  rkhs_timeliness <span class="op">=</span> <span class="va">rkhs_timeliness</span><span class="op">[</span>, <span class="st">"q=0"</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">q_0_coefs</span>, <span class="va">diagnostic_matrix</span>, </span>
-<span>       lags <span class="op">=</span> <span class="fl">6</span>, sweight <span class="op">=</span> <span class="va">musgrave</span><span class="op">[</span>, <span class="st">"q=6"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">q_0_coefs</span>, </span>
+<span>       FUN <span class="op">=</span> <span class="va">diagnostic_matrix</span>, </span>
+<span>       lags <span class="op">=</span> <span class="fl">6</span>, </span>
+<span>       sweights <span class="op">=</span> <span class="va">musgrave</span><span class="op">[</span>, <span class="st">"q=6"</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         Musgrave fst_notimeliness rkhs_timeliness</span></span>
 <span><span class="co">#&gt; b_c  0.000000000     2.220446e-16     0.000000000</span></span>
 <span><span class="co">#&gt; b_l -0.575984377    -1.554312e-15    -0.611459167</span></span>
@@ -344,7 +346,7 @@
 <div class="section level2">
 <h2 id="licensing">Licensing<a class="anchor" aria-label="anchor" href="#licensing"></a>
 </h2>
-<p>The code of this project is licensed under the <a href="https://joinup.ec.europa.eu/page/eupl-text-11-12" class="external-link">European Union Public Licence (EUPL)</a>.</p>
+<p>The code of this project is licensed under the <a href="https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12" class="external-link">European Union Public Licence (EUPL)</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
