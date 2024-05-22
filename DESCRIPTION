@@ -8,9 +8,9 @@ Authors@R: c(
   person("Alain", "Quartier-la-Tente", role = c("aut","cre"),
                  email = "alain.quartier@yahoo.fr",
                  comment = c(ORCID = "0000-0001-7890-3857")),
-  person("Tanguy", "Barthelemy", role = c("aut"),
+  person("Tanguy", "Barthelemy", role = c("ctb"),
                  email ="tanguy.barthelemy@insee.fr"),
-  person("Anna", "Smyk", role = c("aut"),
+  person("Anna", "Smyk", role = c("ctb"),
                  email ="anna.smyk@insee.fr")
                  )
 Description: This package provides functions to build and apply symmetric
