@@ -176,7 +176,7 @@ mse.default<-function(aweights, sweights, density=c("uniform", "rw"), passband =
     } else {
       sweights <- coef(sweights)
     }
-  } else if(length(sweights)>length(aweights)){
+  } else if (length(sweights)>length(aweights)){
     # we asume sweights were specify from [-n to n] instead of [0,n]
     n <- (length(sweights)-1)/2
     sweights <- sweights[-seq_len(n)]

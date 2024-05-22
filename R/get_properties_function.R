@@ -131,7 +131,7 @@ diagnostic_matrix <- function(x, lags, passband = pi/6,
   results <- c(sum(x)-1, sum(coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)),
                sum(coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)^2),
                fst(x, lags, passband = passband))
-  if(!missing(sweights)){
+  if (!missing(sweights)){
     results <- c(results,
                  mse(x,
                      sweights,

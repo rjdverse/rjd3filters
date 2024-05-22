@@ -122,7 +122,7 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
     result <- c(rep(NA, data_clean$leading), result,
                rep(NA, data_clean$trailing))
   }
-  if(is.ts(x))
+  if (is.ts(x))
     result <- ts(result,start = start(x), frequency = frequency(x))
   result
 }

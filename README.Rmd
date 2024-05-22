@@ -10,8 +10,9 @@ knitr::opts_chunk$set(
   comment = "#>", 
   fig.path = "man/figures/README-", 
   fig.align="center", 
-  fig.width = 8
+  fig.width = 8L
 )
+options(max.print = 1000L)
 ```
 
 # rjd3filters
@@ -127,13 +128,16 @@ legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
 ### Comparison of the filters
 
 Different quality criteria from Grun-Rehomme *et al* (2018) and Wildi and McElroy(2019) can also be computed with the function `diagnostic_matrix()`:
+
 ```{r diagnostic-table, eval = TRUE}
 q_0_coefs <- list(Musgrave = musgrave[, "q=0"], 
                   fst_notimeliness = fst_notimeliness[, "q=0"], 
                   rkhs_timeliness = rkhs_timeliness[, "q=0"])
 
-sapply(q_0_coefs, diagnostic_matrix, 
-       lags = 6, sweight = musgrave[, "q=6"])
+sapply(X = q_0_coefs, 
+       FUN = diagnostic_matrix, 
+       lags = 6, 
+       sweights = musgrave[, "q=6"])
 ```
 
 The filters can also be compared by plotting there coefficients (`plot_coef`), gain function (`plot_gain`) and phase function (`plot_phase`):
@@ -244,4 +248,4 @@ pull requests should include **updated tests** and **updated documentation**. If
 
 ## Licensing
 
-The code of this project is licensed under the [European Union Public Licence (EUPL)](https://joinup.ec.europa.eu/page/eupl-text-11-12).
+The code of this project is licensed under the [European Union Public Licence (EUPL)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).

@@ -142,8 +142,10 @@ q_0_coefs <- list(Musgrave = musgrave[, "q=0"],
                   fst_notimeliness = fst_notimeliness[, "q=0"], 
                   rkhs_timeliness = rkhs_timeliness[, "q=0"])
 
-sapply(q_0_coefs, diagnostic_matrix, 
-       lags = 6, sweight = musgrave[, "q=6"])
+sapply(X = q_0_coefs, 
+       FUN = diagnostic_matrix, 
+       lags = 6, 
+       sweights = musgrave[, "q=6"])
 #>         Musgrave fst_notimeliness rkhs_timeliness
 #> b_c  0.000000000     2.220446e-16     0.000000000
 #> b_l -0.575984377    -1.554312e-15    -0.611459167
@@ -361,4 +363,5 @@ should be added or updated.
 ## Licensing
 
 The code of this project is licensed under the [European Union Public
-Licence (EUPL)](https://joinup.ec.europa.eu/page/eupl-text-11-12).
+Licence
+(EUPL)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).

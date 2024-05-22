@@ -106,7 +106,7 @@ is.finite_filters <- function(x){
           rfilters <- rev(rfilters)
         }
       } else {
-        if(first_to_last) {
+        if (first_to_last) {
           lfilters <- rev(lfilters)
           rfilters <- rev(rfilters)
         }
