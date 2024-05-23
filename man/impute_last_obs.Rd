@@ -24,7 +24,11 @@ Impute Incomplete Finite Filters
 \details{
 When combining finite filters and a moving average, the first and/or the last points cannot be computed.
 
-For example, using the M2X12 moving average (symmetric moving average with coefficients \eqn{\theta = \begin{pmatrix} 1/24 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/24 \end{pmatrix}}), the first and last 6 points cannot be computed.
+For example, using the M2X12 moving average, that is to say the symmetric moving average with coefficients
+\deqn{
+\theta = \frac{1}{24}B^{6} + \frac{1}{12}B^{5}+\dots+\frac{1}{12}B^{-5}+\frac{1}{24}B^{-6},
+}
+the first and last 6 points cannot be computed.
 
 \code{impute_last_obs()} allows to impute the first/last points using the \code{nperiod} previous filtered data. With \code{nperiod = 1}, the last filtered data is used for the imputation, with \code{nperiod = 12} and monthly data, the last year filtered data is used for the imputation, etc.
 }
