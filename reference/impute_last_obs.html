@@ -78,7 +78,11 @@ By default all the missing moving averages are imputed.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>When combining finite filters and a moving average, the first and/or the last points cannot be computed.</p>
-<p>For example, using the M2X12 moving average (symmetric moving average with coefficients \(\theta = \begin{pmatrix} 1/24 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/12 &amp; 1/24 \end{pmatrix}\)), the first and last 6 points cannot be computed.</p>
+<p>For example, using the M2X12 moving average, that is to say the symmetric moving average with coefficients
+$$
+\theta = \frac{1}{24}B^{6} + \frac{1}{12}B^{5}+\dots+\frac{1}{12}B^{-5}+\frac{1}{24}B^{-6},
+$$
+the first and last 6 points cannot be computed.</p>
 <p><code>impute_last_obs()</code> allows to impute the first/last points using the <code>nperiod</code> previous filtered data. With <code>nperiod = 1</code>, the last filtered data is used for the imputation, with <code>nperiod = 12</code> and monthly data, the last year filtered data is used for the imputation, etc.</p>
     </div>
 
@@ -129,7 +133,7 @@ By default all the missing moving averages are imputed.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jean Palate, Alain Quartier-la-Tente, Tanguy Barthelemy, Anna Smyk.</p>
+  <p>Developed by Jean Palate, Alain Quartier-la-Tente.</p>
 </div>
 
 <div class="pkgdown-footer-right">
