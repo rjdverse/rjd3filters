@@ -1,7 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rjd3filters
+# `rjd3filters` <a href="https://rjdverse.github.io/rjd3filters/"><img src="man/figures/logo.png" align="right" height="150" style="float:right; height:150px;"/></a>
+
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
+
+[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml)
+[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml)
+
+[![GH Pages
+built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml)
+<!-- badges: end -->
 
 rjd3filters is an R package on linear filters for real-time trend-cycle
 estimates. It allows to create symmetric and asymmetric moving averages
@@ -224,15 +236,24 @@ coef(M2X12)
 #> 0.04166667 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 
 #>        t+1        t+2        t+3        t+4        t+5        t+6 
 #> 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.04166667
+```
+
+``` r
 M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3
 # M3X3 moving average applied to each month
 M3X3
 #> [1] "0.1111 B^2 + 0.2222 B + 0.3333 + 0.2222 F + 0.1111 F^2"
+```
+
+``` r
 M3X3_seasonal <- to_seasonal(M3X3, 12)
 # M3X3_seasonal moving average applied to the global series
 M3X3_seasonal
 #> [1] "0.1111 B^24 + 0.2222 B^12 + 0.3333 + 0.2222 F^12 + 0.1111 F^24"
+```
+
+``` r
 
 def.par <- par(no.readonly = TRUE)
 par(mai = c(0.5, 0.8, 0.3, 0))
@@ -292,6 +313,9 @@ musgrave
 #> t+4  0.000000000  0.00000000
 #> t+5  0.000000000  0.00000000
 #> t+6  0.000000000  0.00000000
+```
+
+``` r
 musgrave * M3X3
 #>              q=6          q=5          q=4           q=3          q=2
 #> t-8 -0.002149983 -0.001845449 -0.001291520 -0.0010169359 -0.001793248

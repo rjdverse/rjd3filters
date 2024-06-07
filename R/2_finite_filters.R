@@ -329,7 +329,7 @@ as.matrix.finite_filters <- function(x, sfilter = TRUE, rfilters = TRUE, lfilter
   sfilter_s <- rfilters_s <- lfilters_s <-
     index_s <- index_r <- index_l <- NULL
   if (!any(sfilter, rfilters, lfilters))
-    return (NULL)
+    return(NULL)
   if (sfilter) {
     sfilter_s <- list(x@sfilter)
     index_s <- length(x@rfilters)
