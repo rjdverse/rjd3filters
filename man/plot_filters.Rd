@@ -14,7 +14,7 @@
 \alias{plot_phase.finite_filters}
 \title{Plots filters properties}
 \usage{
-plot_coef(x, nxlab = 7, add = FALSE, ...)
+plot_coef(x, nxlab = 7, add = FALSE, ..., xlab = "", ylab = "coefficient")
 
 \method{plot_coef}{default}(
   x,
@@ -24,10 +24,12 @@ plot_coef(x, nxlab = 7, add = FALSE, ...)
   q = 0,
   legend = FALSE,
   legend.pos = "topright",
-  ...
+  ...,
+  xlab = "",
+  ylab = "coefficient"
 )
 
-\method{plot_coef}{moving_average}(x, nxlab = 7, add = FALSE, ...)
+\method{plot_coef}{moving_average}(x, nxlab = 7, add = FALSE, ..., xlab = "", ylab = "coefficient")
 
 \method{plot_coef}{finite_filters}(
   x,
@@ -37,12 +39,30 @@ plot_coef(x, nxlab = 7, add = FALSE, ...)
   q = 0,
   legend = length(q) > 1,
   legend.pos = "topright",
-  ...
+  ...,
+  xlab = "",
+  ylab = "coefficient"
 )
 
-plot_gain(x, nxlab = 7, add = FALSE, xlim = c(0, pi), ...)
+plot_gain(
+  x,
+  nxlab = 7,
+  add = FALSE,
+  xlim = c(0, pi),
+  ...,
+  xlab = "",
+  ylab = "gain"
+)
 
-\method{plot_gain}{moving_average}(x, nxlab = 7, add = FALSE, xlim = c(0, pi), ...)
+\method{plot_gain}{moving_average}(
+  x,
+  nxlab = 7,
+  add = FALSE,
+  xlim = c(0, pi),
+  ...,
+  xlab = "",
+  ylab = "gain"
+)
 
 \method{plot_gain}{finite_filters}(
   x,
@@ -53,12 +73,32 @@ plot_gain(x, nxlab = 7, add = FALSE, xlim = c(0, pi), ...)
   legend = length(q) > 1,
   legend.pos = "topright",
   n = 101,
-  ...
+  ...,
+  xlab = "",
+  ylab = "gain"
 )
 
-plot_phase(x, nxlab = 7, add = FALSE, xlim = c(0, pi), normalized = FALSE, ...)
+plot_phase(
+  x,
+  nxlab = 7,
+  add = FALSE,
+  xlim = c(0, pi),
+  normalized = FALSE,
+  ...,
+  xlab = "",
+  ylab = "phase"
+)
 
-\method{plot_phase}{moving_average}(x, nxlab = 7, add = FALSE, xlim = c(0, pi), normalized = FALSE, ...)
+\method{plot_phase}{moving_average}(
+  x,
+  nxlab = 7,
+  add = FALSE,
+  xlim = c(0, pi),
+  normalized = FALSE,
+  ...,
+  xlab = "",
+  ylab = "phase"
+)
 
 \method{plot_phase}{finite_filters}(
   x,
@@ -70,7 +110,9 @@ plot_phase(x, nxlab = 7, add = FALSE, xlim = c(0, pi), normalized = FALSE, ...)
   legend = length(q) > 1,
   legend.pos = "topright",
   n = 101,
-  ...
+  ...,
+  xlab = "",
+  ylab = "phase"
 )
 }
 \arguments{
