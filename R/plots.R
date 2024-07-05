@@ -239,7 +239,7 @@ rm_leading_zero_or_na <- function(x){
   }
   if (is.null(remove_i)){
     x
-  } else{
+  } else {
     x[-remove_i]
   }
 }
@@ -254,7 +254,7 @@ rm_trailing_zero_or_na <- function(x){
   }
   if (is.null(remove_i)){
     x
-  } else{
+  } else {
     x[-remove_i]
   }
 }
@@ -269,7 +269,7 @@ rm_trailing_zero <- function(x){
   }
   if (is.null(remove_i)){
     x
-  } else{
+  } else {
     x[-remove_i]
   }
 }
@@ -291,7 +291,7 @@ remove_bound_NA <- function(x) {
   if (is.null(remove_i_first) & is.null(remove_i_last)){
     # list(data = x, leading = 0,
     #      trailing = 0)
-  } else{
+  } else {
     x <- x[- c(remove_i_first, remove_i_last)]
   }
 
