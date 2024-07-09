@@ -40,7 +40,11 @@ Running rjd3 packages requires **Java 17 or higher**. How to set up such
 a configuration in R is explained
 [here](https://jdemetra-new-documentation.netlify.app/#Rconfig)
 
+### Latest release
+
 To get the current stable version (from the latest release):
+
+- From GitHub:
 
 ``` r
 # install.packages("remotes")
@@ -48,12 +52,18 @@ remotes::install_github("rjdverse/rjd3toolkit@*release")
 remotes::install_github("rjdverse/rjd3filters@*release")
 ```
 
+- From [r-universe](https://rjdverse.r-universe.dev/rjd3filters):
+
+``` r
+install.packages("rjd3filters", repos = c("https://rjdverse.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+### Development version
+
 To get the current development version from GitHub:
 
 ``` r
 # install.packages("remotes")
-# Install development version from GitHub
-remotes::install_github("rjdverse/rjd3toolkit")
 remotes::install_github("rjdverse/rjd3filters")
 ```
 
@@ -236,24 +246,15 @@ coef(M2X12)
 #> 0.04166667 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 
 #>        t+1        t+2        t+3        t+4        t+5        t+6 
 #> 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.04166667
-```
-
-``` r
 M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3
 # M3X3 moving average applied to each month
 M3X3
 #> [1] "0.1111 B^2 + 0.2222 B + 0.3333 + 0.2222 F + 0.1111 F^2"
-```
-
-``` r
 M3X3_seasonal <- to_seasonal(M3X3, 12)
 # M3X3_seasonal moving average applied to the global series
 M3X3_seasonal
 #> [1] "0.1111 B^24 + 0.2222 B^12 + 0.3333 + 0.2222 F^12 + 0.1111 F^24"
-```
-
-``` r
 
 def.par <- par(no.readonly = TRUE)
 par(mai = c(0.5, 0.8, 0.3, 0))
@@ -313,9 +314,6 @@ musgrave
 #> t+4  0.000000000  0.00000000
 #> t+5  0.000000000  0.00000000
 #> t+6  0.000000000  0.00000000
-```
-
-``` r
 musgrave * M3X3
 #>              q=6          q=5          q=4           q=3          q=2
 #> t-8 -0.002149983 -0.001845449 -0.001291520 -0.0010169359 -0.001793248
