@@ -288,7 +288,7 @@ remove_bound_NA <- function(x) {
     j <- j + 1
   }
 
-  if (is.null(remove_i_first) & is.null(remove_i_last)){
+  if (is.null(remove_i_first) && is.null(remove_i_last)){
     # list(data = x, leading = 0,
     #      trailing = 0)
   } else {

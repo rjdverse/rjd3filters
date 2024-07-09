@@ -34,17 +34,17 @@ finite_filters.moving_average <- function(sfilter,
                                           rfilters = NULL,
                                           lfilters = NULL,
                                           first_to_last = FALSE){
-  if (is.null(lfilters) & !is.null(rfilters)) {
+  if (is.null(lfilters) && !is.null(rfilters)) {
     if (first_to_last) {
       rfilters <- rev(rfilters)
     }
     lfilters <- rev(lapply(rfilters, rev.moving_average))
-  } else if (!is.null(lfilters) & is.null(rfilters)) {
+  } else if (!is.null(lfilters) && is.null(rfilters)) {
     if (!first_to_last) {
       lfilters <- rev(lfilters)
     }
     rfilters <- rev(lapply(lfilters, rev.moving_average))
-  } else if (is.null(lfilters) & is.null(rfilters)) {
+  } else if (is.null(lfilters) && is.null(rfilters)) {
     rfilters <- lfilters <- list()
 
   }
