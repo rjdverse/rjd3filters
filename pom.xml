@@ -11,7 +11,7 @@
 	<description>Usage: mvn -Pcopy-jars</description>
 
 	<properties>
-		<jdplus-incubator.version>2.1.0</jdplus-incubator.version>
+		<jdplus-incubator.version>2.2.0</jdplus-incubator.version>
 	</properties>
 
 	<dependencies>
