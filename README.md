@@ -1,9 +1,21 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rjd3filters
+# `rjd3filters` <a href="https://rjdverse.github.io/rjd3filters/"><img src="man/figures/logo.png" align="right" height="150" style="float:right; height:150px;"/></a>
 
-rjd3filters is R package on linear filters for real-time trend-cycle
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
+
+[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml)
+[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml)
+
+[![GH Pages
+built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml)
+<!-- badges: end -->
+
+rjd3filters is an R package on linear filters for real-time trend-cycle
 estimates. It allows to create symmetric and asymmetric moving averages
 with:
 
@@ -22,24 +34,37 @@ computed.
 ## Installation
 
 rjd3filters relies on the
-[rJava](https://CRAN.R-project.org/package=rJava) package and Java SE 17
-or later version is required.
+[rJava](https://CRAN.R-project.org/package=rJava) package.
+
+Running rjd3 packages requires **Java 17 or higher**. How to set up such
+a configuration in R is explained
+[here](https://jdemetra-new-documentation.netlify.app/#Rconfig)
+
+### Latest release
 
 To get the current stable version (from the latest release):
 
+- From GitHub:
+
 ``` r
 # install.packages("remotes")
-remotes::install_github("rjdemetra/rjd3toolkit@*release")
-remotes::install_github("rjdemetra/rjd3filters@*release")
+remotes::install_github("rjdverse/rjd3toolkit@*release")
+remotes::install_github("rjdverse/rjd3filters@*release")
 ```
+
+- From [r-universe](https://rjdverse.r-universe.dev/rjd3filters):
+
+``` r
+install.packages("rjd3filters", repos = c("https://rjdverse.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+### Development version
 
 To get the current development version from GitHub:
 
 ``` r
 # install.packages("remotes")
-# Install development version from GitHub
-remotes::install_github("rjdemetra/rjd3toolkit")
-remotes::install_github("rjdemetra/rjd3filters")
+remotes::install_github("rjdverse/rjd3filters")
 ```
 
 ## Basic example
@@ -139,8 +164,10 @@ q_0_coefs <- list(Musgrave = musgrave[, "q=0"],
                   fst_notimeliness = fst_notimeliness[, "q=0"], 
                   rkhs_timeliness = rkhs_timeliness[, "q=0"])
 
-sapply(q_0_coefs, diagnostic_matrix, 
-       lags = 6, sweight = musgrave[, "q=6"])
+sapply(X = q_0_coefs, 
+       FUN = diagnostic_matrix, 
+       lags = 6, 
+       sweights = musgrave[, "q=6"])
 #>         Musgrave fst_notimeliness rkhs_timeliness
 #> b_c  0.000000000     2.220446e-16     0.000000000
 #> b_l -0.575984377    -1.554312e-15    -0.611459167
@@ -184,6 +211,22 @@ par(def.par)
 ```
 
 <img src="man/figures/README-diagnostic-plots-1.png" style="display: block; margin: auto;" />
+
+Confidence intervals can also be computed with the `confint_filter`
+function:
+
+``` r
+confint <- confint_filter(y, musgrave)
+
+plot(confint, plot.type = "single",
+     col = c("red", "black", "black"),
+     lty = c(1, 2, 2), xlab = NULL, ylab = NULL)
+lines(y, col = "grey")
+legend("topleft", legend = c("y", "Smoothed", "CI (95%)"), 
+       col= c("grey", "red", "black"), lty = c(1, 1, 2))
+```
+
+<img src="man/figures/README-confint-plot-1.png" style="display: block; margin: auto;" />
 
 ### Manipulate moving averages
 
@@ -342,4 +385,5 @@ should be added or updated.
 ## Licensing
 
 The code of this project is licensed under the [European Union Public
-Licence (EUPL)](https://joinup.ec.europa.eu/page/eupl-text-11-12).
+Licence
+(EUPL)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).

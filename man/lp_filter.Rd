@@ -31,14 +31,7 @@ lp_filter(
 \item{passband}{passband threshold.}
 }
 \value{
-\code{list} with coefficients, gain and phase values
-
-An object of class \code{"rkhs_filter"}, which is a list of 4 elements:\itemize{
-\item{\code{"internal"}}{Java object used for internal functions}
-\item{\code{"filters.coef"}}{The coefficients of the selected filter}
-\item{\code{"filters.gain"}}{The gain function between 0 and pi (601 observations)}
-\item{\code{"filters.phase"}}{The phase function between 0 and pi (601 observations)}
-}
+a \code{\link[=finite_filters]{finite_filters()}} object.
 }
 \description{
 Local Polynomials Filters
@@ -61,5 +54,5 @@ plot_coef(henderson_f)
 Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
 }
 \seealso{
-\code{\link{lp_filter}}
+\code{\link[=localpolynomials]{localpolynomials()}}.
 }

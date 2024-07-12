@@ -12,6 +12,7 @@ setClass("finite_filters",
 #' @param first_to_last boolean indicating if the first element of `rfilters` is the
 #' first asymmetric filter (when only one observation is missing) or the last one (real-time estimates).
 #' @param object `finite_filters` object.
+#' @param x object to test the class.
 #'
 #' @examples
 #' ff_lp <- lp_filter()
@@ -33,17 +34,17 @@ finite_filters.moving_average <- function(sfilter,
                                           rfilters = NULL,
                                           lfilters = NULL,
                                           first_to_last = FALSE){
-  if (is.null(lfilters) & !is.null(rfilters)) {
+  if (is.null(lfilters) && !is.null(rfilters)) {
     if (first_to_last) {
       rfilters <- rev(rfilters)
     }
     lfilters <- rev(lapply(rfilters, rev.moving_average))
-  } else if (!is.null(lfilters) & is.null(rfilters)) {
+  } else if (!is.null(lfilters) && is.null(rfilters)) {
     if (!first_to_last) {
       lfilters <- rev(lfilters)
     }
     rfilters <- rev(lapply(lfilters, rev.moving_average))
-  } else if (is.null(lfilters) & is.null(rfilters)) {
+  } else if (is.null(lfilters) && is.null(rfilters)) {
     rfilters <- lfilters <- list()
 
   }
@@ -81,6 +82,11 @@ finite_filters.matrix <- function(sfilter,
   finite_filters(coefs, first_to_last = first_to_last)
 }
 
+#' @rdname finite_filters
+#' @export
+is.finite_filters <- function(x){
+    is(x, "finite_filters")
+}
 
 #' @export
 .jd2r_finitefilters <- function(jf, first_to_last){
@@ -100,7 +106,7 @@ finite_filters.matrix <- function(sfilter,
           rfilters <- rev(rfilters)
         }
       } else {
-        if(first_to_last) {
+        if (first_to_last) {
           lfilters <- rev(lfilters)
           rfilters <- rev(rfilters)
         }
@@ -323,7 +329,7 @@ as.matrix.finite_filters <- function(x, sfilter = TRUE, rfilters = TRUE, lfilter
   sfilter_s <- rfilters_s <- lfilters_s <-
     index_s <- index_r <- index_l <- NULL
   if (!any(sfilter, rfilters, lfilters))
-    return (NULL)
+    return(NULL)
   if (sfilter) {
     sfilter_s <- list(x@sfilter)
     index_s <- length(x@rfilters)
@@ -498,7 +504,11 @@ to_seasonal.finite_filters <- function(x, s){
 #' @details
 #' When combining finite filters and a moving average, the first and/or the last points cannot be computed.
 #'
-#' For example, using the M2X12 moving average (symmetric moving average with coefficients \eqn{\theta = \begin{pmatrix} 1/24 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/12 & 1/24 \end{pmatrix}}), the first and last 6 points cannot be computed.
+#' For example, using the M2X12 moving average, that is to say the symmetric moving average with coefficients
+#' \deqn{
+#' \theta = \frac{1}{24}B^{6} + \frac{1}{12}B^{5}+\dots+\frac{1}{12}B^{-5}+\frac{1}{24}B^{-6},
+#' }
+#' the first and last 6 points cannot be computed.
 #'
 #' `impute_last_obs()` allows to impute the first/last points using the `nperiod` previous filtered data. With `nperiod = 1`, the last filtered data is used for the imputation, with `nperiod = 12` and monthly data, the last year filtered data is used for the imputation, etc.
 #'

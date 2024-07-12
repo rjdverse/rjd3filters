@@ -117,7 +117,7 @@ fst.moving_average<-function(weights, lags, passband=pi/6, ...){
 fst.finite_filters<-function(weights, lags, passband=pi/6,
                              sfilter = TRUE, rfilters = TRUE, lfilters = FALSE, ...){
   if (!any(sfilter, rfilters, lfilters))
-    return (NULL)
+    return(NULL)
 
   sfilter_s <- rfilters_s <- lfilters_s <-
     index_s <- index_r <- index_l <- NULL
@@ -176,7 +176,7 @@ mse.default<-function(aweights, sweights, density=c("uniform", "rw"), passband =
     } else {
       sweights <- coef(sweights)
     }
-  } else if(length(sweights)>length(aweights)){
+  } else if (length(sweights)>length(aweights)){
     # we asume sweights were specify from [-n to n] instead of [0,n]
     n <- (length(sweights)-1)/2
     sweights <- sweights[-seq_len(n)]
@@ -184,13 +184,13 @@ mse.default<-function(aweights, sweights, density=c("uniform", "rw"), passband =
   spectral <- match.arg(density)
   rslt<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "[D", "mseDecomposition",
                sweights, aweights, spectral, passband)
-  return (c(accuracy=rslt[1], smoothness=rslt[2], timeliness=rslt[3], residual=rslt[4]))
+  return(c(accuracy=rslt[1], smoothness=rslt[2], timeliness=rslt[3], residual=rslt[4]))
 }
 #' @export
 mse.finite_filters<-function(aweights, sweights = aweights@sfilter, density=c("uniform", "rw"), passband = pi/6,
                             sfilter = TRUE, rfilters = TRUE, lfilters = FALSE, ...){
   if (!any(sfilter, rfilters, lfilters))
-    return (NULL)
+    return(NULL)
 
   sfilter_s <- rfilters_s <- lfilters_s <-
     index_s <- index_r <- index_l <- NULL

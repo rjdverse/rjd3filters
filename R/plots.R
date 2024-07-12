@@ -31,13 +31,13 @@ plot_coef <- function(x, nxlab = 7, add = FALSE, ...){
 plot_coef.default <- function(x, nxlab = 7, add = FALSE,
                               zero_as_na = TRUE, q = 0, legend = FALSE,
                               legend.pos = "topright", ...){
-  if(zero_as_na)
+  if (zero_as_na)
     x  <- apply(x,2, trailingzero_as_na)
   col_to_plot <- sprintf("q=%i",q)
   col_to_plot <- col_to_plot[col_to_plot %in% colnames(x)]
   horizon <- (nrow(x)-1)/2
   if (length(col_to_plot) == 0) {
-    if(!add){
+    if (!add){
       plot(1, type="n",xaxt = "n", xlab = "",
            ylab = "coefficient", xlim=c(-horizon, horizon), ylim=c(0, 1),
            ...)
@@ -48,10 +48,10 @@ plot_coef.default <- function(x, nxlab = 7, add = FALSE,
   matplot(seq(-horizon, horizon, by = 1),x[,col_to_plot],
           xaxt = "n", xlab = "", type = "o", pch = 20,
           ylab = "coefficient", add = add, ...)
-  if(legend)
+  if (legend)
     legend(legend.pos,col_to_plot,
            col = seq_along(col_to_plot), lty=seq_along(col_to_plot), lwd=2)
-  if(!add)
+  if (!add)
     axis(1, at=seq(-horizon, horizon, by = 1), labels = rownames(x))
 }
 
@@ -62,7 +62,7 @@ plot_coef.moving_average <- function(x, nxlab = 7, add = FALSE, ...){
   matplot(seq(lower_bound(x), upper_bound(x), by = 1), x_plot,
           xaxt = "n", xlab = "", type = "o", pch = 20,
           ylab = "coefficient", add = add, ...)
-  if(!add)
+  if (!add)
     axis(1, at=seq(lower_bound(x), upper_bound(x), by = 1), labels = names(x_plot))
 }
 
@@ -91,7 +91,7 @@ plot_gain.moving_average<- function(x, nxlab = 7, add = FALSE,
   plot(g, type = "l",
        xaxt = "n", xlab = "",
        ylab = "gain", add = add, xlim = xlim, ...)
-  if(!add){
+  if (!add){
     x_lab_at <- seq(xlim[1]/pi, xlim[2]/pi, length.out = nxlab)
     axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
   }
@@ -112,7 +112,7 @@ plot_gain.finite_filters <- function(x, nxlab = 7, add = FALSE,
   all_g_f <- all_g_f[col_to_plot]
   y_val <- sapply(all_g_f, function(f) f(x_values))
   if (length(col_to_plot) == 0) {
-    if(!add){
+    if (!add){
       plot(1, type="n",xaxt = "n", xlab = "",
            ylab = "gain", xlim=xlim, ylim=c(0, 1),
            ...)
@@ -157,7 +157,7 @@ plot_phase.moving_average<- function(x, nxlab = 7, add = FALSE,
   plot(p_plot, type = "l",
        xaxt = "n", xlab = "",
        ylab = "phase", add = add, xlim = xlim, ...)
-  if(!add){
+  if (!add){
     x_lab_at <- seq(xlim[1]/pi, xlim[2]/pi, length.out = nxlab)
     axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
   }
@@ -180,11 +180,11 @@ plot_phase.finite_filters <- function(x, nxlab = 7, add = FALSE,
   all_p_f <- all_p_f[col_to_plot]
   y_val <- sapply(all_p_f, function(f) f(x_values))
 
-  if(normalized){
+  if (normalized){
     y_val[-1,] <- y_val[-1,] / x_values[-1]
   }
   if (length(col_to_plot) == 0) {
-    if(!add){
+    if (!add){
       plot(1, type="n",xaxt = "n", xlab = "",
            ylab = "phase", xlim=xlim, ylim=c(0, 1),
            ...)
@@ -222,7 +222,7 @@ trailingzero_as_na <- function(x){
     i <- i - 1
   }
   x
-  # if(x[length(x)]==0)
+  # if (x[length(x)]==0)
   #   x [seq(from = tail(which(!sapply(x, function(y) isTRUE(all.equal(y,0)))),1)+1,
   #          to = length(x),
   #          by = 1)] <- NA
@@ -237,9 +237,9 @@ rm_leading_zero_or_na <- function(x){
     remove_i <- c(i, remove_i)
     i <- i + 1
   }
-  if(is.null(remove_i)){
+  if (is.null(remove_i)){
     x
-  } else{
+  } else {
     x[-remove_i]
   }
 }
@@ -252,9 +252,9 @@ rm_trailing_zero_or_na <- function(x){
     remove_i <- c(i, remove_i)
     i <- i - 1
   }
-  if(is.null(remove_i)){
+  if (is.null(remove_i)){
     x
-  } else{
+  } else {
     x[-remove_i]
   }
 }
@@ -267,9 +267,9 @@ rm_trailing_zero <- function(x){
     remove_i <- c(i, remove_i)
     i <- i - 1
   }
-  if(is.null(remove_i)){
+  if (is.null(remove_i)){
     x
-  } else{
+  } else {
     x[-remove_i]
   }
 }
@@ -288,10 +288,10 @@ remove_bound_NA <- function(x) {
     j <- j + 1
   }
 
-  if(is.null(remove_i_first) & is.null(remove_i_last)){
+  if (is.null(remove_i_first) && is.null(remove_i_last)){
     # list(data = x, leading = 0,
     #      trailing = 0)
-  } else{
+  } else {
     x <- x[- c(remove_i_first, remove_i_last)]
   }
 

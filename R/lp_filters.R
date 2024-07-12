@@ -19,7 +19,7 @@ NULL
 #' plot(x)
 #' lines(trend, col = "red")
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
-#' @seealso \code{\link{lp_filter}}
+#' @seealso [lp_filter()].
 #' @export
 localpolynomials<-function(x,
                            horizon = 6,
@@ -28,7 +28,7 @@ localpolynomials<-function(x,
                            endpoints = c("LC", "QL", "CQ", "CC", "DAF"),
                            ic = 4.5,
                            tweight = 0, passband = pi/12){
-  if(2*horizon < degree)
+  if (2*horizon < degree)
     stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
 
   d <- 2 / (sqrt(pi) * ic)
@@ -66,26 +66,19 @@ localpolynomials<-function(x,
 #' * "DAF": Direct Asymmetric filter
 #' * "CN": Cut and Normalized Filter
 #'
-#' @return \code{list} with coefficients, gain and phase values
-#'
+#' @return a [finite_filters()] object.
+#' @seealso [localpolynomials()].
 #' @examples
 #' henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
 #' plot_coef(henderson_f)
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
-#' @seealso \code{\link{lp_filter}}
-#' @return An object of class \code{"rkhs_filter"}, which is a list of 4 elements:\itemize{
-#' \item{\code{"internal"}}{Java object used for internal functions}
-#' \item{\code{"filters.coef"}}{The coefficients of the selected filter}
-#' \item{\code{"filters.gain"}}{The gain function between 0 and pi (601 observations)}
-#' \item{\code{"filters.phase"}}{The phase function between 0 and pi (601 observations)}
-#' }
 #' @export
 lp_filter <- function(horizon = 6, degree = 3,
                       kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
                       endpoints = c("LC", "QL", "CQ", "CC", "DAF", "CN"),
                       ic = 4.5,
                       tweight = 0, passband = pi/12){
-  if(2*horizon < degree)
+  if (2*horizon < degree)
     stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
 
   d <- 2 / (sqrt(pi) * ic)

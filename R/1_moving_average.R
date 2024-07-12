@@ -13,6 +13,9 @@ setClass("moving_average",
 #' @param i,j,value indices specifying elements to extract or replace and the new value
 #'
 #' @param ...,drop,na.rm other parameters.
+#' @param zero_as_na boolean indicating if, when merging several moving averages (`cbind`)
+#' if trealing and leading zeros added to have a matrix form should be replaced by `NA`.
+#'
 #' @name filters_operations
 NULL
 
@@ -72,7 +75,7 @@ NULL
 #' @export
 moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_zero = FALSE){
   if (inherits(x, "moving_average"))
-    return (x)
+    return(x)
   x <- as.numeric(x)
   if (trailing_zero)
     x <- rm_trailing_zero_or_na(x)
@@ -113,7 +116,7 @@ moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_
 is.moving_average <- function(x){
   is(x, "moving_average")
 }
-#' @importFrom stats coef coefficients
+#' @importFrom stats coef coefficients end qnorm ts.union
 #' @export
 coef.moving_average <- function(object, ...){
   coefs <- object@coefficients
@@ -190,7 +193,7 @@ setMethod("[",
             indices <- seq_along(coefs)[i]
             coefs[-indices] <- 0
             if (all(coefs == 0))
-              return (moving_average(0, lags = lower_bound(x) + indices - 1))
+              return(moving_average(0, lags = lower_bound(x) + indices - 1))
 
             moving_average(coefs, lags = lower_bound(x),
                            leading_zero = TRUE, trailing_zero = TRUE)

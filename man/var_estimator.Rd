@@ -17,7 +17,17 @@ var_estimator(x, coef, ...)
 Variance Estimator
 }
 \details{
+Let \eqn{(\theta_i)_{-p\leq i \leq q}} be a moving average of length \eqn{p+q+1} used
+to filter a time series \eqn{(y_i)_{1\leq i \leq n}}.
+It is equivalent to a local regression and the associated error variance \eqn{\sigma^2}
+can be estimated using the normalized residual sum of squares, which can be simplified as:
 \deqn{
-\hat\sigma^2=\frac{1}{n-2h}\sum_{t=h+1}^{n-h}\frac{(y_t-\hat \mu_t)^2}{1-2w_0^2+\sum w_i^2}
+\hat\sigma^2=\frac{1}{n-(p+q)}\sum_{t=p+1}^{n-q}
+\frac{(y_t-\hat \mu_t)^2}{1-2w_0^2+\sum_{i=-p}^q w_i^2}
 }
+}
+\references{
+Loader, Clive. 1999.
+Local regression and likelihood.
+New York: Springer-Verlag.
 }

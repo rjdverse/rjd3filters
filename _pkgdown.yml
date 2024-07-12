@@ -1,4 +1,4 @@
-url: https://rjdemetra.github.io/rjd3filters/
+url: https://rjdverse.github.io/rjd3filters/
 template:
   bootstrap: 5
 
@@ -17,13 +17,14 @@ reference:
   - '`get_kernel`'
 - title: Stastics on Moving Averages and estimates
   contents:
-  - '`cross_validation`'
+  - '`diagnostics-fit`'
   - '`diagnostic_matrix`'
   - '`fst`'
   - '`implicit_forecast`'
   - '`get_properties_function`'
   - '`mse`'
   - '`var_estimator`'
+  - '`confint_filter`'
 
 - title: Manipulation of Moving Averages and Finite Filters
   contents:
@@ -37,3 +38,7 @@ reference:
 - title: Data
   contents:
   - '`retailsa`'
+
+- title: Deprecated functions
+  contents:
+  - '`deprecated-rjd3filters`'
