@@ -61,7 +61,7 @@ implicit_forecast.default <- function(x, coefs){
 }
 #' @export
 implicit_forecast.matrix <- function(x, coefs){
-  result <- do.call(cbind, lapply(seq_len(ncol(x)), function (i) implicit_forecast(x[,i], coefs = coefs)))
+  result <- do.call(cbind, lapply(seq_len(ncol(x)), function(i) implicit_forecast(x[,i], coefs = coefs)))
   colnames(result) <- colnames(x)
   result
 }

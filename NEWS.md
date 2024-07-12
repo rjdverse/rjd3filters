@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 * `cross_validation()` function renamed to `cve()`, `cross_validation()` is now deprecated.
+* New .jar files added (related to [v2.2.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.2.0))
 
 ### Added
 

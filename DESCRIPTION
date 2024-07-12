@@ -5,10 +5,10 @@ Version: 2.1.1
 Authors@R: c(
   person("Jean", "Palate", role = c("aut"),
                 email = "palatejean@gmail.com"),
-  person("Alain", "Quartier-la-Tente", role = c("aut","cre"),
+  person("Alain", "Quartier-la-Tente", role = c("aut", "cre"),
                  email = "alain.quartier@yahoo.fr",
                  comment = c(ORCID = "0000-0001-7890-3857")),
-  person("Tanguy", "Barthelemy", role = c("ctb"),
+  person("Tanguy", "Barthelemy", role = c("ctb", "art"),
                  email ="tanguy.barthelemy@insee.fr"),
   person("Anna", "Smyk", role = c("ctb"),
                  email ="anna.smyk@insee.fr")

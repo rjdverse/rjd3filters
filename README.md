@@ -1,7 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rjd3filters
+# `rjd3filters` <a href="https://rjdverse.github.io/rjd3filters/"><img src="man/figures/logo.png" align="right" height="150" style="float:right; height:150px;"/></a>
+
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
+
+[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml)
+[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml)
+
+[![GH Pages
+built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml)
+<!-- badges: end -->
 
 rjd3filters is an R package on linear filters for real-time trend-cycle
 estimates. It allows to create symmetric and asymmetric moving averages
@@ -28,7 +40,11 @@ Running rjd3 packages requires **Java 17 or higher**. How to set up such
 a configuration in R is explained
 [here](https://jdemetra-new-documentation.netlify.app/#Rconfig)
 
+### Latest release
+
 To get the current stable version (from the latest release):
+
+- From GitHub:
 
 ``` r
 # install.packages("remotes")
@@ -36,12 +52,18 @@ remotes::install_github("rjdverse/rjd3toolkit@*release")
 remotes::install_github("rjdverse/rjd3filters@*release")
 ```
 
+- From [r-universe](https://rjdverse.r-universe.dev/rjd3filters):
+
+``` r
+install.packages("rjd3filters", repos = c("https://rjdverse.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+### Development version
+
 To get the current development version from GitHub:
 
 ``` r
 # install.packages("remotes")
-# Install development version from GitHub
-remotes::install_github("rjdverse/rjd3toolkit")
 remotes::install_github("rjdverse/rjd3filters")
 ```
 
