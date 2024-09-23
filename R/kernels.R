@@ -16,11 +16,28 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
                                   "Trapezoidal", "Gaussian"),
                        horizon,
                        sd_gauss = 0.25){
+  jkernel <- .r2jd_kernel(kernel, horizon, sd_gauss)
+  coef <- sapply(as.integer(seq.int(from = 0, to = horizon, by = 1)),
+                function(x) .jcall(jkernel, "D", "applyAsDouble", x))
+  m <- horizon
+  result <- list(coef = coef, m = m)
+  attr(result, "name") <- kernel
+  attr(result, "class") <- "tskernel"
+  result
+}
+.r2jd_kernel <- function(
+    kernel = c("Henderson","Uniform", "Triangular",
+               "Epanechnikov","Parabolic","BiWeight", "TriWeight","Tricube",
+               "Trapezoidal", "Gaussian"),
+    horizon, sd_gauss = 0.25){
+
+  if (is.null(kernel))
+    return(.jnull("java/util/function/IntToDoubleFunction"))
 
   kernel <- match.arg(tolower(kernel)[1],
-                     choices = c("henderson", "uniform", "triangular", "epanechnikov", "parabolic",
-                                 "biweight", "triweight", "tricube", "trapezoidal", "gaussian"
-                     ))
+                      choices = c("henderson", "uniform", "triangular", "epanechnikov", "parabolic",
+                                  "biweight", "triweight", "tricube", "trapezoidal", "gaussian"
+                      ))
   if (kernel == "parabolic")
     kernel <- "epanechnikov"
   h <- as.integer(horizon)
@@ -33,12 +50,5 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
                       "Ljava/util/function/IntToDoubleFunction;",
                       tolower(kernel), h)
   }
-
-  coef <- sapply(as.integer(seq.int(from = 0, to = horizon, by = 1)),
-                jkernel$applyAsDouble)
-  m <- horizon
-  result <- list(coef = coef, m = m)
-  attr(result, "name") <- kernel
-  attr(result, "class") <- "tskernel"
-  result
+  jkernel
 }
