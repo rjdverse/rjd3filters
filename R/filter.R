@@ -78,12 +78,22 @@ filter_ma <- function(x, coefs){
   if (length(x) <= length(coefs))
     return(x * NA)
 
-  DataBlock <- J("jdplus.toolkit.base.core.data.DataBlock")
-  jx <- DataBlock$of(as.numeric(x))
-  out <- DataBlock$of(as.numeric(rep(NA, length(x) - length(coefs)+1)))
-  .ma2jd(coefs)$apply(jx,
-                     out)
-  result <- out$toArray()
+  jx <- .jcall(
+    "jdplus/toolkit/base/core/data/DataBlock",
+    "Ljdplus/toolkit/base/core/data/DataBlock;",
+    "of",
+    as.numeric(x)
+    )
+  out <- .jcall(
+    "jdplus/toolkit/base/core/data/DataBlock",
+    "Ljdplus/toolkit/base/core/data/DataBlock;",
+    "of",
+    as.numeric(rep(NA, length(x) - length(coefs)+1))
+  )
+  jfilter <- .ma2jd(coefs)
+  .jcall(jfilter, "V", "apply",
+    jx, out)
+  result <- .jcall(out, "[D", "toArray")
   result <- c(rep(NA, abs(min(lb, 0))),
               result,
               rep(NA, abs(max(ub, 0))))
