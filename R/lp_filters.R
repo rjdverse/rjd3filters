@@ -7,7 +7,7 @@ NULL
 #' @param horizon horizon (bandwidth) of the symmetric filter.
 #' @param degree degree of polynomial.
 #' @param kernel kernel uses.
-#' @param endpoints methode for endpoints.
+#' @param endpoints method for endpoints.
 #' @param tweight timeliness weight.
 #' @param passband passband threshold.
 #' @param ic ic ratio.
