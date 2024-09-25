@@ -4,15 +4,15 @@ Title: Trend-Cycle Extraction with Linear Filters based on JDemetra+ v3.x
 Version: 2.1.1
 Authors@R: c(
   person("Jean", "Palate", role = c("aut"),
-                email = "palatejean@gmail.com"),
+         email = "palatejean@gmail.com"),
   person("Alain", "Quartier-la-Tente", role = c("aut","cre"),
-                 email = "alain.quartier@yahoo.fr",
-                 comment = c(ORCID = "0000-0001-7890-3857")),
+         email = "alain.quartier@yahoo.fr",
+         comment = c(ORCID = "0000-0001-7890-3857")),
   person("Tanguy", "Barthelemy", role = c("ctb"),
-                 email ="tanguy.barthelemy@insee.fr"),
+         email ="tanguy.barthelemy@insee.fr"),
   person("Anna", "Smyk", role = c("ctb"),
-                 email ="anna.smyk@insee.fr")
-                 )
+         email ="anna.smyk@insee.fr")
+   )
 Description: This package provides functions to build and apply symmetric
   and asymmetric moving averages (= linear filters) for trend-cycle extraction.
   In particular, it implements several modern approaches for real-time estimates
@@ -29,17 +29,17 @@ Imports:
   MASS,
   graphics,
   stats,
-  rjd3toolkit (>= 3.2.2)
+  rjd3toolkit (> 3.2.4)
 Remotes:
   github::rjdverse/rjd3toolkit
 SystemRequirements: Java (>= 17)
-License: EUPL
+License: file LICENSE
 LazyData: TRUE
 URL: https://github.com/rjdverse/rjd3filters, https://rjdverse.github.io/rjd3filters/
 Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
