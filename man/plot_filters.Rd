@@ -124,6 +124,8 @@ plot_phase(
 
 \item{...}{other arguments to \code{matplot}.}
 
+\item{xlab, ylab}{labels of axis.}
+
 \item{zero_as_na}{boolean indicating if the trailing zero of the coefficients should be plotted (\code{FALSE}) or removed (\code{TRUE}).}
 
 \item{q}{q.}

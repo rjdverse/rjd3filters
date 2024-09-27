@@ -67,7 +67,7 @@ localpolynomials<-function(x,
 #' * "CN": Cut and Normalized Filter
 #'
 #' @return a [finite_filters()] object.
-#' @seealso [localpolynomials()].
+#' @seealso [mmsre_filter()] [localpolynomials()].
 #' @examples
 #' henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
 #' plot_coef(henderson_f)
