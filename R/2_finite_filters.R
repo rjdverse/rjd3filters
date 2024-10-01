@@ -101,7 +101,7 @@ is.finite_filters <- function(x){
       lfilters <- rev(lapply(jlfilter, .jd2ma))
 
       if (missing(first_to_last)) {
-        if (all(diff(sapply(lfilters, length)) <= 0)) {
+        if (all(diff(lengths(lfilters)) <= 0)) {
           lfilters <- rev(lfilters)
           rfilters <- rev(rfilters)
         }
