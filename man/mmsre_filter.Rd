@@ -5,7 +5,7 @@
 \title{Mean Square Revision Error (mmsre) filter}
 \usage{
 mmsre_filter(
-  sym,
+  ref_filter,
   q,
   U,
   Z = NULL,
@@ -16,7 +16,7 @@ mmsre_filter(
 )
 }
 \arguments{
-\item{sym}{The symmetric filter.}
+\item{ref_filter}{The reference filter (a \code{\link[=moving_average]{moving_average()}} object).}
 
 \item{q}{The horizon of the asymmetric filter.}
 
@@ -34,12 +34,12 @@ See \code{\link[=lp_filter]{lp_filter()}} for the available kernels.}
 \item{passband}{passband threshold.}
 }
 \description{
-Provides an asymmetric filter based on the given symmetric
-filter minimizing the mean square revision error.
+Provides an asymmetric filter based on the given reference
+filter (usually symmetric) minimizing the mean square revision error.
 }
 \details{
 The asymmetric filter \eqn{\boldsymbol v=(v_{-h},\dots,v{q})'} minimizes the mean square revision error
-(mmsre) relative to the symmetric filter \eqn{\boldsymbol \theta=(\theta_{-h},\dots,\theta_{h})'}.
+(mmsre) relative to the reference filter \eqn{\boldsymbol \theta=(\theta_{-h},\dots,\theta_{h'})'}.
 The series follows the model
 \deqn{
 \boldsymbol y=\boldsymbol U \boldsymbol \gamma +
@@ -63,14 +63,14 @@ DAF <- lp_filter(endpoints = "DAF")
 h6 <- QL[, "q=6"]
 # To reproduce DAF filter
 mmsre_filter(
-  sym = h6, q = 0,
+  ref_filter = h6, q = 0,
   U = polynomial_matrix(l = - 6, d0 = 0, d1 = 3),
   kernel = "Henderson"
 )
 DAF[, "q=0"]
 # To reproduce QL filter
 mmsre_filter(
-  sym = h6, q = 1,
+  ref_filter = h6, q = 1,
   delta = 2 / (sqrt(pi) * 3.5),
   U = polynomial_matrix(l = -6, d0 = 0, d1 = 1),
   Z = polynomial_matrix(l = -6, d0 = 2, d1 = 2)
@@ -79,7 +79,7 @@ QL[, "q=1"]
 
 # Or using the Uniform kernel
 mmsre_filter(
-  sym = h6, q = 2,
+  ref_filter = h6, q = 2,
   # we multiply by the square root of the inverse of weights (1/13)
   # to get the same result as the QL filter
   delta = 2 / (sqrt(pi) * 3.5) * (sqrt(13)),
