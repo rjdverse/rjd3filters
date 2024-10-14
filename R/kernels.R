@@ -31,7 +31,7 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
                "Trapezoidal", "Gaussian"),
     horizon, sd_gauss = 0.25){
 
-  if (is.null(kernel))
+  if (is.null(kernel) || kernel[1]=="")
     return(.jnull("java/util/function/IntToDoubleFunction"))
 
   kernel <- match.arg(tolower(kernel)[1],
