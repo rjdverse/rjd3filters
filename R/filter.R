@@ -75,7 +75,7 @@ filter_ma <- function(x, coefs){
   lb <- lower_bound(coefs)
   ub <- upper_bound(coefs)
 
-  if (length(x) <= length(coefs))
+  if (length(x) < length(coefs))
     return(x * NA)
 
   jx <- .jcall(
@@ -88,7 +88,7 @@ filter_ma <- function(x, coefs){
     "jdplus/toolkit/base/core/data/DataBlock",
     "Ljdplus/toolkit/base/core/data/DataBlock;",
     "of",
-    as.numeric(rep(NA, length(x) - length(coefs)+1))
+    .jarray(as.numeric(rep(NA, length(x) - length(coefs)+1)))
   )
   jfilter <- .ma2jd(coefs)
   .jcall(jfilter, "V", "apply",
