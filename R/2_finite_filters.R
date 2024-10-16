@@ -46,7 +46,6 @@ finite_filters.moving_average <- function(sfilter,
     rfilters <- rev(lapply(lfilters, rev.moving_average))
   } else if (is.null(lfilters) && is.null(rfilters)) {
     rfilters <- lfilters <- list()
-
   }
   res <- new("finite_filters",
              sfilter = sfilter, lfilters = lfilters,

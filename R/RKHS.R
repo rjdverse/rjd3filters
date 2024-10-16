@@ -89,13 +89,16 @@ rkhs_optimization_fun <- function(horizon = 6, leads = 0,  degree = 2,
                                smoothness = "Smoothness",
                                undefined = "Undefined")
   density <- match.arg(density)
-  optimalFunCriteria <- J("jdplus/filters/base/r/RKHSFilters")$optimalCriteria(
-    as.integer(horizon), as.integer(leads), as.integer(degree), kernel,
-    asymmetricCriterion, density=="rw", passband
-  )$applyAsDouble
-
+  jfun <-
+    .jcall(
+      "jdplus/filters/base/r/RKHSFilters",
+      "Ljava/util/function/DoubleUnaryOperator;",
+      "optimalCriteria",
+      as.integer(horizon), as.integer(leads), as.integer(degree), kernel,
+      asymmetricCriterion, density=="rw", passband
+    )
   Vectorize(function(x){
-    optimalFunCriteria(x)
+    .jcall(jfun, "D", "applyAsDouble", x)
   })
 }
 #' Optimal Bandwith of Reproducing Kernel Hilbert Space (RKHS) Filters
@@ -124,10 +127,14 @@ rkhs_optimal_bw <- function(horizon = 6,  degree = 2,
                                smoothness = "Smoothness",
                                undefined = "Undefined")
   density <- match.arg(density)
-  optimalBw <- J("jdplus/filters/base/r/RKHSFilters")$optimalBandwidth(
-    as.integer(horizon), as.integer(degree), kernel,
-    asymmetricCriterion, density=="rw", passband, optimal.minBandwidth, optimal.maxBandwidth
-  )
+  optimalBw <-
+    .jcall(
+      "jdplus/filters/base/r/RKHSFilters",
+      "[D",
+      "optimalBandwidth",
+      as.integer(horizon), as.integer(degree), kernel,
+      asymmetricCriterion, density=="rw", passband, optimal.minBandwidth, optimal.maxBandwidth
+    )
   names(optimalBw) <- sprintf("q=%i", 0:(horizon-1))
   optimalBw
 }
@@ -148,11 +155,14 @@ rkhs_kernel <- function(kernel = c("Biweight", "Henderson", "Epanechnikov", "Tri
     "epanechnikov" = "Epanechnikov",
     "henderson" = "Henderson"
   )
-  kernel_fun <- J("jdplus/filters/base/r/RKHSFilters")$kernel(
-    kernel, as.integer(degree), as.integer(horizon)
-  )$applyAsDouble
-
+  jfun <-
+    .jcall(
+      "jdplus/filters/base/r/RKHSFilters",
+      "Ljava/util/function/DoubleUnaryOperator;",
+      "kernel",
+      kernel, as.integer(degree), as.integer(horizon)
+    )
   Vectorize(function(x){
-    kernel_fun(x)
+    .jcall(jfun, "D", "applyAsDouble", x)
   })
 }

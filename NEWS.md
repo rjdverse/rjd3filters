@@ -7,8 +7,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [2.1.1] - 2024-07-12
+## Added
 
+* New function `polynomial_matrix()` to create a matrix of polynomial terms.
+
+* New function `mmsre_filter()` to compute the general Proietti and Luati (2008) filter with extension for non symmetric filters and with Timeliness criterion.
+
+### Changed
+
+* `filter()` correction when the length of the series equals the length of the filter.
+
+## [2.1.1] - 2024-12-07
 
 ### Changed
 

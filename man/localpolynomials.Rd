@@ -25,7 +25,7 @@ localpolynomials(
 
 \item{kernel}{kernel uses.}
 
-\item{endpoints}{methode for endpoints.}
+\item{endpoints}{method for endpoints.}
 
 \item{ic}{ic ratio.}
 

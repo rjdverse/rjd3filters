@@ -7,7 +7,7 @@ NULL
 #' @param horizon horizon (bandwidth) of the symmetric filter.
 #' @param degree degree of polynomial.
 #' @param kernel kernel uses.
-#' @param endpoints methode for endpoints.
+#' @param endpoints method for endpoints.
 #' @param tweight timeliness weight.
 #' @param passband passband threshold.
 #' @param ic ic ratio.
@@ -67,7 +67,7 @@ localpolynomials<-function(x,
 #' * "CN": Cut and Normalized Filter
 #'
 #' @return a [finite_filters()] object.
-#' @seealso [localpolynomials()].
+#' @seealso [mmsre_filter()] [localpolynomials()].
 #' @examples
 #' henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
 #' plot_coef(henderson_f)
