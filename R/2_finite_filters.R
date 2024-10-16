@@ -34,17 +34,17 @@ finite_filters.moving_average <- function(sfilter,
                                           rfilters = NULL,
                                           lfilters = NULL,
                                           first_to_last = FALSE){
-  if (is.null(lfilters) & !is.null(rfilters)) {
+  if (is.null(lfilters) && !is.null(rfilters)) {
     if (first_to_last) {
       rfilters <- rev(rfilters)
     }
     lfilters <- rev(lapply(rfilters, rev.moving_average))
-  } else if (!is.null(lfilters) & is.null(rfilters)) {
+  } else if (!is.null(lfilters) && is.null(rfilters)) {
     if (!first_to_last) {
       lfilters <- rev(lfilters)
     }
     rfilters <- rev(lapply(lfilters, rev.moving_average))
-  } else if (is.null(lfilters) & is.null(rfilters)) {
+  } else if (is.null(lfilters) && is.null(rfilters)) {
     rfilters <- lfilters <- list()
   }
   res <- new("finite_filters",
@@ -328,7 +328,7 @@ as.matrix.finite_filters <- function(x, sfilter = TRUE, rfilters = TRUE, lfilter
   sfilter_s <- rfilters_s <- lfilters_s <-
     index_s <- index_r <- index_l <- NULL
   if (!any(sfilter, rfilters, lfilters))
-    return (NULL)
+    return(NULL)
   if (sfilter) {
     sfilter_s <- list(x@sfilter)
     index_s <- length(x@rfilters)

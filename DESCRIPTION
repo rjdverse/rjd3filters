@@ -1,7 +1,7 @@
 Package: rjd3filters
 Type: Package
 Title: Trend-Cycle Extraction with Linear Filters based on JDemetra+ v3.x
-Version: 2.1.1
+Version: 2.1.1.9000
 Authors@R: c(
   person("Jean", "Palate", role = c("aut"),
          email = "palatejean@gmail.com"),

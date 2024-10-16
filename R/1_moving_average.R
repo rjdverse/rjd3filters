@@ -75,7 +75,7 @@ NULL
 #' @export
 moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_zero = FALSE){
   if (inherits(x, "moving_average"))
-    return (x)
+    return(x)
   x <- as.numeric(x)
   if (trailing_zero)
     x <- rm_trailing_zero_or_na(x)
@@ -193,7 +193,7 @@ setMethod("[",
             indices <- seq_along(coefs)[i]
             coefs[-indices] <- 0
             if (all(coefs == 0))
-              return (moving_average(0, lags = lower_bound(x) + indices - 1))
+              return(moving_average(0, lags = lower_bound(x) + indices - 1))
 
             moving_average(coefs, lags = lower_bound(x),
                            leading_zero = TRUE, trailing_zero = TRUE)

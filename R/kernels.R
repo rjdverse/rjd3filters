@@ -45,7 +45,7 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
     jkernel <- .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",
                       "Ljava/util/function/IntToDoubleFunction;",
                       tolower(kernel), h, sd_gauss)
-  } else{
+  } else {
     jkernel <- .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",
                       "Ljava/util/function/IntToDoubleFunction;",
                       tolower(kernel), h)
