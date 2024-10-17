@@ -104,4 +104,3 @@ mmsre_filter <- function(
     "of",
     rjd3toolkit::.r2jd_matrix(s))
 }
-
