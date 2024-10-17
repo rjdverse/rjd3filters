@@ -5,9 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
 ## [Unreleased]
 
-## Added
+### Added
 
 * New function `polynomial_matrix()` to create a matrix of polynomial terms.
 
@@ -16,6 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 * `filter()` correction when the length of the series equals the length of the filter.
+
 
 ## [2.1.1] - 2024-12-07
 
