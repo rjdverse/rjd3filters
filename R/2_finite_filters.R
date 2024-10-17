@@ -77,7 +77,7 @@ finite_filters.matrix <- function(sfilter,
                                   rfilters = NULL,
                                   lfilters = NULL,
                                   first_to_last = FALSE){
-  coefs <- lapply(1:ncol(sfilter), function(i) sfilter[,i])
+  coefs <- lapply(seq_len(ncol(sfilter)), function(i) sfilter[,i])
   finite_filters(coefs, first_to_last = first_to_last)
 }
 
@@ -174,11 +174,11 @@ setMethod("*",
                         rep(list(e2@sfilter), length(e1)),
                         e2@rfilters)
             new_e1 <- rep(list(e1), length(new_e2))
-            new_e2 <- lapply(1:length(new_e2), function(i){
+            new_e2 <- lapply(seq_along(new_e2), function(i){
               new_e2[[i]] * moving_average(1,
                                            lags = (new_lb + (i - 1) + e1@lower_bound * (new_lb == new_lb_sym)))
             })
-            new_e1 <- lapply(1:length(new_e1), function(i){
+            new_e1 <- lapply(seq_along(new_e1), function(i){
               new_e1[[i]] * moving_average(1, lags = (new_lb + (i - 1)))
             })
             all_f <- t(do.call(cbind,c(new_e1, new_e2)))
@@ -193,13 +193,13 @@ setMethod("*",
             sym <- moving_average(sym_mat,
                                   lags = new_lb_sym, leading_zero = FALSE, trailing_zero = TRUE)
             rfilters <- new_mat[-(1:((nrow(new_mat)+1)/2)),, drop = FALSE]
-            rfilters <- lapply(1:nrow(rfilters),function(i){
+            rfilters <- lapply(seq_len(nrow(rfilters)),function(i){
               moving_average(rfilters[i,-seq_len(i)],
                              lags = new_lb_sym, leading_zero = FALSE, trailing_zero = TRUE)
             })
 
-            lfilters <- new_mat[(1:((nrow(new_mat)-1)/2)), , drop = FALSE]
-            lfilters <- lapply(1:nrow(lfilters),function(i){
+            lfilters <- new_mat[seq_len(((nrow(new_mat)-1)/2)), , drop = FALSE]
+            lfilters <- lapply(seq_len(nrow(lfilters)),function(i){
               moving_average(lfilters[i,],
                              lags = new_lb_sym + (nrow(lfilters) - i) + 1, leading_zero = FALSE, trailing_zero = TRUE)#why -1 ?
             })
@@ -371,10 +371,10 @@ setMethod("*",
                         rep(list(e2@sfilter), 1 + (new_ub - length(e2@rfilters)) + (new_lb - length(e2@lfilters))),
                         e2@rfilters)
 
-            new_e1 <- lapply(1:length(new_e1), function(i){
+            new_e1 <- lapply(seq_along(new_e1), function(i){
               new_e1[[i]] * moving_average(1, lags = (-new_lb + (i - 1)))
             })
-            new_e2 <- lapply(1:length(new_e2), function(i){
+            new_e2 <- lapply(seq_along(new_e2), function(i){
               new_e2[[i]] * moving_average(1, lags = (-new_lb  + (i - 1)))
             })
             all_f <- t(do.call(cbind,c(new_e1, new_e2)))
@@ -389,13 +389,13 @@ setMethod("*",
             sym <- moving_average(sym_mat,
                                   lags = new_lb_sym, leading_zero = TRUE, trailing_zero = TRUE)
             rfilters <- new_mat[-(1:((nrow(new_mat)+1)/2)), , drop = FALSE]
-            rfilters <- lapply(1:nrow(rfilters),function(i){
+            rfilters <- lapply(seq_len(nrow(rfilters)),function(i){
               moving_average(rfilters[i,],
                              lags = new_lb_sym - i, leading_zero = TRUE, trailing_zero = TRUE)
             })
             #
-            lfilters <- new_mat[(1:((nrow(new_mat)-1)/2)), , drop = FALSE]
-            lfilters <- lapply(1:nrow(lfilters),function(i){
+            lfilters <- new_mat[seq_len((nrow(new_mat)-1)/2), , drop = FALSE]
+            lfilters <- lapply(seq_len(nrow(lfilters)),function(i){
               moving_average(lfilters[i,],
                              lags = new_lb_sym + (nrow(lfilters) - i) + 1, leading_zero = TRUE, trailing_zero = TRUE)#why -1 ?
             })
