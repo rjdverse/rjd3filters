@@ -22,7 +22,7 @@ lp_filter(
 
 \item{kernel}{kernel uses.}
 
-\item{endpoints}{methode for endpoints.}
+\item{endpoints}{method for endpoints.}
 
 \item{ic}{ic ratio.}
 
@@ -54,5 +54,5 @@ plot_coef(henderson_f)
 Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
 }
 \seealso{
-\code{\link[=localpolynomials]{localpolynomials()}}.
+\code{\link[=mmsre_filter]{mmsre_filter()}} \code{\link[=localpolynomials]{localpolynomials()}}.
 }

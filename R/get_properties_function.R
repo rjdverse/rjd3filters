@@ -21,22 +21,29 @@ get_properties_function <- function(x,
 }
 
 get_gain_function <- function(x){
-  jgain <- x$gainFunction()$applyAsDouble
+  jgain <- .jcall(x, "Ljava/util/function/DoubleUnaryOperator;",
+                  "gainFunction")
   Vectorize(function(x){
-    jgain(x)
+    .jcall(jgain, "D", "applyAsDouble", x)
   })
 }
 get_phase_function <- function(x){
-  jphase <- x$phaseFunction()$applyAsDouble
+  jphase <- .jcall(x, "Ljava/util/function/DoubleUnaryOperator;",
+                   "phaseFunction")
   Vectorize(function(x){
-    jphase(x)
+    .jcall(jphase, "D", "applyAsDouble", x)
   })
 }
 get_frequency_response_function <- function(x){
-  jfrf <- x$frequencyResponseFunction()$apply
+  jfrf <- .jcall(x,
+                 "Ljava/lang/Object;",
+                 "frequencyResponseFunction")
+
   Vectorize(function(x){
-    res <- jfrf(x)
-    complex(real = res$getRe(), imaginary = res$getIm())
+    res <- .jcall(jfrf, "Ljava/lang/Object;", "apply", x)
+
+    complex(real = .jcall(res, "D", "getRe"),
+            imaginary = .jcall(res, "D", "getIm"))
   })
 }
 
