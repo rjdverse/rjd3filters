@@ -87,7 +87,7 @@ get_properties_function.finite_filters <- function(x,
                                                                  "Asymmetric Phase",
                                                                  "Asymmetric transfer"), ...){
   component <- match.arg(component)
-  if (length(grep("Symmetric", component, fixed = TRUE)) > 0) {
+  if (any(grepl(pattern = "Symmetric", x = component, fixed = TRUE))) {
     get_properties_function(x@sfilter, component = component)
   } else {
     a_fun <- lapply(x@rfilters, get_properties_function, component = component)
