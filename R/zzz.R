@@ -22,7 +22,7 @@ NULL
 
 }
 
-.onAttach <- function( libname , pkgname ){
+.onAttach <- function(libname , pkgname){
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
   packageStartupMessage("Java requirements fullfilled, found version ",jversion)
 }
