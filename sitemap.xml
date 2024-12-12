@@ -22,9 +22,11 @@
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/index.html</loc></url>
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/localpolynomials.html</loc></url>
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/lp_filter.html</loc></url>
+<url><loc>https://rjdverse.github.io/rjd3filters/reference/mmsre_filter.html</loc></url>
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/moving_average.html</loc></url>
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/mse.html</loc></url>
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/plot_filters.html</loc></url>
+<url><loc>https://rjdverse.github.io/rjd3filters/reference/polynomial_matrix.html</loc></url>
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/retailsa.html</loc></url>
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/rkhs_filter.html</loc></url>
 <url><loc>https://rjdverse.github.io/rjd3filters/reference/rkhs_kernel.html</loc></url>
