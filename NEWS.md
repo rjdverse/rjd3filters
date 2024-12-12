@@ -7,7 +7,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## Added
+### Added
 
 * New function `polynomial_matrix()` to create a matrix of polynomial terms.
 
