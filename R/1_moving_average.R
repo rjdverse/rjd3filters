@@ -116,7 +116,7 @@ moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_
 is.moving_average <- function(x){
   is(x, "moving_average")
 }
-#' @importFrom stats coef coefficients end qnorm ts.union
+#' @importFrom stats coef coefficients end qnorm qt ts.union
 #' @export
 coef.moving_average <- function(object, ...){
   coefs <- object@coefficients

@@ -160,6 +160,8 @@ var_estimator <- function(x, coef, ...) {
 #' @param coef_var moving-average ([moving_average()]) or finite filter ([finite_filters()]) used compute the variance (throw [var_estimator()]).
 #' By default equal to `coef`.
 #' @param level confidence level.
+#' @param gaussian_distribution if `TRUE` use the normal distribution to compute the confidence interval, otherwise use the t-distribution.
+#' @param exact_df if `TRUE` compute the exact degrees of freedom for the t-distribution (when `gaussian_distribution = FALSE`), otherwise uses an approximation.
 #' @param ... other arguments passed to the function [moving_average()] to convert `coef` to a `"moving_average"` object.
 #
 #' @details
@@ -196,25 +198,42 @@ var_estimator <- function(x, coef, ...) {
 #'      col = c("red", "black", "black"),
 #'      lty = c(1, 2, 2))
 #' @export
-confint_filter <- function(x, coef, coef_var = coef, level = 0.95, ...){
+confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_distribution = FALSE, exact_df = TRUE, ...){
   filtered <- filter(x, coef)
   c <- (1 - level) / 2
   c <- c(c, 1 - c)
-  qnc <- qnorm(c)
+  n <- length(filtered)
   if (is.moving_average(coef)) {
     corr_f <- sqrt(sum(coefficients(coef)^2))
+    if (gaussian_distribution){
+      quantile <- matrix(qnorm(c), ncol = 2)
+    } else {
+      quantile <- matrix(qt(c, df = df_var(n = n, coef = coef, exact_df = exact_df)), ncol = 2)
+    }
   } else if (is.finite_filters(coef)) {
     corr_f <- ts(sqrt(sum(coefficients(coef@sfilter)^2)),
                  start = start(filtered), end = end(filtered),
                  frequency = frequency(filtered))
+    if (gaussian_distribution){
+      quantile <- matrix(qnorm(c), ncol = 2)
+    } else {
+      quantile <- ts(matrix(qt(c, df = df_var(n = n, coef = coef@sfilter, exact_df = exact_df)), ncol = 2),
+                     start = start(filtered), end = end(filtered),
+                     frequency = frequency(filtered))
+    }
     lfilters <- coef@lfilters
     rfilters <- coef@rfilters
     for (i in seq_along(lfilters)){
       corr_f[i] <- sqrt(sum(coefficients(lfilters[[i]])^2))
+      if (!gaussian_distribution)
+        quantile[i,] <- qt(c, df = df_var(n = n, coef = lfilters[[i]], exact_df = exact_df))
     }
     for (i in seq_along(rfilters)){
       corr_f[length(corr_f) - length(rfilters) + i] <-
         sqrt(sum(coefficients(rfilters[[i]])^2))
+      if (!gaussian_distribution)
+        quantile[length(time(quantile)) - length(rfilters) + i,] <-
+          qt(c, df = df_var(n = n, coef = rfilters[[i]], exact_df = exact_df))
     }
   }
 
@@ -235,13 +254,34 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, ...){
     }
   }
 
-  inf <- filtered + qnc[1] * sqrt(var) * corr_f
-  sup <- filtered + qnc[2] * sqrt(var) * corr_f
+  inf <- filtered + quantile[,1] * sqrt(var) * corr_f
+  sup <- filtered + quantile[,2] * sqrt(var) * corr_f
   res <- ts.union(filtered, inf, sup)
   colnames(res) <- c("filtered", sprintf("%.1f%%", c * 100))
   res
 }
 
+df_var <- function(n, coef, exact_df = FALSE) {
+  if (!exact_df){
+    coef0 <- coefficients(coef)["t"]
+    df <- (n - (upper_bound(coef) - lower_bound(coef)))*(1- 2 * coef0 + sum(coefficients(coef)^2))
+    return(df)
+  }
+  L =matrix(0,ncol = n, nrow = n)
+  I = diag(x=1, nrow = n)
+  for (i in seq(1-lower_bound(coef), n - upper_bound(coef))){
+    L[i,seq(i + lower_bound(coef), length.out = length(coef))] = coef(coef)
+  }
+  if (lower_bound(coef) < 0){
+    I[1:(-lower_bound(coef)),] <- 0
+  }
+  if (upper_bound(coef) > 0){
+    I[(nrow(I)-upper_bound(coef)+1):nrow(I),] <- 0
+  }
+  Delta = t(I - L) %*% (I - L)
+  df <- sum(diag(Delta))^2 / sum(diag(Delta %*% Delta))
+  return(df)
+}
 #' Deprecated function
 #'
 #' @inheritParams diagnostics-fit
