@@ -7,7 +7,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## Added
+### Added
 
 * New function `polynomial_matrix()` to create a matrix of polynomial terms.
 
@@ -17,7 +17,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 * `filter()` correction when the length of the series equals the length of the filter.
 
-## [2.1.1] - 2024-12-07
+* `confint_filter()` uses by default a Student distribution instead of a Normal distribution
+
+## [2.1.1] - 2024-07-12
 
 ### Changed
 
