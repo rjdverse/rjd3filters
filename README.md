@@ -36,7 +36,7 @@ rjd3filters relies on the
 
 Running rjd3 packages requires **Java 17 or higher**. How to set up such
 a configuration in R is explained
-[here](https://jdemetra-new-documentation.netlify.app/#Rconfig)
+[here](https://jdemetra-new-documentation.netlify.app/#Rconfig).
 
 ### Latest release
 

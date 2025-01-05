@@ -42,7 +42,7 @@ Some quality criteria defined by Wildi and McElroy (2019) can also be computed.
 
 rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) package.
 
-Running rjd3 packages requires **Java 17 or higher**. How to set up such a configuration in R is explained [here](https://jdemetra-new-documentation.netlify.app/#Rconfig) 
+Running rjd3 packages requires **Java 17 or higher**. How to set up such a configuration in R is explained [here](https://jdemetra-new-documentation.netlify.app/#Rconfig). 
 
 
 ### Latest release
