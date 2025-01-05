@@ -267,6 +267,7 @@ df_var <- function(n, coef, exact_df = FALSE) {
   p <- abs(lower_bound(coef))
   f <- upper_bound(coef)
   df_num <- (n - (p + f))*(1- 2 * coef0 + sum(value_coef^2))
+  names(df_num) <- NULL
   if (!exact_df)
     return(df_num) # Approximation of the degrees of freedom
 
