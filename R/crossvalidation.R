@@ -273,7 +273,7 @@ df_var <- function(n, coef, exact_df = FALSE) {
 
   # Otherwise we compute the exact df more time consuming
   value_coef <- - value_coef
-  value_coef["t"] <- 1 - value_coef["t"]
+  value_coef["t"] <- 1 + value_coef["t"] # we already took the negative sign in the previous line
   mat_coefs <- do.call(cbind, lapply(0:(p + f), function(n_0) {
     c(rep(0, n_0), value_coef[seq(1, length.out = length(value_coef) - n_0)])
   }))
