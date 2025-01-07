@@ -17,7 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 * `filter()` correction when the length of the series equals the length of the filter.
 
-* `confint_filter()` uses by default a Student distribution instead of a Normal distribution
+* `confint_filter()` uses by default a Student distribution instead of a Normal distribution.
 
 ## [2.1.1] - 2024-07-12
 

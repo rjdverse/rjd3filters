@@ -262,25 +262,26 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_dist
 }
 
 df_var <- function(n, coef, exact_df = FALSE) {
-  if (!exact_df){
-    coef0 <- coefficients(coef)["t"]
-    df <- (n - (upper_bound(coef) - lower_bound(coef)))*(1- 2 * coef0 + sum(coefficients(coef)^2))
-    return(df)
-  }
-  L =matrix(0,ncol = n, nrow = n)
-  I = diag(x=1, nrow = n)
-  for (i in seq(1-lower_bound(coef), n - upper_bound(coef))){
-    L[i,seq(i + lower_bound(coef), length.out = length(coef))] = coef(coef)
-  }
-  if (lower_bound(coef) < 0){
-    I[1:(-lower_bound(coef)),] <- 0
-  }
-  if (upper_bound(coef) > 0){
-    I[(nrow(I)-upper_bound(coef)+1):nrow(I),] <- 0
-  }
-  Delta = t(I - L) %*% (I - L)
-  df <- sum(diag(Delta))^2 / sum(diag(Delta %*% Delta))
-  return(df)
+  value_coef <- coefficients(coef)
+  coef0 <- value_coef["t"]
+  p <- abs(lower_bound(coef))
+  f <- upper_bound(coef)
+  df_num <- (n - (p + f))*(1- 2 * coef0 + sum(value_coef^2))
+  names(df_num) <- NULL
+  if (!exact_df)
+    return(df_num) # Approximation of the degrees of freedom
+
+  # Otherwise we compute the exact df more time consuming
+  value_coef <- - value_coef
+  value_coef["t"] <- 1 + value_coef["t"] # we already took the negative sign in the previous line
+  mat_coefs <- do.call(cbind, lapply(0:(p + f), function(n_0) {
+    c(rep(0, n_0), value_coef[seq(1, length.out = length(value_coef) - n_0)])
+  }))
+  stats <- value_coef %*% mat_coefs
+  stats <- stats ^ 2
+  stats[-1] <- stats[-1] * 2
+  df_denum <- sum((n-(p+f) - seq(0, length.out = length(stats))) * stats)
+  return(df_num^2 / df_denum)
 }
 #' Deprecated function
 #'
