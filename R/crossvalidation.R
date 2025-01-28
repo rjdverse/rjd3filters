@@ -79,7 +79,7 @@ cve <- function(x, coef, ...) {
     return(NA)
   sc <- filter(x, coef)
   coef0 <- coef(coef)["t"]
-  (x-sc)/(1-coef0)
+  (x-sc) / (1-coef0)
 }
 #' @rdname diagnostics-fit
 #' @export
@@ -94,7 +94,7 @@ loocve <- function(x, coef, ...) {
     return(NA)
   sc <- filter(x, coef)
   coef0 <- coef(coef)["t"]
-  (sc - coef0 * x)/(1-coef0)
+  (sc - coef0 * x) / (1 - coef0)
 }
 
 #' @rdname diagnostics-fit
@@ -105,7 +105,7 @@ rt <- function(x, coef, ...) {
     return(NA)
   sc <- filter(x, coef)
   coef0 <- coef(coef)["t"]
-  mean((x-sc)^2, na.rm = TRUE)/(1-2*coef0)
+  mean((x-sc)^2, na.rm = TRUE) / (1 - 2 * coef0)
 }
 
 #' @rdname diagnostics-fit
@@ -148,7 +148,7 @@ var_estimator <- function(x, coef, ...) {
   coef0 <- coefficients(coef)["t"]
   sigma2 <-  mean((x - sc)^2,
                   na.rm = TRUE)
-  sigma2 <- sigma2/(1- 2 * coef0 + sum(coefficients(coef)^2))
+  sigma2 <- sigma2 / (1- 2 * coef0 + sum(coefficients(coef)^2))
   names(sigma2) <- NULL
   sigma2
 }
@@ -266,7 +266,7 @@ df_var <- function(n, coef, exact_df = FALSE) {
   coef0 <- value_coef["t"]
   p <- abs(lower_bound(coef))
   f <- upper_bound(coef)
-  df_num <- (n - (p + f))*(1- 2 * coef0 + sum(value_coef^2))
+  df_num <- (n - (p + f)) * (1- 2 * coef0 + sum(value_coef^2))
   names(df_num) <- NULL
   if (!exact_df)
     return(df_num) # Approximation of the degrees of freedom
@@ -280,7 +280,7 @@ df_var <- function(n, coef, exact_df = FALSE) {
   stats <- value_coef %*% mat_coefs
   stats <- stats ^ 2
   stats[-1] <- stats[-1] * 2
-  df_denum <- sum((n-(p+f) - seq(0, length.out = length(stats))) * stats)
+  df_denum <- sum((n - (p + f) - seq(0, length.out = length(stats))) * stats)
   return(df_num^2 / df_denum)
 }
 #' Deprecated function
