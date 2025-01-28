@@ -15,6 +15,8 @@ reference:
   - '`rkhs_optimal_bw`'
   - '`rkhs_optimization_fun`'
   - '`get_kernel`'
+  - '`mmsre_filter`'
+
 - title: Stastics on Moving Averages and estimates
   contents:
   - '`diagnostics-fit`'
@@ -25,6 +27,7 @@ reference:
   - '`mse`'
   - '`var_estimator`'
   - '`confint_filter`'
+  - '`polynomial_matrix`'
 
 - title: Manipulation of Moving Averages and Finite Filters
   contents:

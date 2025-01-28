@@ -19,10 +19,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * `filter()` correction when the length of the series equals the length of the filter.
 
 
-## [2.1.1] - 2024-12-07
+## [2.1.1] - 2024-07-12
 
 ### Changed
 
+* `confint_filter()` uses by default a Student distribution instead of a Normal distribution
 * `cross_validation()` function renamed to `cve()`, `cross_validation()` is now deprecated.
 * New .jar files added (related to [v2.2.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.2.0))
 
@@ -31,9 +32,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * New functions to compute functions to compute diagnostics and goodness of fit of filtered series: cross validation (`cv()`) and cross validate estimate (`cve()`), leave-one-out cross validation estimate (`loocve`), CP statistic (`cp()`) and Rice's T statistics (`rt()`).
 
 * New function `confint_filter()` to compute confidence intervals for filtered series.
-
 * New function `is.finite_filters()`.
-
 * New parameter `zero_as_na` in `cbind.moving_average`, boolean indicating if trealing and leading zeros added to have a matrix form should be replaced by `NA`.
 
 
