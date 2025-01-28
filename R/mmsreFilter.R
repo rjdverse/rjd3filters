@@ -72,7 +72,7 @@
 mmsre_filter <- function(
     ref_filter, q, U, Z = NULL, delta = NULL,
     kernel = NULL,
-    tweight = 0, passband = pi/12){
+    tweight = 0, passband = pi/12) {
   jref <- .jcast(.ma2jd(ref_filter), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter")
   if (is.null(delta))
     delta <- numeric()
@@ -94,7 +94,7 @@ mmsre_filter <- function(
   return(.jd2ma(jf))
 }
 
-.r2jd_fast_matrix <- function(s){
+.r2jd_fast_matrix <- function(s) {
   if (is.null(s))
     return(.jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"))
 
@@ -104,4 +104,3 @@ mmsre_filter <- function(
     "of",
     rjd3toolkit::.r2jd_matrix(s))
 }
-

@@ -2,7 +2,7 @@
 #' @export
 setMethod(f = "show",
           signature = "moving_average",
-          definition = function(object){
+          definition = function(object) {
             print(.jcall(.ma2jd(object), "S", "toString"))
             invisible(object)
           })
@@ -10,7 +10,7 @@ setMethod(f = "show",
 #' @export
 setMethod(f = "show",
           signature = c("finite_filters"),
-          definition = function(object){
+          definition = function(object) {
             x <- as.matrix(object)
             print(x)
           })

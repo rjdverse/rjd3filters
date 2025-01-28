@@ -15,7 +15,7 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
                                   "Epanechnikov","Parabolic","BiWeight", "TriWeight","Tricube",
                                   "Trapezoidal", "Gaussian"),
                        horizon,
-                       sd_gauss = 0.25){
+                       sd_gauss = 0.25) {
   jkernel <- .r2jd_kernel(kernel, horizon, sd_gauss)
   coef <- sapply(as.integer(seq.int(from = 0, to = horizon, by = 1)),
                 function(x) .jcall(jkernel, "D", "applyAsDouble", x))
@@ -29,7 +29,7 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
     kernel = c("Henderson","Uniform", "Triangular",
                "Epanechnikov","Parabolic","BiWeight", "TriWeight","Tricube",
                "Trapezoidal", "Gaussian"),
-    horizon, sd_gauss = 0.25){
+    horizon, sd_gauss = 0.25) {
 
   if (is.null(kernel) || kernel[1]=="")
     return(.jnull("java/util/function/IntToDoubleFunction"))
@@ -41,7 +41,7 @@ get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
   if (kernel == "parabolic")
     kernel <- "epanechnikov"
   h <- as.integer(horizon)
-  if (kernel == "gaussian"){
+  if (kernel == "gaussian") {
     jkernel <- .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",
                       "Ljava/util/function/IntToDoubleFunction;",
                       tolower(kernel), h, sd_gauss)

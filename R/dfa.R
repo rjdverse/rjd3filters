@@ -25,7 +25,7 @@ dfa_filter <- function(horizon = 6, degree = 0,
                        passband = 2*pi/12,
                        accuracy.weight = 1/3,
                        smoothness.weight = 1/3,
-                       timeliness.weight = 1/3){
+                       timeliness.weight = 1/3) {
   density <- match.arg(density)
   if (length(targetfilter) != 2*horizon + 1)
     stop("The symmetric targetfilter must be of length 2*horizon+1")
