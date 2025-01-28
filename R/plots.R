@@ -211,9 +211,16 @@ plot_phase.finite_filters <- function(x, nxlab = 7, add = FALSE,
 }
 xlabel <- function(x, symbol = "pi") {
   fracs <- strsplit(attr(MASS::fractions(x), "fracs"), "/")  # convert to fractions
-  labels <- sapply(fracs, function(i)
-    if (length(i) > 1) { paste(i[1], "*", symbol, "/", i[2]) }
-    else { paste(i, "*", symbol) })
+  labels <- sapply(
+    X = fracs,
+    FUN = function(i) {
+      if (length(i) > 1) {
+        paste(i[1], "*", symbol, "/", i[2])
+      } else {
+        paste(i, "*", symbol)
+      }
+    }
+  )
   labels <- sub("0 * pi", "0", labels, fixed = TRUE)
   labels <- sub("1 * pi", " pi", labels, fixed = TRUE)
   parse(text = labels)
