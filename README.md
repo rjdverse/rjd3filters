@@ -4,9 +4,7 @@
 # `rjd3filters` <a href="https://rjdverse.github.io/rjd3filters/"><img src="man/figures/logo.png" align="right" height="150" style="float:right; height:150px;"/></a>
 
 <!-- badges: start -->
-
-[![CRAN
-status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters) -->
 
 [![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml)
 [![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml)
@@ -38,7 +36,7 @@ rjd3filters relies on the
 
 Running rjd3 packages requires **Java 17 or higher**. How to set up such
 a configuration in R is explained
-[here](https://jdemetra-new-documentation.netlify.app/#Rconfig)
+[here](https://jdemetra-new-documentation.netlify.app/#Rconfig).
 
 ### Latest release
 

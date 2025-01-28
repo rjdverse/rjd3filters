@@ -17,13 +17,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 * `filter()` correction when the length of the series equals the length of the filter.
+* `confint_filter()` uses by default a Student distribution instead of a Normal distribution.
 
 
 ## [2.1.1] - 2024-07-12
 
 ### Changed
 
-* `confint_filter()` uses by default a Student distribution instead of a Normal distribution
 * `cross_validation()` function renamed to `cve()`, `cross_validation()` is now deprecated.
 * New .jar files added (related to [v2.2.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.2.0))
 
