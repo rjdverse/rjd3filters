@@ -23,7 +23,7 @@ rkhs_filter <- function(horizon = 6, degree = 2,
                         optimalbw = TRUE,
                         optimal.minBandwidth = horizon,
                         optimal.maxBandwidth = 3*horizon,
-                        bandwidth = horizon + 1){
+                        bandwidth = horizon + 1) {
 
   kernel <- match.arg(tolower(kernel)[1],
                    choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
@@ -77,7 +77,7 @@ rkhs_optimization_fun <- function(horizon = 6, leads = 0,  degree = 2,
                         kernel = c("Biweight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "Triweight"),
                         asymmetricCriterion = c("Timeliness", "FrequencyResponse", "Accuracy", "Smoothness"),
                         density = c("uniform", "rw"),
-                        passband = 2*pi/12){
+                        passband = 2*pi/12) {
 
   kernel <- match.arg(tolower(kernel)[1],
                    choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
@@ -97,7 +97,7 @@ rkhs_optimization_fun <- function(horizon = 6, leads = 0,  degree = 2,
       as.integer(horizon), as.integer(leads), as.integer(degree), kernel,
       asymmetricCriterion, density=="rw", passband
     )
-  Vectorize(function(x){
+  Vectorize(function(x) {
     .jcall(jfun, "D", "applyAsDouble", x)
   })
 }
@@ -115,7 +115,7 @@ rkhs_optimal_bw <- function(horizon = 6,  degree = 2,
                            density = c("uniform", "rw"),
                            passband = 2*pi/12,
                            optimal.minBandwidth = horizon,
-                           optimal.maxBandwidth = 3*horizon){
+                           optimal.maxBandwidth = 3*horizon) {
 
   kernel <- match.arg(tolower(kernel)[1],
                       choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
@@ -142,7 +142,7 @@ rkhs_optimal_bw <- function(horizon = 6,  degree = 2,
 #' @inheritParams rkhs_filter
 #' @export
 rkhs_kernel <- function(kernel = c("Biweight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "Triweight"),
-                        degree = 2, horizon = 6){
+                        degree = 2, horizon = 6) {
 
   kernel <- match.arg(tolower(kernel)[1],
                    choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
@@ -162,7 +162,7 @@ rkhs_kernel <- function(kernel = c("Biweight", "Henderson", "Epanechnikov", "Tri
       "kernel",
       kernel, as.integer(degree), as.integer(horizon)
     )
-  Vectorize(function(x){
+  Vectorize(function(x) {
     .jcall(jfun, "D", "applyAsDouble", x)
   })
 }

@@ -27,7 +27,7 @@
 #' q0
 #' daf[, "q=0"]
 #' @export
-polynomial_matrix <- function(l, u = abs(l), d0 = 0, d1 = 3){
+polynomial_matrix <- function(l, u = abs(l), d0 = 0, d1 = 3) {
   .jd2r_matrix(
     .jcall(
       "jdplus/toolkit/base/core/math/linearfilters/LocalPolynomialFilters",

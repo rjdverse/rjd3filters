@@ -27,7 +27,7 @@ localpolynomials<-function(x,
                            kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
                            endpoints = c("LC", "QL", "CQ", "CC", "DAF"),
                            ic = 4.5,
-                           tweight = 0, passband = pi/12){
+                           tweight = 0, passband = pi/12) {
   if (2*horizon < degree)
     stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
 
@@ -77,7 +77,7 @@ lp_filter <- function(horizon = 6, degree = 3,
                       kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
                       endpoints = c("LC", "QL", "CQ", "CC", "DAF", "CN"),
                       ic = 4.5,
-                      tweight = 0, passband = pi/12){
+                      tweight = 0, passband = pi/12) {
   if (2*horizon < degree)
     stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
 
@@ -105,7 +105,7 @@ lp_filter <- function(horizon = 6, degree = 3,
 
   return(.jd2r_finitefilters(jprops))
 }
-coefficients_names <- function(lb, ub){
+coefficients_names <- function(lb, ub) {
   x <- sprintf("t%+i", seq(lb,ub))
   x <- sub("+0", "", x, fixed = TRUE)
   x

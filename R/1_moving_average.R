@@ -73,13 +73,13 @@ NULL
 #' s <- y * s_mm
 #' plot(s)
 #' @export
-moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_zero = FALSE){
+moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_zero = FALSE) {
   if (inherits(x, "moving_average"))
     return(x)
   x <- as.numeric(x)
   if (trailing_zero)
     x <- rm_trailing_zero_or_na(x)
-  if (leading_zero){
+  if (leading_zero) {
     new_x <- rm_leading_zero_or_na(x)
     lags <- lags - (length(new_x) - length(x))
     x <- new_x
@@ -95,15 +95,15 @@ moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_
              upper_bound = upper_bound)
   res
 }
-.jd2ma <- function(jobj, trailing_zero = FALSE){
+.jd2ma <- function(jobj, trailing_zero = FALSE) {
   x <- .jcall(jobj, "[D", "weightsToArray")
   lags <- .jcall(jobj, "I", "getLowerBound")
   moving_average(x, lags, trailing_zero = trailing_zero)
 }
-.ma2jd <- function(x){
+.ma2jd <- function(x) {
   lags <- lower_bound(x)
   coefs <- as.numeric(coef(x))
-  if (length(x) == 1){
+  if (length(x) == 1) {
     coefs <- .jarray(coefs)
   }
   .jcall("jdplus/toolkit/base/core/math/linearfilters/FiniteFilter",
@@ -113,60 +113,60 @@ moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_
 }
 #' @rdname moving_average
 #' @export
-is.moving_average <- function(x){
+is.moving_average <- function(x) {
   is(x, "moving_average")
 }
 #' @importFrom stats coef coefficients end qnorm qt ts.union
 #' @export
-coef.moving_average <- function(object, ...){
+coef.moving_average <- function(object, ...) {
   coefs <- object@coefficients
   return(coefs)
 }
 #' @rdname moving_average
 #' @export
-is_symmetric <- function(x){
+is_symmetric <- function(x) {
   # .jcall(.ma2jd(x), "Z", "isSymmetric")
   (upper_bound(x) == (-lower_bound(x))) &&
     isTRUE(all.equal(coef(x), rev(coef(x)), check.attributes = FALSE))
 }
 #' @rdname moving_average
 #' @export
-upper_bound <- function(x){
+upper_bound <- function(x) {
   x@upper_bound
 }
 #' @rdname moving_average
 #' @export
-lower_bound <- function(x){
+lower_bound <- function(x) {
   x@lower_bound
 }
 #' @rdname moving_average
 #' @export
-mirror <- function(x){
+mirror <- function(x) {
   .jd2ma(.jcall(.ma2jd(x), "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;", "mirror"))
 }
 #' @method rev moving_average
 #' @rdname moving_average
 #' @export
-rev.moving_average <- function(x){
+rev.moving_average <- function(x) {
   mirror(x)
 }
 #' @rdname moving_average
 #' @export
-length.moving_average <- function(x){
+length.moving_average <- function(x) {
   length(coef(x))
 }
 #' @rdname moving_average
 #' @export
-to_seasonal <- function(x, s){
+to_seasonal <- function(x, s) {
   UseMethod("to_seasonal", x)
 }
 #' @export
-to_seasonal.default <- function(x, s){
+to_seasonal.default <- function(x, s) {
   lb <- lower_bound(x)
   up <- upper_bound(x)
   coefs <- coef(x)
   new_coefs <- c(unlist(lapply(coefs[-length(x)],
-                               function(x){
+                               function(x) {
                                  c(x, rep(0, s - 1))
                                })),
                  coefs[length(x)])
@@ -175,7 +175,7 @@ to_seasonal.default <- function(x, s){
 
 #' @rdname filters_operations
 #' @export
-sum.moving_average <- function(..., na.rm = FALSE){
+sum.moving_average <- function(..., na.rm = FALSE) {
   sum(
     unlist(lapply(list(...),
                   function(x) sum(coef(x),na.rm = na.rm)
@@ -223,7 +223,7 @@ setReplaceMethod("[",
                  })
 #' @rdname filters_operations
 #' @export
-cbind.moving_average <- function(..., zero_as_na = FALSE){
+cbind.moving_average <- function(..., zero_as_na = FALSE) {
   all_mm <- list(...)
   new_lb <- min(sapply(all_mm, lower_bound))
   new_ub <- max(sapply(all_mm, upper_bound))
@@ -233,7 +233,7 @@ cbind.moving_average <- function(..., zero_as_na = FALSE){
   } else {
       blank_value <- 0
   }
-  new_mm <- lapply(all_mm, function(x){
+  new_mm <- lapply(all_mm, function(x) {
     c(rep(blank_value, abs(new_lb - lower_bound(x))),
       coef(x),
       rep(blank_value, abs(nb_uterms - (lower_bound(x) + length(x))))
@@ -245,7 +245,7 @@ cbind.moving_average <- function(..., zero_as_na = FALSE){
 }
 #' @rdname filters_operations
 #' @export
-rbind.moving_average <- function(...){
+rbind.moving_average <- function(...) {
   t(cbind(...))
 }
 #' @rdname filters_operations

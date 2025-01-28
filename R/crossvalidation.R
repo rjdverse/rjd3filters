@@ -73,7 +73,7 @@
 #' @name diagnostics-fit
 #' @rdname diagnostics-fit
 #' @export
-cve <- function(x, coef, ...){
+cve <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
@@ -83,12 +83,12 @@ cve <- function(x, coef, ...){
 }
 #' @rdname diagnostics-fit
 #' @export
-cv <- function(x, coef, ...){
+cv <- function(x, coef, ...) {
   mean(cve(x, coef, ...)^2, na.rm = TRUE)
 }
 #' @rdname diagnostics-fit
 #' @export
-loocve <- function(x, coef, ...){
+loocve <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
@@ -99,7 +99,7 @@ loocve <- function(x, coef, ...){
 
 #' @rdname diagnostics-fit
 #' @export
-rt <- function(x, coef, ...){
+rt <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
@@ -110,7 +110,7 @@ rt <- function(x, coef, ...){
 
 #' @rdname diagnostics-fit
 #' @export
-cp <- function(x, coef, var, ...){
+cp <- function(x, coef, var, ...) {
   mean(cve(x, coef, ...)^2, na.rm = TRUE)
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
@@ -198,14 +198,14 @@ var_estimator <- function(x, coef, ...) {
 #'      col = c("red", "black", "black"),
 #'      lty = c(1, 2, 2))
 #' @export
-confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_distribution = FALSE, exact_df = TRUE, ...){
+confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_distribution = FALSE, exact_df = TRUE, ...) {
   filtered <- filter(x, coef)
   c <- (1 - level) / 2
   c <- c(c, 1 - c)
   n <- length(filtered)
   if (is.moving_average(coef)) {
     corr_f <- sqrt(sum(coefficients(coef)^2))
-    if (gaussian_distribution){
+    if (gaussian_distribution) {
       quantile <- matrix(qnorm(c), ncol = 2)
     } else {
       quantile <- matrix(qt(c, df = df_var(n = n, coef = coef, exact_df = exact_df)), ncol = 2)
@@ -214,7 +214,7 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_dist
     corr_f <- ts(sqrt(sum(coefficients(coef@sfilter)^2)),
                  start = start(filtered), end = end(filtered),
                  frequency = frequency(filtered))
-    if (gaussian_distribution){
+    if (gaussian_distribution) {
       quantile <- matrix(qnorm(c), ncol = 2)
     } else {
       quantile <- ts(matrix(qt(c, df = df_var(n = n, coef = coef@sfilter, exact_df = exact_df)), ncol = 2),
@@ -223,12 +223,12 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_dist
     }
     lfilters <- coef@lfilters
     rfilters <- coef@rfilters
-    for (i in seq_along(lfilters)){
+    for (i in seq_along(lfilters)) {
       corr_f[i] <- sqrt(sum(coefficients(lfilters[[i]])^2))
       if (!gaussian_distribution)
         quantile[i,] <- qt(c, df = df_var(n = n, coef = lfilters[[i]], exact_df = exact_df))
     }
-    for (i in seq_along(rfilters)){
+    for (i in seq_along(rfilters)) {
       corr_f[length(corr_f) - length(rfilters) + i] <-
         sqrt(sum(coefficients(rfilters[[i]])^2))
       if (!gaussian_distribution)
@@ -245,10 +245,10 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_dist
               frequency = frequency(filtered))
     lfilters <- coef_var@lfilters
     rfilters <- coef_var@rfilters
-    for (i in seq_along(lfilters)){
+    for (i in seq_along(lfilters)) {
       var[i] <- var_estimator(x, lfilters[[i]])
     }
-    for (i in seq_along(rfilters)){
+    for (i in seq_along(rfilters)) {
       var[length(var) - length(rfilters) + i] <-
         var_estimator(x, rfilters[[i]])
     }
@@ -289,7 +289,7 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #' @name deprecated-rjd3filters
 #' @rdname deprecated-rjd3filters
 #' @export
-cross_validation <- function(x, coef, ...){
+cross_validation <- function(x, coef, ...) {
   .Deprecated("cve")
   cve(x, coef, ...)
 }
