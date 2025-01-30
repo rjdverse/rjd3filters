@@ -26,6 +26,7 @@ reference:
   - '`get_properties_function`'
   - '`mse`'
   - '`var_estimator`'
+  - '`df_var`'
   - '`confint_filter`'
   - '`polynomial_matrix`'
 
