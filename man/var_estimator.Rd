@@ -31,3 +31,6 @@ Loader, Clive. 1999.
 Local regression and likelihood.
 New York: Springer-Verlag.
 }
+\seealso{
+\code{\link[=df_var]{df_var()}}.
+}

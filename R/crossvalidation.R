@@ -139,6 +139,7 @@ cp <- function(x, coef, var, ...) {
 #' Loader, Clive. 1999.
 #' Local regression and likelihood.
 #' New York: Springer-Verlag.
+#' @seealso [df_var()].
 #' @export
 var_estimator <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
@@ -151,6 +152,35 @@ var_estimator <- function(x, coef, ...) {
   sigma2 <- sigma2 / (1- 2 * coef0 + sum(coefficients(coef)^2))
   names(sigma2) <- NULL
   sigma2
+}
+
+#' Compute the degrees of freedom for the variance estimator
+#'
+#' @param n number of observations
+#' @param coef moving average ([moving_average()]) used to filter the series.
+#' @inheritParams confint_filter
+#' @seealso [var_estimator()].
+df_var <- function(n, coef, exact_df = FALSE) {
+    value_coef <- coefficients(coef)
+    coef0 <- value_coef["t"]
+    p <- abs(lower_bound(coef))
+    f <- upper_bound(coef)
+    df_num <- (n - (p + f)) * (1- 2 * coef0 + sum(value_coef^2))
+    names(df_num) <- NULL
+    if (!exact_df)
+        return(df_num) # Approximation of the degrees of freedom
+
+    # Otherwise we compute the exact df more time consuming
+    value_coef <- - value_coef
+    value_coef["t"] <- 1 + value_coef["t"] # we already took the negative sign in the previous line
+    mat_coefs <- do.call(cbind, lapply(0:(p + f), function(n_0) {
+        c(rep(0, n_0), value_coef[seq(1, length.out = length(value_coef) - n_0)])
+    }))
+    stats <- value_coef %*% mat_coefs
+    stats <- stats ^ 2
+    stats[-1] <- stats[-1] * 2
+    df_denum <- sum((n - (p + f) - seq(0, length.out = length(stats))) * stats)
+    return(df_num^2 / df_denum)
 }
 
 #' Confidence intervals
@@ -261,28 +291,7 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_dist
   res
 }
 
-df_var <- function(n, coef, exact_df = FALSE) {
-  value_coef <- coefficients(coef)
-  coef0 <- value_coef["t"]
-  p <- abs(lower_bound(coef))
-  f <- upper_bound(coef)
-  df_num <- (n - (p + f)) * (1- 2 * coef0 + sum(value_coef^2))
-  names(df_num) <- NULL
-  if (!exact_df)
-    return(df_num) # Approximation of the degrees of freedom
 
-  # Otherwise we compute the exact df more time consuming
-  value_coef <- - value_coef
-  value_coef["t"] <- 1 + value_coef["t"] # we already took the negative sign in the previous line
-  mat_coefs <- do.call(cbind, lapply(0:(p + f), function(n_0) {
-    c(rep(0, n_0), value_coef[seq(1, length.out = length(value_coef) - n_0)])
-  }))
-  stats <- value_coef %*% mat_coefs
-  stats <- stats ^ 2
-  stats[-1] <- stats[-1] * 2
-  df_denum <- sum((n - (p + f) - seq(0, length.out = length(stats))) * stats)
-  return(df_num^2 / df_denum)
-}
 #' Deprecated function
 #'
 #' @inheritParams diagnostics-fit
