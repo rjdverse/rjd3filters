@@ -9,6 +9,7 @@ confint_filter(
   coef,
   coef_var = coef,
   level = 0.95,
+  asymmetric_var = TRUE,
   gaussian_distribution = FALSE,
   exact_df = TRUE,
   ...
@@ -23,6 +24,8 @@ confint_filter(
 By default equal to \code{coef}.}
 
 \item{level}{confidence level.}
+
+\item{asymmetric_var}{if \code{asymmetric_var = TRUE} then the variance is estimated for each asymmetric filters instead of using the variance associated the symmetric estimates.}
 
 \item{gaussian_distribution}{if \code{TRUE} use the normal distribution to compute the confidence interval, otherwise use the t-distribution.}
 
