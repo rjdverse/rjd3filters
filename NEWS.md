@@ -14,6 +14,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 * New function `mmsre_filter()` to compute the general Proietti and Luati (2008) filter with extension for non symmetric filters and with Timeliness criterion.
 
+* New parameter to `confint_filter()` to specify if the variance should be estimated for each asymmetric filters (default) instead of using the variance associated the symmetric estimates.
+
+
 ### Changed
 
 * `filter()` correction when the length of the series equals the length of the filter.
@@ -30,7 +33,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 * New functions to compute functions to compute diagnostics and goodness of fit of filtered series: cross validation (`cv()`) and cross validate estimate (`cve()`), leave-one-out cross validation estimate (`loocve`), CP statistic (`cp()`) and Rice's T statistics (`rt()`).
-
 * New function `confint_filter()` to compute confidence intervals for filtered series.
 * New function `is.finite_filters()`.
 * New parameter `zero_as_na` in `cbind.moving_average`, boolean indicating if trealing and leading zeros added to have a matrix form should be replaced by `NA`.

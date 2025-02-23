@@ -190,6 +190,7 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #' @param coef_var moving-average ([moving_average()]) or finite filter ([finite_filters()]) used compute the variance (throw [var_estimator()]).
 #' By default equal to `coef`.
 #' @param level confidence level.
+#' @param asymmetric_var if `asymmetric_var = TRUE` then the variance is estimated for each asymmetric filters instead of using the variance associated the symmetric estimates.
 #' @param gaussian_distribution if `TRUE` use the normal distribution to compute the confidence interval, otherwise use the t-distribution.
 #' @param exact_df if `TRUE` compute the exact degrees of freedom for the t-distribution (when `gaussian_distribution = FALSE`), otherwise uses an approximation.
 #' @param ... other arguments passed to the function [moving_average()] to convert `coef` to a `"moving_average"` object.
@@ -228,7 +229,7 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #'      col = c("red", "black", "black"),
 #'      lty = c(1, 2, 2))
 #' @export
-confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_distribution = FALSE, exact_df = TRUE, ...) {
+confint_filter <- function(x, coef, coef_var = coef, level = 0.95, asymmetric_var = TRUE, gaussian_distribution = FALSE, exact_df = TRUE, ...) {
   filtered <- filter(x, coef)
   c <- (1 - level) / 2
   c <- c(c, 1 - c)
@@ -273,15 +274,18 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, gaussian_dist
     var <- ts(var_estimator(x, coef_var@sfilter),
               start = start(filtered), end = end(filtered),
               frequency = frequency(filtered))
-    lfilters <- coef_var@lfilters
-    rfilters <- coef_var@rfilters
-    for (i in seq_along(lfilters)) {
-      var[i] <- var_estimator(x, lfilters[[i]])
+    if (asymmetric_var) {
+        lfilters <- coef_var@lfilters
+        rfilters <- coef_var@rfilters
+        for (i in seq_along(lfilters)) {
+            var[i] <- var_estimator(x, lfilters[[i]])
+        }
+        for (i in seq_along(rfilters)) {
+            var[length(var) - length(rfilters) + i] <-
+                var_estimator(x, rfilters[[i]])
+        }
     }
-    for (i in seq_along(rfilters)) {
-      var[length(var) - length(rfilters) + i] <-
-        var_estimator(x, rfilters[[i]])
-    }
+
   }
 
   inf <- filtered + quantile[,1] * sqrt(var) * corr_f
