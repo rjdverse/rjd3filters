@@ -43,6 +43,7 @@
 <span>  <span class="va">coef</span>,</span>
 <span>  coef_var <span class="op">=</span> <span class="va">coef</span>,</span>
 <span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  asymmetric_var <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  gaussian_distribution <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  exact_df <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -68,6 +69,10 @@ By default equal to <code>coef</code>.</p></dd>
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
 <dd><p>confidence level.</p></dd>
+
+
+<dt id="arg-asymmetric-var">asymmetric_var<a class="anchor" aria-label="anchor" href="#arg-asymmetric-var"></a></dt>
+<dd><p>if <code>asymmetric_var = TRUE</code> then the variance is estimated for each asymmetric filters instead of using the variance associated the symmetric estimates.</p></dd>
 
 
 <dt id="arg-gaussian-distribution">gaussian_distribution<a class="anchor" aria-label="anchor" href="#arg-gaussian-distribution"></a></dt>
