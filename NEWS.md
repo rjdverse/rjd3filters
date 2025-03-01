@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [2.2.0] - 2024-03-01
+## [Unreleased]
+
+### Added
+
+
+### Changed
+
+
+## [2.2.0] - 2025-03-01
 
 ### Added
 
@@ -61,8 +69,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * New Jars
 
 
-[Unreleased]: https://github.com/rjdverse/rjd3filters/compare/v2.1.1...HEAD
-[2.1.1]: https://github.com/rjdverse/rjd3filters/releases/tag/v2.1.0...v2.1.1
-[2.1.0]: https://github.com/rjdverse/rjd3filters/releases/tag/v2.0.0...v2.1.0
-[2.0.0]: https://github.com/rjdverse/rjd3filters/releases/tag/v1.0.0...v2.0.0
+[Unreleased]: https://github.com/rjdverse/rjd3filters/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/rjdverse/rjd3filters/releases/tag/v2.2.0
+[2.1.1]: https://github.com/rjdverse/rjd3filters/releases/tag/v2.1.1
+[2.1.0]: https://github.com/rjdverse/rjd3filters/releases/tag/v2.1.0
+[2.0.0]: https://github.com/rjdverse/rjd3filters/releases/tag/v2.0.0
 [1.0.0]: https://github.com/rjdverse/rjd3filters/releases/tag/v1.0.0
