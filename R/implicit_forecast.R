@@ -35,12 +35,12 @@
 #'       col = "blue", lty = 2)
 #' @importFrom stats time
 #' @export
-implicit_forecast <- function(x, coefs){
+implicit_forecast <- function(x, coefs) {
   UseMethod("implicit_forecast", x)
 }
 #' @importFrom stats deltat
 #' @export
-implicit_forecast.default <- function(x, coefs){
+implicit_forecast.default <- function(x, coefs) {
   if (!inherits(coefs, "finite_filters")) {
     coefs <- finite_filters(coefs)
   }
@@ -60,7 +60,7 @@ implicit_forecast.default <- function(x, coefs){
   prev
 }
 #' @export
-implicit_forecast.matrix <- function(x, coefs){
+implicit_forecast.matrix <- function(x, coefs) {
   result <- do.call(cbind, lapply(seq_len(ncol(x)), function(i) implicit_forecast(x[,i], coefs = coefs)))
   colnames(result) <- colnames(x)
   result

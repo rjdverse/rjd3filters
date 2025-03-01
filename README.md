@@ -4,9 +4,7 @@
 # `rjd3filters` <a href="https://rjdverse.github.io/rjd3filters/"><img src="man/figures/logo.png" align="right" height="150" style="float:right; height:150px;"/></a>
 
 <!-- badges: start -->
-
-[![CRAN
-status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters) -->
 
 [![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml)
 [![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml)
@@ -38,7 +36,7 @@ rjd3filters relies on the
 
 Running rjd3 packages requires **Java 17 or higher**. How to set up such
 a configuration in R is explained
-[here](https://jdemetra-new-documentation.netlify.app/#Rconfig)
+[here](https://jdemetra-new-documentation.netlify.app/#Rconfig).
 
 ### Latest release
 
@@ -81,11 +79,11 @@ y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2000)
 musgrave <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 
 # we put a large weight on the timeliness criteria
-fst_notimeliness_filter <- lapply(0:6, fst_filter, 
-                                  lags = 6, smoothness.weight = 1/1000, 
+fst_notimeliness_filter <- lapply(0:6, fst_filter,
+                                  lags = 6, smoothness.weight = 1/1000,
                                   timeliness.weight = 1-1/1000, pdegree =2)
-fst_notimeliness <- finite_filters(sfilter = fst_notimeliness_filter[[7]], 
-                                   rfilters = fst_notimeliness_filter[-7], 
+fst_notimeliness <- finite_filters(sfilter = fst_notimeliness_filter[[7]],
+                                   rfilters = fst_notimeliness_filter[-7],
                                    first_to_last = TRUE)
 # RKHS filters minimizing timeliness
 rkhs_timeliness <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
@@ -93,10 +91,10 @@ rkhs_timeliness <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
 trend_musgrave <- filter(y, musgrave)
 trend_fst <- filter(y, fst_notimeliness)
 trend_rkhs <- filter(y, rkhs_timeliness)
-plot(ts.union(y, trend_musgrave, trend_fst, trend_rkhs), plot.type = "single", 
-     col = c("black", "orange", "lightblue", "red"), 
+plot(ts.union(y, trend_musgrave, trend_fst, trend_rkhs), plot.type = "single",
+     col = c("black", "orange", "lightblue", "red"),
      main = "Filtered time series", ylab=NULL)
-legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"), 
+legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
        col= c("black", "orange", "lightblue", "red"), lty = 1)
 ```
 
@@ -112,23 +110,23 @@ f_musgrave <- implicit_forecast(y, musgrave)
 f_fst <- implicit_forecast(y, fst_notimeliness)
 f_rkhs <- implicit_forecast(y, rkhs_timeliness)
 
-plot(window(y, start = 2007), 
-     xlim = c(2007, 2012), ylim = c(3600, 4600), 
+plot(window(y, start = 2007),
+     xlim = c(2007, 2012), ylim = c(3600, 4600),
      main = "Last estimates and implicit forecast", ylab=NULL)
-lines(trend_musgrave, 
+lines(trend_musgrave,
       col = "orange")
-lines(trend_fst, 
+lines(trend_fst,
       col = "lightblue")
-lines(trend_rkhs, 
+lines(trend_rkhs,
       col = "red")
-lines(ts(c(tail(y, 1), f_musgrave), frequency = frequency(y), start = end(y)), 
+lines(ts(c(tail(y, 1), f_musgrave), frequency = frequency(y), start = end(y)),
       col = "orange", lty = 2)
-lines(ts(c(tail(y, 1), f_fst), frequency = frequency(y), start = end(y)), 
+lines(ts(c(tail(y, 1), f_fst), frequency = frequency(y), start = end(y)),
       col = "lightblue", lty = 2)
-lines(ts(c(tail(y, 1), f_rkhs), frequency = frequency(y), start = end(y)), 
+lines(ts(c(tail(y, 1), f_rkhs), frequency = frequency(y), start = end(y)),
       col = "red", lty = 2)
-legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS", "Forecasts"), 
-       col= c("black", "orange", "lightblue", "red", "black"), 
+legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS", "Forecasts"),
+       col= c("black", "orange", "lightblue", "red", "black"),
        lty = c(1, 1, 1, 1, 2))
 ```
 
@@ -142,12 +140,12 @@ trend_henderson<- filter(y, musgrave[, "q=6"])
 trend_musgrave_q0 <- filter(y, musgrave[, "q=0"])
 trend_fst_q0 <- filter(y, fst_notimeliness[, "q=0"])
 trend_rkhs_q0 <- filter(y, rkhs_timeliness[, "q=0"])
-plot(window(ts.union(y, trend_musgrave_q0, trend_fst_q0, trend_rkhs_q0), 
-            start = 2007), 
-     plot.type = "single", 
-     col = c("black", "orange", "lightblue", "red"), 
+plot(window(ts.union(y, trend_musgrave_q0, trend_fst_q0, trend_rkhs_q0),
+            start = 2007),
+     plot.type = "single",
+     col = c("black", "orange", "lightblue", "red"),
      main = "Real time estimates of the trend", ylab=NULL)
-legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"), 
+legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
        col= c("black", "orange", "lightblue", "red"), lty = 1)
 ```
 
@@ -160,13 +158,13 @@ and McElroy(2019) can also be computed with the function
 `diagnostic_matrix()`:
 
 ``` r
-q_0_coefs <- list(Musgrave = musgrave[, "q=0"], 
-                  fst_notimeliness = fst_notimeliness[, "q=0"], 
+q_0_coefs <- list(Musgrave = musgrave[, "q=0"],
+                  fst_notimeliness = fst_notimeliness[, "q=0"],
                   rkhs_timeliness = rkhs_timeliness[, "q=0"])
 
-sapply(X = q_0_coefs, 
-       FUN = diagnostic_matrix, 
-       lags = 6, 
+sapply(X = q_0_coefs,
+       FUN = diagnostic_matrix,
+       lags = 6,
        sweights = musgrave[, "q=6"])
 #>         Musgrave fst_notimeliness rkhs_timeliness
 #> b_c  0.000000000     2.220446e-16     0.000000000
@@ -193,19 +191,19 @@ layout(matrix(c(1, 1, 2, 3), 2, 2, byrow = TRUE))
 plot_coef(fst_notimeliness, q = 0, col = "lightblue")
 plot_coef(musgrave, q = 0, add = TRUE, col = "orange")
 plot_coef(rkhs_timeliness, q = 0, add = TRUE, col = "red")
-legend("topleft", legend = c("Musgrave", "FST", "RKHS"), 
+legend("topleft", legend = c("Musgrave", "FST", "RKHS"),
        col= c("orange", "lightblue", "red"), lty = 1)
 
 plot_gain(fst_notimeliness, q = 0, col = "lightblue")
 plot_gain(musgrave, q = 0, col = "orange", add = TRUE)
 plot_gain(rkhs_timeliness, q = 0, add = TRUE, col = "red")
-legend("topright", legend = c("Musgrave", "FST", "RKHS"), 
+legend("topright", legend = c("Musgrave", "FST", "RKHS"),
        col= c("orange", "lightblue", "red"), lty = 1)
 
 plot_phase(fst_notimeliness, q = 0, col = "lightblue")
 plot_phase(musgrave, q = 0, col = "orange", add = TRUE)
 plot_phase(rkhs_timeliness, q = 0, add = TRUE, col = "red")
-legend("topright", legend = c("Musgrave", "FST", "RKHS"), 
+legend("topright", legend = c("Musgrave", "FST", "RKHS"),
        col= c("orange", "lightblue", "red"), lty = 1)
 par(def.par)
 ```
@@ -222,7 +220,7 @@ plot(confint, plot.type = "single",
      col = c("red", "black", "black"),
      lty = c(1, 2, 2), xlab = NULL, ylab = NULL)
 lines(y, col = "grey")
-legend("topleft", legend = c("y", "Smoothed", "CI (95%)"), 
+legend("topleft", legend = c("y", "Smoothed", "CI (95%)"),
        col= c("grey", "red", "black"), lty = c(1, 1, 2))
 ```
 
@@ -285,7 +283,7 @@ intermediate estimates at the beginning/end of the series when the
 central filter cannot be applied.
 
 ``` r
-musgrave 
+musgrave
 #>             q=6          q=5          q=4          q=3          q=2
 #> t-6 -0.01934985 -0.016609040 -0.011623676 -0.009152423 -0.016139228
 #> t-5 -0.02786378 -0.025914479 -0.022541271 -0.020981640 -0.024948087
@@ -386,4 +384,4 @@ should be added or updated.
 
 The code of this project is licensed under the [European Union Public
 Licence
-(EUPL)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
+(EUPL)](https://interoperable-europe.ec.europa.eu:443/collection/eupl/eupl-text-eupl-12).

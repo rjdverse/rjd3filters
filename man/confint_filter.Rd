@@ -4,7 +4,16 @@
 \alias{confint_filter}
 \title{Confidence intervals}
 \usage{
-confint_filter(x, coef, coef_var = coef, level = 0.95, ...)
+confint_filter(
+  x,
+  coef,
+  coef_var = coef,
+  level = 0.95,
+  asymmetric_var = TRUE,
+  gaussian_distribution = FALSE,
+  exact_df = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{input time series.}
@@ -15,6 +24,12 @@ confint_filter(x, coef, coef_var = coef, level = 0.95, ...)
 By default equal to \code{coef}.}
 
 \item{level}{confidence level.}
+
+\item{asymmetric_var}{if \code{asymmetric_var = TRUE} then the variance is estimated for each asymmetric filters instead of using the variance associated the symmetric estimates.}
+
+\item{gaussian_distribution}{if \code{TRUE} use the normal distribution to compute the confidence interval, otherwise use the t-distribution.}
+
+\item{exact_df}{if \code{TRUE} compute the exact degrees of freedom for the t-distribution (when \code{gaussian_distribution = FALSE}), otherwise uses an approximation.}
 
 \item{...}{other arguments passed to the function \code{\link[=moving_average]{moving_average()}} to convert \code{coef} to a \code{"moving_average"} object.}
 }

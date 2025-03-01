@@ -26,14 +26,14 @@ setClass("finite_filters",
 finite_filters <- function(sfilter,
                            rfilters = NULL,
                            lfilters = NULL,
-                           first_to_last = FALSE){
+                           first_to_last = FALSE) {
   UseMethod("finite_filters", sfilter)
 }
 #' @export
 finite_filters.moving_average <- function(sfilter,
                                           rfilters = NULL,
                                           lfilters = NULL,
-                                          first_to_last = FALSE){
+                                          first_to_last = FALSE) {
   if (is.null(lfilters) && !is.null(rfilters)) {
     if (first_to_last) {
       rfilters <- rev(rfilters)
@@ -46,7 +46,6 @@ finite_filters.moving_average <- function(sfilter,
     rfilters <- rev(lapply(lfilters, rev.moving_average))
   } else if (is.null(lfilters) && is.null(rfilters)) {
     rfilters <- lfilters <- list()
-
   }
   res <- new("finite_filters",
              sfilter = sfilter, lfilters = lfilters,
@@ -58,11 +57,11 @@ finite_filters.moving_average <- function(sfilter,
 finite_filters.list <- function(sfilter,
                                 rfilters = NULL,
                                 lfilters = NULL,
-                                first_to_last = FALSE){
+                                first_to_last = FALSE) {
   lags <- length(sfilter)-1
 
   all_f <- lapply(sfilter,
-                   function(x){
+                   function(x) {
                      moving_average(rm_trailing_zero_or_na(x), -lags)
                    }
   )
@@ -77,19 +76,19 @@ finite_filters.list <- function(sfilter,
 finite_filters.matrix <- function(sfilter,
                                   rfilters = NULL,
                                   lfilters = NULL,
-                                  first_to_last = FALSE){
-  coefs <- lapply(1:ncol(sfilter), function(i) sfilter[,i])
+                                  first_to_last = FALSE) {
+  coefs <- lapply(seq_len(ncol(sfilter)), function(i) sfilter[,i])
   finite_filters(coefs, first_to_last = first_to_last)
 }
 
 #' @rdname finite_filters
 #' @export
-is.finite_filters <- function(x){
+is.finite_filters <- function(x) {
     is(x, "finite_filters")
 }
 
 #' @export
-.jd2r_finitefilters <- function(jf, first_to_last){
+.jd2r_finitefilters <- function(jf, first_to_last) {
     jf<-.jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
     if (! is.jnull(jf)) {
       jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
@@ -101,7 +100,7 @@ is.finite_filters <- function(x){
       lfilters <- rev(lapply(jlfilter, .jd2ma))
 
       if (missing(first_to_last)) {
-        if (all(diff(sapply(lfilters, length)) <= 0)) {
+        if (all(diff(lengths(lfilters)) <= 0)) {
           lfilters <- rev(lfilters)
           rfilters <- rev(rfilters)
         }
@@ -175,11 +174,11 @@ setMethod("*",
                         rep(list(e2@sfilter), length(e1)),
                         e2@rfilters)
             new_e1 <- rep(list(e1), length(new_e2))
-            new_e2 <- lapply(1:length(new_e2), function(i){
+            new_e2 <- lapply(seq_along(new_e2), function(i) {
               new_e2[[i]] * moving_average(1,
                                            lags = (new_lb + (i - 1) + e1@lower_bound * (new_lb == new_lb_sym)))
             })
-            new_e1 <- lapply(1:length(new_e1), function(i){
+            new_e1 <- lapply(seq_along(new_e1), function(i) {
               new_e1[[i]] * moving_average(1, lags = (new_lb + (i - 1)))
             })
             all_f <- t(do.call(cbind,c(new_e1, new_e2)))
@@ -194,13 +193,13 @@ setMethod("*",
             sym <- moving_average(sym_mat,
                                   lags = new_lb_sym, leading_zero = FALSE, trailing_zero = TRUE)
             rfilters <- new_mat[-(1:((nrow(new_mat)+1)/2)),, drop = FALSE]
-            rfilters <- lapply(1:nrow(rfilters),function(i){
+            rfilters <- lapply(seq_len(nrow(rfilters)),function(i) {
               moving_average(rfilters[i,-seq_len(i)],
                              lags = new_lb_sym, leading_zero = FALSE, trailing_zero = TRUE)
             })
 
-            lfilters <- new_mat[(1:((nrow(new_mat)-1)/2)), , drop = FALSE]
-            lfilters <- lapply(1:nrow(lfilters),function(i){
+            lfilters <- new_mat[seq_len(((nrow(new_mat)-1)/2)), , drop = FALSE]
+            lfilters <- lapply(seq_len(nrow(lfilters)),function(i) {
               moving_average(lfilters[i,],
                              lags = new_lb_sym + (nrow(lfilters) - i) + 1, leading_zero = FALSE, trailing_zero = TRUE)#why -1 ?
             })
@@ -372,10 +371,10 @@ setMethod("*",
                         rep(list(e2@sfilter), 1 + (new_ub - length(e2@rfilters)) + (new_lb - length(e2@lfilters))),
                         e2@rfilters)
 
-            new_e1 <- lapply(1:length(new_e1), function(i){
+            new_e1 <- lapply(seq_along(new_e1), function(i) {
               new_e1[[i]] * moving_average(1, lags = (-new_lb + (i - 1)))
             })
-            new_e2 <- lapply(1:length(new_e2), function(i){
+            new_e2 <- lapply(seq_along(new_e2), function(i) {
               new_e2[[i]] * moving_average(1, lags = (-new_lb  + (i - 1)))
             })
             all_f <- t(do.call(cbind,c(new_e1, new_e2)))
@@ -390,13 +389,13 @@ setMethod("*",
             sym <- moving_average(sym_mat,
                                   lags = new_lb_sym, leading_zero = TRUE, trailing_zero = TRUE)
             rfilters <- new_mat[-(1:((nrow(new_mat)+1)/2)), , drop = FALSE]
-            rfilters <- lapply(1:nrow(rfilters),function(i){
+            rfilters <- lapply(seq_len(nrow(rfilters)),function(i) {
               moving_average(rfilters[i,],
                              lags = new_lb_sym - i, leading_zero = TRUE, trailing_zero = TRUE)
             })
             #
-            lfilters <- new_mat[(1:((nrow(new_mat)-1)/2)), , drop = FALSE]
-            lfilters <- lapply(1:nrow(lfilters),function(i){
+            lfilters <- new_mat[seq_len((nrow(new_mat)-1)/2), , drop = FALSE]
+            lfilters <- lapply(seq_len(nrow(lfilters)),function(i) {
               moving_average(lfilters[i,],
                              lags = new_lb_sym + (nrow(lfilters) - i) + 1, leading_zero = TRUE, trailing_zero = TRUE)#why -1 ?
             })
@@ -478,13 +477,13 @@ setMethod("[",
             as.matrix(x)[i, j, ..., drop = drop]
           })
 #' @export
-to_seasonal.finite_filters <- function(x, s){
+to_seasonal.finite_filters <- function(x, s) {
   x@sfilter <- to_seasonal(x@sfilter, s)
-  x@rfilters <- unlist(lapply(x@rfilters, function(x){
+  x@rfilters <- unlist(lapply(x@rfilters, function(x) {
     new_mm <- to_seasonal(x, s)
     rep(list(new_mm), s)
   }))
-  x@lfilters <- unlist(lapply(x@lfilters, function(x){
+  x@lfilters <- unlist(lapply(x@lfilters, function(x) {
     new_mm <- to_seasonal(x, s)
     rep(list(new_mm), s)
   }))

@@ -12,7 +12,7 @@ get_moving_average <- function(x, ...) {
 }
 #' @importFrom stats coefficients
 #' @export
-get_moving_average.Arima <- function(x, ...){
+get_moving_average.Arima <- function(x, ...) {
   arima_mod <- x$arma
   ar <- arima_mod[1]
   ma <- arima_mod[2]
@@ -66,7 +66,7 @@ get_moving_average.Arima <- function(x, ...){
                     sma = sma_mm))
 }
 #' @export
-get_moving_average.regarima <- function(x, period = 12, ...){
+get_moving_average.regarima <- function(x, period = 12, ...) {
   specif <- x$specification$arima$specification
   ar <- specif$arima.p
   ma <- specif$arima.q
@@ -120,11 +120,11 @@ get_moving_average.regarima <- function(x, period = 12, ...){
                     sma = sma_mm))
 }
 #' @export
-get_moving_average.SA <- function(x, period = 12, ...){
+get_moving_average.SA <- function(x, period = 12, ...) {
   get_moving_average(x$regarima, period = period, ...)
 }
 #' @export
-get_moving_average.JD3_SARIMA_ESTIMATION <- function(x, period = 12, ...){
+get_moving_average.JD3_SARIMA_ESTIMATION <- function(x, period = 12, ...) {
   ar <- x$phi
   ma <- x$theta
   sar <- x$bphi
@@ -170,10 +170,10 @@ get_moving_average.JD3_SARIMA_ESTIMATION <- function(x, period = 12, ...){
                     sma = sma_mm))
 }
 #' @export
-get_moving_average.JD3_REGARIMA_OUTPUT <- function(x, ...){
+get_moving_average.JD3_REGARIMA_OUTPUT <- function(x, ...) {
   get_moving_average(x$result, ...)
 }
 #' @export
-get_moving_average.JD3_REGARIMA_RSLTS <- function(x, ...){
+get_moving_average.JD3_REGARIMA_RSLTS <- function(x, ...) {
   get_moving_average(x$description$arima, ...)
 }

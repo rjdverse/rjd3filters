@@ -8,7 +8,7 @@ dfa_filter(
   horizon = 6,
   degree = 0,
   density = c("uniform", "rw"),
-  targetfilter = lp_filter(horizon = horizon)[, 1],
+  targetfilter = lp_filter(horizon = horizon)@sfilter,
   passband = 2 * pi/12,
   accuracy.weight = 1/3,
   smoothness.weight = 1/3,

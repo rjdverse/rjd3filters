@@ -73,44 +73,44 @@
 #' @name diagnostics-fit
 #' @rdname diagnostics-fit
 #' @export
-cve <- function(x, coef, ...){
+cve <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
   sc <- filter(x, coef)
   coef0 <- coef(coef)["t"]
-  (x-sc)/(1-coef0)
+  (x-sc) / (1-coef0)
 }
 #' @rdname diagnostics-fit
 #' @export
-cv <- function(x, coef, ...){
+cv <- function(x, coef, ...) {
   mean(cve(x, coef, ...)^2, na.rm = TRUE)
 }
 #' @rdname diagnostics-fit
 #' @export
-loocve <- function(x, coef, ...){
+loocve <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
   sc <- filter(x, coef)
   coef0 <- coef(coef)["t"]
-  (sc - coef0 * x)/(1-coef0)
+  (sc - coef0 * x) / (1 - coef0)
 }
 
 #' @rdname diagnostics-fit
 #' @export
-rt <- function(x, coef, ...){
+rt <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
   sc <- filter(x, coef)
   coef0 <- coef(coef)["t"]
-  mean((x-sc)^2, na.rm = TRUE)/(1-2*coef0)
+  mean((x-sc)^2, na.rm = TRUE) / (1 - 2 * coef0)
 }
 
 #' @rdname diagnostics-fit
 #' @export
-cp <- function(x, coef, var, ...){
+cp <- function(x, coef, var, ...) {
   mean(cve(x, coef, ...)^2, na.rm = TRUE)
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
@@ -139,6 +139,7 @@ cp <- function(x, coef, var, ...){
 #' Loader, Clive. 1999.
 #' Local regression and likelihood.
 #' New York: Springer-Verlag.
+#' @seealso [df_var()].
 #' @export
 var_estimator <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
@@ -148,9 +149,38 @@ var_estimator <- function(x, coef, ...) {
   coef0 <- coefficients(coef)["t"]
   sigma2 <-  mean((x - sc)^2,
                   na.rm = TRUE)
-  sigma2 <- sigma2/(1- 2 * coef0 + sum(coefficients(coef)^2))
+  sigma2 <- sigma2 / (1- 2 * coef0 + sum(coefficients(coef)^2))
   names(sigma2) <- NULL
   sigma2
+}
+
+#' Compute the degrees of freedom for the variance estimator
+#'
+#' @param n number of observations
+#' @param coef moving average ([moving_average()]) used to filter the series.
+#' @inheritParams confint_filter
+#' @seealso [var_estimator()].
+df_var <- function(n, coef, exact_df = FALSE) {
+    value_coef <- coefficients(coef)
+    coef0 <- value_coef["t"]
+    p <- abs(lower_bound(coef))
+    f <- upper_bound(coef)
+    df_num <- (n - (p + f)) * (1- 2 * coef0 + sum(value_coef^2))
+    names(df_num) <- NULL
+    if (!exact_df)
+        return(df_num) # Approximation of the degrees of freedom
+
+    # Otherwise we compute the exact df more time consuming
+    value_coef <- - value_coef
+    value_coef["t"] <- 1 + value_coef["t"] # we already took the negative sign in the previous line
+    mat_coefs <- do.call(cbind, lapply(0:(p + f), function(n_0) {
+        c(rep(0, n_0), value_coef[seq(1, length.out = length(value_coef) - n_0)])
+    }))
+    stats <- value_coef %*% mat_coefs
+    stats <- stats ^ 2
+    stats[-1] <- stats[-1] * 2
+    df_denum <- sum((n - (p + f) - seq(0, length.out = length(stats))) * stats)
+    return(df_num^2 / df_denum)
 }
 
 #' Confidence intervals
@@ -160,6 +190,9 @@ var_estimator <- function(x, coef, ...) {
 #' @param coef_var moving-average ([moving_average()]) or finite filter ([finite_filters()]) used compute the variance (throw [var_estimator()]).
 #' By default equal to `coef`.
 #' @param level confidence level.
+#' @param asymmetric_var if `asymmetric_var = TRUE` then the variance is estimated for each asymmetric filters instead of using the variance associated the symmetric estimates.
+#' @param gaussian_distribution if `TRUE` use the normal distribution to compute the confidence interval, otherwise use the t-distribution.
+#' @param exact_df if `TRUE` compute the exact degrees of freedom for the t-distribution (when `gaussian_distribution = FALSE`), otherwise uses an approximation.
 #' @param ... other arguments passed to the function [moving_average()] to convert `coef` to a `"moving_average"` object.
 #
 #' @details
@@ -196,25 +229,42 @@ var_estimator <- function(x, coef, ...) {
 #'      col = c("red", "black", "black"),
 #'      lty = c(1, 2, 2))
 #' @export
-confint_filter <- function(x, coef, coef_var = coef, level = 0.95, ...){
+confint_filter <- function(x, coef, coef_var = coef, level = 0.95, asymmetric_var = TRUE, gaussian_distribution = FALSE, exact_df = TRUE, ...) {
   filtered <- filter(x, coef)
   c <- (1 - level) / 2
   c <- c(c, 1 - c)
-  qnc <- qnorm(c)
+  n <- length(filtered)
   if (is.moving_average(coef)) {
     corr_f <- sqrt(sum(coefficients(coef)^2))
+    if (gaussian_distribution) {
+      quantile <- matrix(qnorm(c), ncol = 2)
+    } else {
+      quantile <- matrix(qt(c, df = df_var(n = n, coef = coef, exact_df = exact_df)), ncol = 2)
+    }
   } else if (is.finite_filters(coef)) {
     corr_f <- ts(sqrt(sum(coefficients(coef@sfilter)^2)),
                  start = start(filtered), end = end(filtered),
                  frequency = frequency(filtered))
+    if (gaussian_distribution) {
+      quantile <- matrix(qnorm(c), ncol = 2)
+    } else {
+      quantile <- ts(matrix(qt(c, df = df_var(n = n, coef = coef@sfilter, exact_df = exact_df)), ncol = 2),
+                     start = start(filtered), end = end(filtered),
+                     frequency = frequency(filtered))
+    }
     lfilters <- coef@lfilters
     rfilters <- coef@rfilters
-    for (i in seq_along(lfilters)){
+    for (i in seq_along(lfilters)) {
       corr_f[i] <- sqrt(sum(coefficients(lfilters[[i]])^2))
+      if (!gaussian_distribution)
+        quantile[i,] <- qt(c, df = df_var(n = n, coef = lfilters[[i]], exact_df = exact_df))
     }
-    for (i in seq_along(rfilters)){
+    for (i in seq_along(rfilters)) {
       corr_f[length(corr_f) - length(rfilters) + i] <-
         sqrt(sum(coefficients(rfilters[[i]])^2))
+      if (!gaussian_distribution)
+        quantile[length(time(quantile)) - length(rfilters) + i,] <-
+          qt(c, df = df_var(n = n, coef = rfilters[[i]], exact_df = exact_df))
     }
   }
 
@@ -224,23 +274,27 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, ...){
     var <- ts(var_estimator(x, coef_var@sfilter),
               start = start(filtered), end = end(filtered),
               frequency = frequency(filtered))
-    lfilters <- coef_var@lfilters
-    rfilters <- coef_var@rfilters
-    for (i in seq_along(lfilters)){
-      var[i] <- var_estimator(x, lfilters[[i]])
+    if (asymmetric_var) {
+        lfilters <- coef_var@lfilters
+        rfilters <- coef_var@rfilters
+        for (i in seq_along(lfilters)) {
+            var[i] <- var_estimator(x, lfilters[[i]])
+        }
+        for (i in seq_along(rfilters)) {
+            var[length(var) - length(rfilters) + i] <-
+                var_estimator(x, rfilters[[i]])
+        }
     }
-    for (i in seq_along(rfilters)){
-      var[length(var) - length(rfilters) + i] <-
-        var_estimator(x, rfilters[[i]])
-    }
+
   }
 
-  inf <- filtered + qnc[1] * sqrt(var) * corr_f
-  sup <- filtered + qnc[2] * sqrt(var) * corr_f
+  inf <- filtered + quantile[,1] * sqrt(var) * corr_f
+  sup <- filtered + quantile[,2] * sqrt(var) * corr_f
   res <- ts.union(filtered, inf, sup)
   colnames(res) <- c("filtered", sprintf("%.1f%%", c * 100))
   res
 }
+
 
 #' Deprecated function
 #'
@@ -248,7 +302,7 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, ...){
 #' @name deprecated-rjd3filters
 #' @rdname deprecated-rjd3filters
 #' @export
-cross_validation <- function(x, coef, ...){
+cross_validation <- function(x, coef, ...) {
   .Deprecated("cve")
   cve(x, coef, ...)
 }

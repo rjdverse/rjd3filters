@@ -47,11 +47,11 @@
 #' # This is equivalent to:
 #' trend <- localpolynomials(x, horizon = 6)
 #' @export
-filter <- function(x, coefs, remove_missing = TRUE){
+filter <- function(x, coefs, remove_missing = TRUE) {
   UseMethod("filter", x)
 }
 #' @export
-filter.default <- function(x, coefs, remove_missing = TRUE){
+filter.default <- function(x, coefs, remove_missing = TRUE) {
   if (is.moving_average(coefs)) {
     filter_ma(x, coefs)
   } else {
@@ -59,31 +59,41 @@ filter.default <- function(x, coefs, remove_missing = TRUE){
   }
 }
 #' @export
-filter.matrix <- function(x, coefs, remove_missing = TRUE){
+filter.matrix <- function(x, coefs, remove_missing = TRUE) {
   result <- x
-  for (i in seq_len(ncol(x))){
+  for (i in seq_len(ncol(x))) {
     result[, i] <- filter(x[,i], coefs = coefs, remove_missing = remove_missing)
   }
   result
 }
 
 #' @importFrom stats is.ts start
-filter_ma <- function(x, coefs){
+filter_ma <- function(x, coefs) {
   # if (!is.moving_average(coefs)) {
   #   coefs <- moving_average(coefs, -abs(lags))
   # }
   lb <- lower_bound(coefs)
   ub <- upper_bound(coefs)
 
-  if (length(x) <= length(coefs))
+  if (length(x) < length(coefs))
     return(x * NA)
 
-  DataBlock <- J("jdplus.toolkit.base.core.data.DataBlock")
-  jx <- DataBlock$of(as.numeric(x))
-  out <- DataBlock$of(as.numeric(rep(NA, length(x) - length(coefs)+1)))
-  .ma2jd(coefs)$apply(jx,
-                     out)
-  result <- out$toArray()
+  jx <- .jcall(
+    "jdplus/toolkit/base/core/data/DataBlock",
+    "Ljdplus/toolkit/base/core/data/DataBlock;",
+    "of",
+    as.numeric(x)
+    )
+  out <- .jcall(
+    "jdplus/toolkit/base/core/data/DataBlock",
+    "Ljdplus/toolkit/base/core/data/DataBlock;",
+    "of",
+    .jarray(as.numeric(rep(NA, length(x) - length(coefs)+1)))
+  )
+  jfilter <- .ma2jd(coefs)
+  .jcall(jfilter, "V", "apply",
+    jx, out)
+  result <- .jcall(out, "[D", "toArray")
   result <- c(rep(NA, abs(min(lb, 0))),
               result,
               rep(NA, abs(max(ub, 0))))
@@ -118,7 +128,7 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
 
   result <- .jcall(result, "[D", "toArray")
 
-  if (remove_missing){
+  if (remove_missing) {
     result <- c(rep(NA, data_clean$leading), result,
                rep(NA, data_clean$trailing))
   }

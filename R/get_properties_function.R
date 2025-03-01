@@ -16,27 +16,34 @@ get_properties_function <- function(x,
                                                   "Asymmetric Gain",
                                                   "Asymmetric Phase",
                                                   "Asymmetric transfer"),
-                                    ...){
+                                    ...) {
   UseMethod("get_properties_function", x)
 }
 
-get_gain_function <- function(x){
-  jgain <- x$gainFunction()$applyAsDouble
-  Vectorize(function(x){
-    jgain(x)
+get_gain_function <- function(x) {
+  jgain <- .jcall(x, "Ljava/util/function/DoubleUnaryOperator;",
+                  "gainFunction")
+  Vectorize(function(x) {
+    .jcall(jgain, "D", "applyAsDouble", x)
   })
 }
-get_phase_function <- function(x){
-  jphase <- x$phaseFunction()$applyAsDouble
-  Vectorize(function(x){
-    jphase(x)
+get_phase_function <- function(x) {
+  jphase <- .jcall(x, "Ljava/util/function/DoubleUnaryOperator;",
+                   "phaseFunction")
+  Vectorize(function(x) {
+    .jcall(jphase, "D", "applyAsDouble", x)
   })
 }
-get_frequency_response_function <- function(x){
-  jfrf <- x$frequencyResponseFunction()$apply
-  Vectorize(function(x){
-    res <- jfrf(x)
-    complex(real = res$getRe(), imaginary = res$getIm())
+get_frequency_response_function <- function(x) {
+  jfrf <- .jcall(x,
+                 "Ljava/lang/Object;",
+                 "frequencyResponseFunction")
+
+  Vectorize(function(x) {
+    res <- .jcall(jfrf, "Ljava/lang/Object;", "apply", x)
+
+    complex(real = .jcall(res, "D", "getRe"),
+            imaginary = .jcall(res, "D", "getIm"))
   })
 }
 
@@ -48,7 +55,7 @@ get_properties_function.moving_average <- function(x,
                                                                  "Symmetric transfer",
                                                                  "Asymmetric Gain",
                                                                  "Asymmetric Phase",
-                                                                 "Asymmetric transfer"), ...){
+                                                                 "Asymmetric transfer"), ...) {
   x <- .ma2jd(x)
   component <- match.arg(component)
   switch(component,
@@ -78,9 +85,9 @@ get_properties_function.finite_filters <- function(x,
                                                                  "Symmetric transfer",
                                                                  "Asymmetric Gain",
                                                                  "Asymmetric Phase",
-                                                                 "Asymmetric transfer"), ...){
+                                                                 "Asymmetric transfer"), ...) {
   component <- match.arg(component)
-  if (length(grep("Symmetric", component, fixed = TRUE)) > 0) {
+  if (any(grepl(pattern = "Symmetric", x = component, fixed = TRUE))) {
     get_properties_function(x@sfilter, component = component)
   } else {
     a_fun <- lapply(x@rfilters, get_properties_function, component = component)
@@ -124,14 +131,14 @@ get_properties_function.finite_filters <- function(x,
 #' Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
 #' @export
 diagnostic_matrix <- function(x, lags, passband = pi/6,
-                               sweights, ...){
+                               sweights, ...) {
   if (!is.moving_average(x))
     x <- moving_average(x, lags = lags)
 
   results <- c(sum(x)-1, sum(coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)),
                sum(coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)^2),
                fst(x, lags, passband = passband))
-  if (!missing(sweights)){
+  if (!missing(sweights)) {
     results <- c(results,
                  mse(x,
                      sweights,
