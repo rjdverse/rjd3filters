@@ -1,45 +1,46 @@
-Package: rjd3filters
 Type: Package
+Package: rjd3filters
 Title: Trend-Cycle Extraction with Linear Filters based on JDemetra+ v3.x
 Version: 2.3.0
 Authors@R: c(
-  person("Jean", "Palate", role = c("aut"),
-         email = "palatejean@gmail.com"),
-  person("Alain", "Quartier-la-Tente", role = c("aut","cre"),
-         email = "alain.quartier@yahoo.fr",
-         comment = c(ORCID = "0000-0001-7890-3857")),
-  person("Tanguy", "Barthelemy", role = c("ctb"),
-         email ="tanguy.barthelemy@insee.fr"),
-  person("Anna", "Smyk", role = c("ctb"),
-         email ="anna.smyk@insee.fr")
-   )
+    person("Jean", "Palate", , "palatejean@gmail.com", role = "aut"),
+    person("Alain", "Quartier-la-Tente", , "alain.quartier@yahoo.fr", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-7890-3857")),
+    person("Tanguy", "Barthelemy", , "tanguy.barthelemy@insee.fr", role = "ctb"),
+    person("Anna", "Smyk", , "anna.smyk@insee.fr", role = "ctb")
+  )
 Description: This package provides functions to build and apply symmetric
-  and asymmetric moving averages (= linear filters) for trend-cycle extraction.
-  In particular, it implements several modern approaches for real-time estimates
-  from the viewpoint of revisions and time delay in detecting turning points.
-  It includes the local polynomial approach of Proietti and Luati (2008), the
-  Reproducing Kernel Hilbert Space (RKHS) of Dagum and Bianconcini (2008) and
-  the Fidelity-Smoothness-Timeliness approach of Grun-Rehomme, Guggemos, and Ladiray (2018).
-  It is based on Java libraries developped in 'JDemetra+' (<https://github.com/jdemetra>), time series analysis software.
-Depends:
-  R (>= 4.1.0)
-Imports:
-  rJava (>= 1.0-6),
-  methods,
-  MASS,
-  graphics,
-  stats,
-  rjd3toolkit (>= 3.5.0)
-Remotes:
-  github::rjdverse/rjd3toolkit
-SystemRequirements: Java (>= 17)
+    and asymmetric moving averages (= linear filters) for trend-cycle
+    extraction.  In particular, it implements several modern approaches
+    for real-time estimates from the viewpoint of revisions and time delay
+    in detecting turning points.  It includes the local polynomial
+    approach of Proietti and Luati (2008), the Reproducing Kernel Hilbert
+    Space (RKHS) of Dagum and Bianconcini (2008) and the
+    Fidelity-Smoothness-Timeliness approach of Grun-Rehomme, Guggemos, and
+    Ladiray (2018).  It is based on Java libraries developped in
+    'JDemetra+' (<https://github.com/jdemetra>), time series analysis
+    software.
 License: file LICENSE
-LazyData: TRUE
-URL: https://github.com/rjdverse/rjd3filters, https://rjdverse.github.io/rjd3filters/
+URL: https://github.com/rjdverse/rjd3filters,
+    https://rjdverse.github.io/rjd3filters/
+Depends:
+    R (>= 4.1.0)
+Imports:
+    graphics,
+    MASS,
+    methods,
+    rJava (>= 1.0-6),
+    rjd3toolkit (>= 3.5.0),
+    stats
 Suggests:
     knitr,
     rmarkdown
-VignetteBuilder: knitr
-RoxygenNote: 7.3.2
-Roxygen: list(markdown = TRUE)
+VignetteBuilder: 
+    knitr
+Remotes: 
+    github::rjdverse/rjd3toolkit@*release
 Encoding: UTF-8
+LazyData: TRUE
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+SystemRequirements: Java (>= 17)
