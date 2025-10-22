@@ -89,28 +89,28 @@ first asymmetric filter (when only one observation is missing) or the last one (
 <span class="r-in"><span>               rfilters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="moving_average.html">moving_average</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, lags <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ff_lp</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             q=6          q=5          q=4          q=3          q=2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-6 -0.01934985 -0.016609040 -0.011623676 -0.009152423 -0.016139228</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-5 -0.02786378 -0.025914479 -0.022541271 -0.020981640 -0.024948087</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-4  0.00000000  0.001157790  0.002918842  0.003566851  0.002620762</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-3  0.06549178  0.065858066  0.066006963  0.065743350  0.067817618</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-2  0.14735651  0.146931288  0.145468029  0.144292794  0.149387420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-1  0.21433675  0.213120014  0.210044599  0.207957742  0.216072726</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t    0.24005716  0.238048915  0.233361346  0.230362866  0.241498208</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+1  0.21433675  0.211536998  0.205237273  0.201327171  0.215482871</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+2  0.14735651  0.143765257  0.135853376  0.131031652  0.148207710</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+3  0.06549178  0.061109020  0.051584983  0.045851637  0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+4  0.00000000 -0.005174272 -0.016310464  0.000000000  0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+5 -0.02786378 -0.033829557  0.000000000  0.000000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-6 -0.01934985 -0.016429821 -0.010992405 -0.008134877 -0.016032761</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-5 -0.02786378 -0.025767846 -0.022036255 -0.020190215 -0.024868237</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-4  0.00000000  0.001271838  0.003297605  0.004132155  0.002673996</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-3  0.06549178  0.065939529  0.066259471  0.066082532  0.067844235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-2  0.14735651  0.146980166  0.145594283  0.144405855  0.149387420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-1  0.21433675  0.213136306  0.210044599  0.207844681  0.216046109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t    0.24005716  0.238032623  0.233235092  0.230023684  0.241444975</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+1  0.21433675  0.211488120  0.204984764  0.200761868  0.215403021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+2  0.14735651  0.143683794  0.135474614  0.130240227  0.148101243</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+3  0.06549178  0.060994971  0.051079966  0.044834091  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+4  0.00000000 -0.005320905 -0.016941735  0.000000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+5 -0.02786378 -0.034008775  0.000000000  0.000000000  0.000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+6 -0.01934985  0.000000000  0.000000000  0.000000000  0.000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              q=1         q=0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-6 -0.037925830 -0.07371504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-5 -0.035216813 -0.04601336</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-4  0.003869912  0.01806602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-3  0.080584644  0.11977342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-2  0.173672322  0.23785375</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-1  0.251875504  0.34104960</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t    0.288818862  0.40298562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+1  0.274321400  0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-6 -0.042706925 -0.09186038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-5 -0.038631881 -0.05811026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-4  0.001820871  0.01201758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-3  0.079901630  0.11977342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-2  0.174355336  0.24390220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-1  0.253924544  0.35314649</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t    0.292233930  0.42113096</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+1  0.279102495  0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+2  0.000000000  0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+3  0.000000000  0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+4  0.000000000  0.00000000</span>
@@ -123,32 +123,32 @@ first asymmetric filter (when only one observation is missing) or the last one (
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+1 0.3333333 0.0</span>
 <span class="r-in"><span><span class="va">ff_lp</span> <span class="op">*</span> <span class="va">ff_simple_ma</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              q=7          q=6          q=5          q=4          q=3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-7 -0.006449948 -0.006449948 -0.005536347 -0.003874559 -0.003050808</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-6 -0.015737874 -0.015737874 -0.014174506 -0.011388316 -0.010044688</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-5 -0.015737874 -0.015737874 -0.013788576 -0.010415368 -0.008855737</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-4  0.012542669  0.012542669  0.013700459  0.015461511  0.016109520</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-3  0.070949432  0.070949432  0.071315715  0.071464612  0.071200998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-2  0.142395015  0.142395015  0.141969789  0.140506531  0.139331295</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-1  0.200583472  0.200583472  0.199366739  0.196291325  0.194204467</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t    0.222910217  0.222910217  0.220901976  0.216214406  0.213215926</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+1  0.200583472  0.200583472  0.197783724  0.191483998  0.187573896</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+2  0.142395015  0.142395015  0.138803758  0.130891877  0.133712093</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+3  0.070949432  0.070949432  0.066566668  0.054324221  0.066603036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+4  0.012542669  0.012542669  0.001730137  0.009039762  0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+5 -0.015737874 -0.018962848 -0.018639536  0.000000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-7 -0.006449948 -0.006449948 -0.005476607 -0.003664135 -0.002711626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-6 -0.015737874 -0.015737874 -0.014065889 -0.011009553 -0.009441697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-5 -0.015737874 -0.015737874 -0.013641943 -0.009910352 -0.008064312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-4  0.012542669  0.012542669  0.013814507  0.015840274  0.016674824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-3  0.070949432  0.070949432  0.071397178  0.071717120  0.071540180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-2  0.142395015  0.142395015  0.142018667  0.140632785  0.139444356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-1  0.200583472  0.200583472  0.199383032  0.196291325  0.194091407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t    0.222910217  0.222910217  0.220885683  0.216088152  0.212876744</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+1  0.200583472  0.200583472  0.197734846  0.191231490  0.187008593</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+2  0.142395015  0.142395015  0.138722295  0.130513115  0.132751077</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+3  0.070949432  0.070949432  0.066452620  0.053713993  0.065830455</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+4  0.012542669  0.012542669  0.001553634  0.008555788  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+5 -0.015737874 -0.018962848 -0.018778023  0.000000000  0.000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+6 -0.015737874 -0.018962848  0.000000000  0.000000000  0.000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+7 -0.006449948  0.000000000  0.000000000  0.000000000  0.000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              q=2         q=1         q=0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-7 -0.005379743 -0.01264194 -0.02457168</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-6 -0.013695772 -0.02438088 -0.03990947</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-5 -0.012822184 -0.02309091 -0.03388746</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-4  0.015163431  0.01641258  0.03060869</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-3  0.073275267  0.08604229  0.12523106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-2  0.144425922  0.16871082  0.23289226</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t-1  0.202319451  0.23812223  0.39446059</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t    0.224351268  0.31739216  0.31517601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+1  0.226430881  0.23343365  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t+2  0.145931478  0.00000000  0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-7 -0.005344254 -0.01423564 -0.03062013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-6 -0.013633666 -0.02711294 -0.04999021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-5 -0.012742334 -0.02650598 -0.04598435</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-4  0.015216664  0.01436354  0.02456024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-3  0.073301884  0.08535928  0.12523106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-2  0.144425922  0.16939384  0.23894070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t-1  0.202292835  0.24017127  0.40958171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t    0.224298035  0.32160407  0.32828097</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+1  0.226333286  0.23696256  0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t+2  0.145851628  0.00000000  0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+3  0.000000000  0.00000000  0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+4  0.000000000  0.00000000  0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> t+5  0.000000000  0.00000000  0.00000000</span>

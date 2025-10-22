@@ -84,8 +84,8 @@
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rjdverse/rjd3toolkit@*release"</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rjdverse/rjd3filters@*release"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rjdverse/rjd3toolkit@*release"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rjdverse/rjd3filters@*release"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>From <a href="https://rjdverse.r-universe.dev/rjd3filters" class="external-link">r-universe</a>:</li>
 </ul>
@@ -98,7 +98,7 @@
 <p>To get the current development version from GitHub:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rjdverse/rjd3filters"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rjdverse/rjd3filters"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -130,11 +130,11 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"Musgrave"</span>, <span class="st">"FST"</span>, <span class="st">"RKHS"</span><span class="op">)</span>,</span>
 <span>       col<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"orange"</span>, <span class="st">"lightblue"</span>, <span class="st">"red"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot-global-1.png" style="display: block; margin: auto;"></p>
-<p>The last estimates can also be analysed with the <code>implicit_forecast</code> function that retreive the implicit forecasts corresponding to the asymmetric filters (i.e., the forecasts needed to have the same end-points estimates but using the symmetric filter).</p>
+<p>The last estimates can also be analysed with the <code>implicit_forecasts</code> function that retreive the implicit forecasts corresponding to the asymmetric filters (i.e., the forecasts needed to have the same end-points estimates but using the symmetric filter).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">f_musgrave</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/implicit_forecast.html">implicit_forecast</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">musgrave</span><span class="op">)</span></span>
-<span><span class="va">f_fst</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/implicit_forecast.html">implicit_forecast</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">fst_notimeliness</span><span class="op">)</span></span>
-<span><span class="va">f_rkhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/implicit_forecast.html">implicit_forecast</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">rkhs_timeliness</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">f_musgrave</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/implicit_forecasts.html">implicit_forecasts</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">musgrave</span><span class="op">)</span></span>
+<span><span class="va">f_fst</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/implicit_forecasts.html">implicit_forecasts</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">fst_notimeliness</span><span class="op">)</span></span>
+<span><span class="va">f_rkhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/implicit_forecasts.html">implicit_forecasts</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">rkhs_timeliness</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">y</span>, start <span class="op">=</span> <span class="fl">2007</span><span class="op">)</span>,</span>
 <span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2007</span>, <span class="fl">2012</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3600</span>, <span class="fl">4600</span><span class="op">)</span>,</span>
