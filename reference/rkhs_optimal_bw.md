@@ -55,9 +55,7 @@ rkhs_optimal_bw(
 
 ``` r
 rkhs_optimal_bw(asymmetricCriterion = "Timeliness")
-#>    q=0    q=1    q=2    q=3    q=4    q=5 
-#> 6.0000 6.0000 6.3875 8.1500 9.3500 6.0000 
+#> Error in .jcall("jdplus/filters/base/r/RKHSFilters", "[D", "optimalBandwidth",     as.integer(horizon), as.integer(degree), kernel, asymmetricCriterion,     density == "rw", passband, optimal.minBandwidth, optimal.maxBandwidth): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/stats/Kernels has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 rkhs_optimal_bw(asymmetricCriterion = "Timeliness", optimal.minBandwidth = 6.2)
-#>       q=0       q=1       q=2       q=3       q=4       q=5 
-#>  6.200000  6.200000  6.384375  8.148229  9.352812 10.391458 
+#> Error in .jcall("jdplus/filters/base/r/RKHSFilters", "[D", "optimalBandwidth",     as.integer(horizon), as.integer(degree), kernel, asymmetricCriterion,     density == "rw", passband, optimal.minBandwidth, optimal.maxBandwidth): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/stats/Kernels has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 ```

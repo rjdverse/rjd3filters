@@ -142,8 +142,14 @@ $$</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu">fst_filter</span><span class="op">(</span>lags <span class="op">=</span> <span class="fl">6</span>, leads <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;",     "fstfilter", as.integer(lags), as.integer(leads), as.integer(pdegree),     smoothness.weight, as.integer(smoothness.degree), timeliness.weight,     timeliness.passband, as.logical(timeliness.antiphase)):</span> RcallMethod: cannot determine object class</span>
 <span class="r-in"><span><span class="va">filter</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.1678 B^6 - 0.3147 B^4 - 0.2797 B^3 + 0.2098 B^2 + 0.6713 B + 0.5455"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (x, coefs, remove_missing = TRUE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     UseMethod("filter", x)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55f850f0e010&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:rjd3filters&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

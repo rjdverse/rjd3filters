@@ -110,42 +110,50 @@ $$</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">retailsa</span><span class="op">$</span><span class="va">AllOtherGenMerchandiseStores</span></span></span>
 <span class="r-in"><span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu">moving_average</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">12</span><span class="op">)</span>, lags <span class="op">=</span> <span class="op">-</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="va">e1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">e1</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jclassName(class, class.loader = class.loader):</span> java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0</span>
 <span class="r-in"><span><span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu">moving_average</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, <span class="fl">12</span><span class="op">)</span>, lags <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">M2X12</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">e1</span> <span class="op">+</span> <span class="va">e2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jclassName(class, class.loader = class.loader):</span> java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">M2X12</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        t-6        t-5        t-4        t-3        t-2        t-1          t </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.04166667 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        t+1        t+2        t+3        t+4        t+5        t+6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.04166667 </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M2X12' not found</span>
 <span class="r-in"><span><span class="va">M3</span> <span class="op">&lt;-</span> <span class="fu">moving_average</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, lags <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">M3X3</span> <span class="op">&lt;-</span> <span class="va">M3</span> <span class="op">*</span> <span class="va">M3</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jclassName(class, class.loader = class.loader):</span> java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0</span>
 <span class="r-in"><span><span class="co"># M3X3 moving average applied to each month</span></span></span>
 <span class="r-in"><span><span class="va">M3X3</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.1111 B^2 + 0.2222 B + 0.3333 + 0.2222 F + 0.1111 F^2"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M3X3' not found</span>
 <span class="r-in"><span><span class="va">M3X3_seasonal</span> <span class="op">&lt;-</span> <span class="fu">to_seasonal</span><span class="op">(</span><span class="va">M3X3</span>, <span class="fl">12</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M3X3' not found</span>
 <span class="r-in"><span><span class="co"># M3X3_seasonal moving average applied to the global series</span></span></span>
 <span class="r-in"><span><span class="va">M3X3_seasonal</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.1111 B^24 + 0.2222 B^12 + 0.3333 + 0.2222 F^12 + 0.1111 F^24"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M3X3_seasonal' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">def.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.8</span>, <span class="fl">0.3</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="plot_filters.html">plot_gain</a></span><span class="op">(</span><span class="va">M3X3</span>, main <span class="op">=</span> <span class="st">"M3X3 applied to each month"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M3X3' not found</span>
 <span class="r-in"><span><span class="fu"><a href="plot_filters.html">plot_gain</a></span><span class="op">(</span><span class="va">M3X3_seasonal</span>, main <span class="op">=</span> <span class="st">"M3X3 applied to the global series"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="moving_average-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M3X3_seasonal' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">def.par</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># To apply the moving average</span></span></span>
 <span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">*</span> <span class="va">M2X12</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M2X12' not found</span>
 <span class="r-in"><span><span class="co"># Or use the filter() function:</span></span></span>
 <span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="filter.html">filter</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">M2X12</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M2X12' not found</span>
 <span class="r-in"><span><span class="va">si</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">-</span> <span class="va">t</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in `-.default`(y, t):</span> non-numeric argument to binary operator</span>
 <span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="va">si</span> <span class="op">*</span> <span class="va">M3X3_seasonal</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'si' not found</span>
 <span class="r-in"><span><span class="co"># or equivalently:</span></span></span>
 <span class="r-in"><span><span class="va">s_mm</span> <span class="op">&lt;-</span> <span class="va">M3X3_seasonal</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">M2X12</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M3X3_seasonal' not found</span>
 <span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">*</span> <span class="va">s_mm</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 's_mm' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="moving_average-2.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 's' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

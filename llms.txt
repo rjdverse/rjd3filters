@@ -24,7 +24,7 @@ computed.
 rjd3filters relies on the
 [rJava](https://CRAN.R-project.org/package=rJava) package.
 
-Running rjd3 packages requires **Java 17 or higher**. How to set up such
+Running rjd3 packages requires **Java 21 or higher**. How to set up such
 a configuration in R is explained
 [here](https://jdemetra-new-documentation.netlify.app/#Rconfig).
 

@@ -108,8 +108,9 @@ If <code>optimalbw = FALSE</code> then the bandwith specified in <code>bandwidth
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">rkhs</span> <span class="op">&lt;-</span> <span class="fu">rkhs_filter</span><span class="op">(</span>horizon <span class="op">=</span> <span class="fl">6</span>, asymmetricCriterion <span class="op">=</span> <span class="st">"Timeliness"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .jcall("jdplus/filters/base/r/RKHSFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     optimalbw, asymmetricCriterion, density == "rw", passband,     bandwidth, optimal.minBandwidth, optimal.maxBandwidth):</span> java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/data/analysis/DiscreteKernel has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0</span>
 <span class="r-in"><span><span class="fu"><a href="plot_filters.html">plot_coef</a></span><span class="op">(</span><span class="va">rkhs</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="rkhs_filter-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'rkhs' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

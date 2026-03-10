@@ -80,41 +80,23 @@ the first and last 6 points cannot be computed.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">retailsa</span><span class="op">$</span><span class="va">AllOtherGenMerchandiseStores</span>, start <span class="op">=</span> <span class="fl">2008</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">M3</span> <span class="op">&lt;-</span> <span class="fu"><a href="moving_average.html">moving_average</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, lags <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">M3X3</span> <span class="op">&lt;-</span> <span class="va">M3</span> <span class="op">*</span> <span class="va">M3</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jclassName(class, class.loader = class.loader):</span> java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0</span>
 <span class="r-in"><span><span class="va">M2X12</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="simple_ma.html">simple_ma</a></span><span class="op">(</span><span class="fl">12</span>, <span class="op">-</span><span class="fl">6</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="simple_ma.html">simple_ma</a></span><span class="op">(</span><span class="fl">12</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jclassName(class, class.loader = class.loader):</span> java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0</span>
 <span class="r-in"><span><span class="va">composite_ma</span> <span class="op">&lt;-</span> <span class="va">M3X3</span> <span class="op">*</span> <span class="va">M2X12</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'M3X3' not found</span>
 <span class="r-in"><span><span class="co"># The last 6 points cannot be computed</span></span></span>
 <span class="r-in"><span><span class="va">composite_ma</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.0046 B^8 + 0.0185 B^7 + 0.0417 B^6 + 0.0648 B^5 + 0.0787 B^4 + 0.0833 B^3 + 0.0833 B^2 + 0.0833 B + 0.0833 + 0.0833 F + 0.0833 F^2 + 0.0833 F^3 + 0.0787 F^4 + 0.0648 F^5 + 0.0417 F^6 + 0.0185 F^7 + 0.0046 F^8"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'composite_ma' not found</span>
 <span class="r-in"><span><span class="va">composite_ma</span> <span class="op">*</span> <span class="va">y</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2008       NA       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2009 3874.468 3887.489 3906.257 3930.825 3959.576 3991.101 4025.292 4062.564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2010 4253.845 4289.213 4322.790 4353.753       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Sep      Oct      Nov      Dec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2008 3835.187 3845.520 3855.656 3864.796</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2009 4102.100 4142.065 4180.559 4217.600</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2010       NA       NA       NA       NA</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'composite_ma' not found</span>
 <span class="r-in"><span><span class="co"># they can be computed using the last filtered data</span></span></span>
 <span class="r-in"><span><span class="co"># e.g. to impute the first 3 missing months with last period:</span></span></span>
 <span class="r-in"><span><span class="fu">impute_last_obs</span><span class="op">(</span><span class="va">composite_ma</span>, n <span class="op">=</span> <span class="fl">3</span>, nperiod <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="va">y</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2008       NA       NA       NA       NA       NA 3835.187 3835.187 3835.187</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2009 3874.468 3887.489 3906.257 3930.825 3959.576 3991.101 4025.292 4062.564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2010 4253.845 4289.213 4322.790 4353.753 4353.753 4353.753 4353.753       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Sep      Oct      Nov      Dec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2008 3835.187 3845.520 3855.656 3864.796</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2009 4102.100 4142.065 4180.559 4217.600</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2010       NA       NA       NA       NA</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'composite_ma' not found</span>
 <span class="r-in"><span><span class="co"># or using the filtered data of the same month in previous year</span></span></span>
 <span class="r-in"><span><span class="fu">impute_last_obs</span><span class="op">(</span><span class="va">composite_ma</span>, n <span class="op">=</span> <span class="fl">6</span>, nperiod <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">*</span> <span class="va">y</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2008       NA       NA 3906.257 3930.825 3959.576 3991.101 4025.292 4062.564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2009 3874.468 3887.489 3906.257 3930.825 3959.576 3991.101 4025.292 4062.564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2010 4253.845 4289.213 4322.790 4353.753 3959.576 3991.101 4025.292 4062.564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Sep      Oct      Nov      Dec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2008 3835.187 3845.520 3855.656 3864.796</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2009 4102.100 4142.065 4180.559 4217.600</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2010 4102.100 4142.065       NA       NA</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'composite_ma' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

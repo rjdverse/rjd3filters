@@ -41,14 +41,21 @@ Note that this is solved numerically: the solution isn't exact.
 ``` r
 x <- retailsa$AllOtherGenMerchandiseStores
 ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
+#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
+#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): RcallMethod: cannot determine object class
 f_ql <- implicit_forecasts(x, ql)
+#> Error: object 'ql' not found
 f_lc <- implicit_forecasts(x, lc)
+#> Error: object 'lc' not found
 
 plot(window(x, start = 2007),
      xlim = c(2007,2012))
+
 lines(ts(c(tail(x,1), f_ql), frequency = frequency(x), start = end(x)),
       col = "red", lty = 2)
+#> Error: object 'f_ql' not found
 lines(ts(c(tail(x,1), f_lc), frequency = frequency(x), start = end(x)),
       col = "blue", lty = 2)
+#> Error: object 'f_lc' not found
 ```

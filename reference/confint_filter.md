@@ -101,8 +101,11 @@ Springer-Verlag.
 ``` r
 x <- retailsa$DrinkingPlaces
 coef <- lp_filter(6)
+#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): RcallMethod: cannot determine object class
 confint <- confint_filter(x, coef)
+#> Error in UseMethod("finite_filters", sfilter): no applicable method for 'finite_filters' applied to an object of class "function"
 plot(confint, plot.type = "single",
      col = c("red", "black", "black"),
      lty = c(1, 2, 2))
+#> Error in object$coefficients: $ operator is invalid for atomic vectors
 ```

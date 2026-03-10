@@ -32,20 +32,17 @@ polynomial_matrix(l, u = abs(l), d0 = 0, d1 = 3)
 ``` r
 # For example to reproduce DAF filters
 daf <- lp_filter(horizon = 6, endpoints = "DAF")
+#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): RcallMethod: cannot determine object class
 q <- 0
 X <- polynomial_matrix(l = -6, u = q, d0 = 0, d1 = 3)
+#> Error in .jcall("jdplus/toolkit/base/core/math/linearfilters/LocalPolynomialFilters",     "Ljdplus/toolkit/base/core/math/matrices/FastMatrix;", "z",     .jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"),     as.integer(l), as.integer(u), as.integer(d0), as.integer(d1)): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 K <- diag(sapply(-6:q, function(i) get_kernel(horizon = 6)[i]))
+#> Error in .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",     "Ljava/util/function/IntToDoubleFunction;", tolower(kernel),     h): RcallMethod: cannot determine object class
 e_1 <- c(1, 0, 0, 0)
 q0 <- K %*% X %*% solve(t(X) %*% K %*% X, e_1)
+#> Error: object 'K' not found
 q0
-#>             [,1]
-#> [1,] -0.01723665
-#> [2,]  0.02188707
-#> [3,]  0.04000228
-#> [4,] -0.03414681
-#> [5,] -0.09789419
-#> [6,]  0.13220425
-#> [7,]  0.95518406
+#> Error: object 'q0' not found
 daf[, "q=0"]
-#> [1] " - 0.0172 B^6 + 0.0219 B^5 + 0.0400 B^4 - 0.0341 B^3 - 0.0979 B^2 + 0.1322 B + 0.9552"
+#> Error: object 'daf' not found
 ```
