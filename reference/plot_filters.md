@@ -170,7 +170,7 @@ plot_phase(
 
 ``` r
 filter <- lp_filter(6, endpoints = "DAF", kernel = "Henderson")
-#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 plot_coef(filter, q = c(0,3), legend = TRUE)
 #> Error in apply(x, 2, trailingzero_as_na): dim(X) must have a positive length
 plot_gain(filter, q = c(0,3), legend = TRUE)

@@ -36,5 +36,5 @@ get_kernel(
 
 ``` r
 get_kernel("Henderson", horizon = 3)
-#> Error in .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",     "Ljava/util/function/IntToDoubleFunction;", tolower(kernel),     h): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/IFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jcall("jdplus/toolkit/base/core/data/analysis/DiscreteKernel",     "Ljava/util/function/IntToDoubleFunction;", tolower(kernel),     h): java.lang.UnsupportedClassVersionError: jdplus/filters/base/core/AdvancedFiltersToolkit has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 ```

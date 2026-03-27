@@ -61,7 +61,7 @@ x <- retailsa$DrinkingPlaces
 lags <- 6
 leads <- 2
 fst_coef <- fst_filter(lags = lags, leads = leads, smoothness.weight = 0.3, timeliness.weight = 0.3)
-#> Error in .jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;",     "fstfilter", as.integer(lags), as.integer(leads), as.integer(pdegree),     smoothness.weight, as.integer(smoothness.degree), timeliness.weight,     timeliness.passband, as.logical(timeliness.antiphase)): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;",     "fstfilter", as.integer(lags), as.integer(leads), as.integer(pdegree),     smoothness.weight, as.integer(smoothness.degree), timeliness.weight,     timeliness.passband, as.logical(timeliness.antiphase)): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 lpp_coef <- lp_filter(horizon = lags, kernel = "Henderson", endpoints = "LC")
 #> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): RcallMethod: cannot determine object class
 
@@ -77,5 +77,5 @@ trend <- filter(x, lpp_coef)
 #> Error: object 'lpp_coef' not found
 # This is equivalent to:
 trend <- localpolynomials(x, horizon = 6)
-#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "[D",     "filter", as.numeric(x), as.integer(horizon), as.integer(degree),     kernel, endpoints, d, tweight, passband): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "[D",     "filter", as.numeric(x), as.integer(horizon), as.integer(degree),     kernel, endpoints, d, tweight, passband): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 ```

@@ -18,12 +18,12 @@ Source:
 
 Palate J, Quartier-la-Tente A (2026). *rjd3filters: Trend-Cycle
 Extraction with Linear Filters based on JDemetra+ v3.x*. R package
-version 2.3.0.9000, <https://github.com/rjdverse/rjd3filters>.
+version 2.4.0.9000, <https://github.com/rjdverse/rjd3filters>.
 
     @Manual{,
       title = {rjd3filters: Trend-Cycle Extraction with Linear Filters based on JDemetra+ v3.x},
       author = {Jean Palate and Alain Quartier-la-Tente},
       year = {2026},
-      note = {R package version 2.3.0.9000},
+      note = {R package version 2.4.0.9000},
       url = {https://github.com/rjdverse/rjd3filters},
     }
