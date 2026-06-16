@@ -60,7 +60,7 @@ plot(rkhs_optimization_fun(horizon = 6, leads = 0,degree = 3, asymmetricCriterio
 plot(rkhs_optimization_fun(horizon = 6, leads = 1,degree = 3, asymmetricCriterion = "Timeliness"),
      5.5, 6*3, ylab = "Timeliness",
      main = "6X1 filter")
-#> Error in .jcall("jdplus/filters/base/r/RKHSFilters", "Ljava/util/function/DoubleUnaryOperator;",     "optimalCriteria", as.integer(horizon), as.integer(leads),     as.integer(degree), kernel, asymmetricCriterion, density ==         "rw", passband): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/RKHSFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/RKHSFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 plot(rkhs_optimization_fun(horizon = 6, leads = 2,degree = 3, asymmetricCriterion = "Timeliness"),
      5.5, 6*3, ylab = "Timeliness",
      main = "6X2 filter")
@@ -68,7 +68,7 @@ plot(rkhs_optimization_fun(horizon = 6, leads = 2,degree = 3, asymmetricCriterio
 plot(rkhs_optimization_fun(horizon = 6, leads = 3,degree = 3, asymmetricCriterion = "Timeliness"),
      5.5, 6*3, ylab = "Timeliness",
      main = "6X3 filter")
-#> Error in .jcall("jdplus/filters/base/r/RKHSFilters", "Ljava/util/function/DoubleUnaryOperator;",     "optimalCriteria", as.integer(horizon), as.integer(leads),     as.integer(degree), kernel, asymmetricCriterion, density ==         "rw", passband): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/RKHSFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/RKHSFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 plot(rkhs_optimization_fun(horizon = 6, leads = 4,degree = 3, asymmetricCriterion = "Timeliness"),
      5.5, 6*3, ylab = "Timeliness",
      main = "6X4 filter")
@@ -76,5 +76,5 @@ plot(rkhs_optimization_fun(horizon = 6, leads = 4,degree = 3, asymmetricCriterio
 plot(rkhs_optimization_fun(horizon = 6, leads = 5,degree = 3, asymmetricCriterion = "Timeliness"),
      5.5, 6*3, ylab = "Timeliness",
      main = "6X5 filter")
-#> Error in .jcall("jdplus/filters/base/r/RKHSFilters", "Ljava/util/function/DoubleUnaryOperator;",     "optimalCriteria", as.integer(horizon), as.integer(leads),     as.integer(degree), kernel, asymmetricCriterion, density ==         "rw", passband): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/RKHSFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/RKHSFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 ```

@@ -26,7 +26,7 @@ rjd3filters relies on the
 
 Running rjd3 packages requires **Java 21 or higher**. How to set up such
 a configuration in R is explained
-[here](https://jdemetra-new-documentation.netlify.app/#Rconfig).
+[here](https://doc.jdemetra.org/#Rconfig).
 
 ### Latest release
 
@@ -35,6 +35,7 @@ To get the current stable version (from the latest release):
 - From GitHub:
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("rjdverse/rjd3toolkit@*release")
 remotes::install_github("rjdverse/rjd3filters@*release")
@@ -43,6 +44,7 @@ remotes::install_github("rjdverse/rjd3filters@*release")
 - From [r-universe](https://rjdverse.r-universe.dev/rjd3filters):
 
 ``` r
+
 install.packages("rjd3filters", repos = c("https://rjdverse.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
@@ -51,6 +53,7 @@ install.packages("rjd3filters", repos = c("https://rjdverse.r-universe.dev", "ht
 To get the current development version from GitHub:
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("rjdverse/rjd3filters")
 ```
@@ -63,6 +66,7 @@ consequence, the filtered time series is the same, except at the
 boundaries.
 
 ``` r
+
 library("rjd3filters")
 
 y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2000)
@@ -96,6 +100,7 @@ asymmetric filters (i.e., the forecasts needed to have the same
 end-points estimates but using the symmetric filter).
 
 ``` r
+
 f_musgrave <- implicit_forecasts(y, musgrave)
 f_fst <- implicit_forecasts(y, fst_notimeliness)
 f_rkhs <- implicit_forecasts(y, rkhs_timeliness)
@@ -126,6 +131,7 @@ The real-time estimates (when no future points are available) can also
 be compared:
 
 ``` r
+
 trend_henderson<- filter(y, musgrave[, "q=6"])
 trend_musgrave_q0 <- filter(y, musgrave[, "q=0"])
 trend_fst_q0 <- filter(y, fst_notimeliness[, "q=0"])
@@ -148,6 +154,7 @@ and McElroy(2019) can also be computed with the function
 [`diagnostic_matrix()`](https://rjdverse.github.io/rjd3filters/reference/diagnostic_matrix.md):
 
 ``` r
+
 q_0_coefs <- list(Musgrave = musgrave[, "q=0"],
                   fst_notimeliness = fst_notimeliness[, "q=0"],
                   rkhs_timeliness = rkhs_timeliness[, "q=0"])
@@ -174,6 +181,7 @@ The filters can also be compared by plotting there coefficients
 (`plot_phase`):
 
 ``` r
+
 def.par <- par(no.readonly = TRUE)
 par(mai = c(0.3, 0.3, 0.2, 0))
 layout(matrix(c(1, 1, 2, 3), 2, 2, byrow = TRUE))
@@ -204,6 +212,7 @@ Confidence intervals can also be computed with the `confint_filter`
 function:
 
 ``` r
+
 confint <- confint_filter(y, musgrave)
 
 plot(confint, plot.type = "single",
@@ -225,6 +234,7 @@ in X-11, and the M3X3 moving average, applied to each months to extract
 seasonal component.
 
 ``` r
+
 e1 <- moving_average(rep(1, 12), lags = -6)
 e1 <- e1/sum(e1)
 e2 <- moving_average(rep(1/12, 12), lags = -5)
@@ -254,6 +264,7 @@ plot_gain(M3X3_seasonal, main = "M3X3 applied to the global series")
 ![](reference/figures/README-mm-plots-1.png)
 
 ``` r
+
 par(def.par)
 
 # To apply the moving average
@@ -273,6 +284,7 @@ intermediate estimates at the beginning/end of the series when the
 central filter cannot be applied.
 
 ``` r
+
 musgrave
 #>             q=6          q=5          q=4          q=3          q=2
 #> t-6 -0.01934985 -0.016609040 -0.011623676 -0.009152423 -0.016139228

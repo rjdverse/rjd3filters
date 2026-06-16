@@ -55,9 +55,9 @@ the last year filtered data is used for the imputation, etc.
 y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
 M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3
-#> Error in jclassName(class, class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 M2X12 <- (simple_ma(12, -6) + simple_ma(12, -5)) / 2
-#> Error in jclassName(class, class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 composite_ma <- M3X3 * M2X12
 #> Error: object 'M3X3' not found
 # The last 6 points cannot be computed

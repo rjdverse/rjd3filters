@@ -57,5 +57,5 @@ rkhs_optimal_bw(
 rkhs_optimal_bw(asymmetricCriterion = "Timeliness")
 #> Error in .jcall("jdplus/filters/base/r/RKHSFilters", "[D", "optimalBandwidth",     as.integer(horizon), as.integer(degree), kernel, asymmetricCriterion,     density == "rw", passband, optimal.minBandwidth, optimal.maxBandwidth): RcallMethod: cannot determine object class
 rkhs_optimal_bw(asymmetricCriterion = "Timeliness", optimal.minBandwidth = 6.2)
-#> Error in .jcall("jdplus/filters/base/r/RKHSFilters", "[D", "optimalBandwidth",     as.integer(horizon), as.integer(degree), kernel, asymmetricCriterion,     density == "rw", passband, optimal.minBandwidth, optimal.maxBandwidth): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/RKHSFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/RKHSFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 ```
