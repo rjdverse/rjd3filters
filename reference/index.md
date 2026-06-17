@@ -132,9 +132,3 @@
 
 - [`retailsa`](https://rjdverse.github.io/rjd3filters/reference/retailsa.md)
   : Seasonally Adjusted Retail Sales
-
-## Deprecated functions
-
-- [`cross_validation()`](https://rjdverse.github.io/rjd3filters/reference/deprecated-rjd3filters.md)
-  [`implicit_forecast()`](https://rjdverse.github.io/rjd3filters/reference/deprecated-rjd3filters.md)
-  : Deprecated function

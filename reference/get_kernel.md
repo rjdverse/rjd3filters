@@ -36,5 +36,12 @@ get_kernel(
 
 ``` r
 get_kernel("Henderson", horizon = 3)
-#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/core/AdvancedFiltersToolkit has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> Henderson 
+#> coef[-3] = 0.04895
+#> coef[-2] = 0.13054
+#> coef[-1] = 0.20396
+#> coef[ 0] = 0.23310
+#> coef[ 1] = 0.20396
+#> coef[ 2] = 0.13054
+#> coef[ 3] = 0.04895
 ```

@@ -81,7 +81,5 @@ local polynomial regression, with application to trend-cycle analysis”.
 
 ``` r
 henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
-#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 plot_coef(henderson_f)
-#> Error: object 'henderson_f' not found
 ```

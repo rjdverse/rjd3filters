@@ -61,21 +61,15 @@ x <- retailsa$DrinkingPlaces
 lags <- 6
 leads <- 2
 fst_coef <- fst_filter(lags = lags, leads = leads, smoothness.weight = 0.3, timeliness.weight = 0.3)
-#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 lpp_coef <- lp_filter(horizon = lags, kernel = "Henderson", endpoints = "LC")
-#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): RcallMethod: cannot determine object class
 
 fst_ma <- filter(x, fst_coef)
-#> Error: object 'fst_coef' not found
 lpp_ma <- filter(x, lpp_coef[,"q=2"])
-#> Error: object 'lpp_coef' not found
 
 plot(ts.union(x, fst_ma, lpp_ma), plot.type = "single", col = c("black","red","blue"))
-#> Error: object 'fst_ma' not found
+
 
 trend <- filter(x, lpp_coef)
-#> Error: object 'lpp_coef' not found
 # This is equivalent to:
 trend <- localpolynomials(x, horizon = 6)
-#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 ```

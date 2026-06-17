@@ -75,48 +75,39 @@ M\_{\boldsymbol\theta'}(X_t)=\sum\_{k=-p}^{+f}\theta_kX\_{t+ks}=\left(\sum\_{k=-
 y <- retailsa$AllOtherGenMerchandiseStores
 e1 <- moving_average(rep(1,12), lags = -6)
 e1 <- e1/sum(e1)
-#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 e2 <- moving_average(rep(1/12, 12), lags = -5)
 M2X12 <- (e1 + e2)/2
-#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 coef(M2X12)
-#> Error: object 'M2X12' not found
+#>        t-6        t-5        t-4        t-3        t-2        t-1          t 
+#> 0.04166667 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 
+#>        t+1        t+2        t+3        t+4        t+5        t+6 
+#> 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.04166667 
 M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3
-#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 # M3X3 moving average applied to each month
 M3X3
-#> Error: object 'M3X3' not found
+#> [1] "0.1111 B^2 + 0.2222 B + 0.3333 + 0.2222 F + 0.1111 F^2"
 M3X3_seasonal <- to_seasonal(M3X3, 12)
-#> Error: object 'M3X3' not found
 # M3X3_seasonal moving average applied to the global series
 M3X3_seasonal
-#> Error: object 'M3X3_seasonal' not found
+#> [1] "0.1111 B^24 + 0.2222 B^12 + 0.3333 + 0.2222 F^12 + 0.1111 F^24"
 
 def.par <- par(no.readonly = TRUE)
 par(mai = c(0.5, 0.8, 0.3, 0))
 layout(matrix(c(1,2), nrow = 1))
 plot_gain(M3X3, main = "M3X3 applied to each month")
-#> Error: object 'M3X3' not found
 plot_gain(M3X3_seasonal, main = "M3X3 applied to the global series")
-#> Error: object 'M3X3_seasonal' not found
+
 par(def.par)
 
 # To apply the moving average
 t <- y * M2X12
-#> Error: object 'M2X12' not found
 # Or use the filter() function:
 t <- filter(y, M2X12)
-#> Error: object 'M2X12' not found
 si <- y - t
-#> Error in `-.default`(y, t): non-numeric argument to binary operator
 s <- si * M3X3_seasonal
-#> Error: object 'si' not found
 # or equivalently:
 s_mm <- M3X3_seasonal * (1 - M2X12)
-#> Error: object 'M3X3_seasonal' not found
 s <- y * s_mm
-#> Error: object 's_mm' not found
 plot(s)
-#> Error: object 's' not found
 ```

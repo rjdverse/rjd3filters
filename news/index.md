@@ -15,6 +15,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - New method
   [`underlying_forecasts()`](https://rjdverse.github.io/rjd3filters/reference/underlying_forecasts.md).
 
+- New JARS related to version
+  [3.7.1](https://github.com/jdemetra/jdplus-main/releases/tag/v3.7.1)
+  of JDemetra+.
+
 #### Changed
 
 - Correction in internal functions when filtering series with NA and the
@@ -23,8 +27,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - For polynomial methods, default I/C ratio fixed to 3.5 (as in X-11 for
   H-13).
 
-- [`implicit_forecast()`](https://rjdverse.github.io/rjd3filters/reference/deprecated-rjd3filters.md)
-  function renamed to
+- `implicit_forecast()` function renamed to
   [`implicit_forecasts()`](https://rjdverse.github.io/rjd3filters/reference/implicit_forecasts.md).
 
 ### [2.3.0](https://github.com/rjdverse/rjd3filters/compare/v2.2.0...v2.3.0) - 2025-04-24
@@ -65,11 +68,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 #### Changed
 
-- [`cross_validation()`](https://rjdverse.github.io/rjd3filters/reference/deprecated-rjd3filters.md)
-  function renamed to
+- `cross_validation()` function renamed to
   [`cve()`](https://rjdverse.github.io/rjd3filters/reference/diagnostics-fit.md),
-  [`cross_validation()`](https://rjdverse.github.io/rjd3filters/reference/deprecated-rjd3filters.md)
-  is now deprecated.
+  `cross_validation()` is now deprecated.
 - New .jar files added (related to
   [v2.2.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.2.0))
 

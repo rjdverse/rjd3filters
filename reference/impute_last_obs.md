@@ -55,21 +55,39 @@ the last year filtered data is used for the imputation, etc.
 y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
 M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3
-#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 M2X12 <- (simple_ma(12, -6) + simple_ma(12, -5)) / 2
-#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 composite_ma <- M3X3 * M2X12
-#> Error: object 'M3X3' not found
 # The last 6 points cannot be computed
 composite_ma
-#> Error: object 'composite_ma' not found
+#> [1] "0.0046 B^8 + 0.0185 B^7 + 0.0417 B^6 + 0.0648 B^5 + 0.0787 B^4 + 0.0833 B^3 + 0.0833 B^2 + 0.0833 B + 0.0833 + 0.0833 F + 0.0833 F^2 + 0.0833 F^3 + 0.0787 F^4 + 0.0648 F^5 + 0.0417 F^6 + 0.0185 F^7 + 0.0046 F^8"
 composite_ma * y
-#> Error: object 'composite_ma' not found
+#>           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+#> 2008       NA       NA       NA       NA       NA       NA       NA       NA
+#> 2009 3874.468 3887.489 3906.257 3930.825 3959.576 3991.101 4025.292 4062.564
+#> 2010 4253.845 4289.213 4322.790 4353.753       NA       NA       NA       NA
+#>           Sep      Oct      Nov      Dec
+#> 2008 3835.187 3845.520 3855.656 3864.796
+#> 2009 4102.100 4142.065 4180.559 4217.600
+#> 2010       NA       NA       NA       NA
 # they can be computed using the last filtered data
 # e.g. to impute the first 3 missing months with last period:
 impute_last_obs(composite_ma, n = 3, nperiod = 1) * y
-#> Error: object 'composite_ma' not found
+#>           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+#> 2008       NA       NA       NA       NA       NA 3835.187 3835.187 3835.187
+#> 2009 3874.468 3887.489 3906.257 3930.825 3959.576 3991.101 4025.292 4062.564
+#> 2010 4253.845 4289.213 4322.790 4353.753 4353.753 4353.753 4353.753       NA
+#>           Sep      Oct      Nov      Dec
+#> 2008 3835.187 3845.520 3855.656 3864.796
+#> 2009 4102.100 4142.065 4180.559 4217.600
+#> 2010       NA       NA       NA       NA
 # or using the filtered data of the same month in previous year
 impute_last_obs(composite_ma, n = 6, nperiod = 12) * y
-#> Error: object 'composite_ma' not found
+#>           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
+#> 2008       NA       NA 3906.257 3930.825 3959.576 3991.101 4025.292 4062.564
+#> 2009 3874.468 3887.489 3906.257 3930.825 3959.576 3991.101 4025.292 4062.564
+#> 2010 4253.845 4289.213 4322.790 4353.753 3959.576 3991.101 4025.292 4062.564
+#>           Sep      Oct      Nov      Dec
+#> 2008 3835.187 3845.520 3855.656 3864.796
+#> 2009 4102.100 4142.065 4180.559 4217.600
+#> 2010 4102.100 4142.065       NA       NA
 ```

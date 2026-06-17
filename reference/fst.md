@@ -43,10 +43,17 @@ Seasonal Adjustment,
 
 ``` r
 filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
-#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): RcallMethod: cannot determine object class
 fst(filter[, "q=0"])
-#> Error in filter[, "q=0"]: object of type 'closure' is not subsettable
+#>   Fidelity Smoothness Timeliness 
+#> 0.38785723 1.27229482 0.03034079 
 # To compute the statistics on all filters:
 fst(filter)
-#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#>                      q=6          q=5          q=4          q=3          q=2
+#> Fidelity    2.038158e-01 1.992509e-01 1.879910e-01 1.810991e-01 0.2011061069
+#> Smoothness  8.335318e-03 1.727564e-02 2.094998e-02 9.840559e-03 0.0798744087
+#> Timeliness -3.009266e-35 3.379695e-05 8.984811e-05 6.850699e-05 0.0003466228
+#>                  q=1        q=0
+#> Fidelity   0.2678802 0.38785723
+#> Smoothness 0.4331967 1.27229482
+#> Timeliness 0.0047965 0.03034079
 ```

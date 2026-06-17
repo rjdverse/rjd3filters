@@ -102,12 +102,6 @@ Seasonal Adjustment,
 
 ``` r
 filter <- fst_filter(lags = 6, leads = 0)
-#> Error in .jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;",     "fstfilter", as.integer(lags), as.integer(leads), as.integer(pdegree),     smoothness.weight, as.integer(smoothness.degree), timeliness.weight,     timeliness.passband, as.logical(timeliness.antiphase)): RcallMethod: cannot determine object class
 filter
-#> function (x, coefs, remove_missing = TRUE) 
-#> {
-#>     UseMethod("filter", x)
-#> }
-#> <bytecode: 0x557c0b4104f8>
-#> <environment: namespace:rjd3filters>
+#> [1] "0.1678 B^6 - 0.3147 B^4 - 0.2797 B^3 + 0.2098 B^2 + 0.6713 B + 0.5455"
 ```

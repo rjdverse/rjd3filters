@@ -24,11 +24,11 @@ simple_ma(order, lags = -trunc((order - 1)/2))
 ``` r
 # The M2X12 moving average is computed as
 (simple_ma(12, -6) + simple_ma(12, -5)) / 2
-#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> [1] "0.0417 B^6 + 0.0833 B^5 + 0.0833 B^4 + 0.0833 B^3 + 0.0833 B^2 + 0.0833 B + 0.0833 + 0.0833 F + 0.0833 F^2 + 0.0833 F^3 + 0.0833 F^4 + 0.0833 F^5 + 0.0417 F^6"
 # The M3X3 moving average is computed as
 simple_ma(3, -1) ^ 2
-#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> [1] "0.1111 B^2 + 0.2222 B + 0.3333 + 0.2222 F + 0.1111 F^2"
 # The M3X5 moving average is computed as
 simple_ma(3, -1) * simple_ma(5, -2)
-#> Error in .jfindClass(as.character(class), class.loader = class.loader): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/math/linearfilters/FiniteFilter has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
+#> [1] "0.0667 B^3 + 0.1333 B^2 + 0.2000 B + 0.2000 + 0.2000 F + 0.1333 F^2 + 0.0667 F^3"
 ```

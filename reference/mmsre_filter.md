@@ -94,22 +94,18 @@ local polynomial regression, with application to trend-cycle analysis”.
 
 ``` r
 QL <- lp_filter(endpoints = "QL", ic = 3.5)
-#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): RcallMethod: cannot determine object class
 LC <- lp_filter(endpoints = "LC", ic = 3.5)
-#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 DAF <- lp_filter(endpoints = "DAF")
-#> Error in .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",     "filters", as.integer(horizon), as.integer(degree), kernel,     endpoints, d, tweight, passband): RcallMethod: cannot determine object class
 h6 <- QL[, "q=6"]
-#> Error: object 'QL' not found
 # To reproduce DAF filter
 mmsre_filter(
   ref_filter = h6, q = 0,
   U = polynomial_matrix(l = - 6, d0 = 0, d1 = 3),
   kernel = "Henderson"
 )
-#> Error: object 'h6' not found
+#> [1] " - 0.0172 B^6 + 0.0219 B^5 + 0.0400 B^4 - 0.0341 B^3 - 0.0979 B^2 + 0.1322 B + 0.9552"
 DAF[, "q=0"]
-#> Error: object 'DAF' not found
+#> [1] " - 0.0172 B^6 + 0.0219 B^5 + 0.0400 B^4 - 0.0341 B^3 - 0.0979 B^2 + 0.1322 B + 0.9552"
 # To reproduce QL filter
 mmsre_filter(
   ref_filter = h6, q = 1,
@@ -117,9 +113,9 @@ mmsre_filter(
   U = polynomial_matrix(l = -6, d0 = 0, d1 = 1),
   Z = polynomial_matrix(l = -6, d0 = 2, d1 = 2)
 )
-#> Error: object 'h6' not found
+#> [1] " - 0.0083 B^6 - 0.0395 B^5 - 0.0216 B^4 + 0.0466 B^3 + 0.1440 B^2 + 0.2392 B + 0.3058 + 0.3337 F"
 QL[, "q=1"]
-#> Error: object 'QL' not found
+#> [1] " - 0.0083 B^6 - 0.0395 B^5 - 0.0216 B^4 + 0.0466 B^3 + 0.1440 B^2 + 0.2392 B + 0.3058 + 0.3337 F"
 
 # Or using the Uniform kernel
 mmsre_filter(
@@ -131,7 +127,7 @@ mmsre_filter(
   Z = polynomial_matrix(l = -6, d0 = 1, d1 = 1),
   kernel = "Uniform"
 )
-#> Error: object 'h6' not found
+#> [1] " - 0.0160 B^6 - 0.0249 B^5 + 0.0027 B^4 + 0.0678 B^3 + 0.1494 B^2 + 0.2160 B + 0.2414 + 0.2154 F + 0.1481 F^2"
 LC[, "q=2"]
-#> Error: object 'LC' not found
+#> [1] " - 0.0160 B^6 - 0.0249 B^5 + 0.0027 B^4 + 0.0678 B^3 + 0.1494 B^2 + 0.2160 B + 0.2414 + 0.2154 F + 0.1481 F^2"
 ```

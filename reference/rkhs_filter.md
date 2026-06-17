@@ -81,7 +81,5 @@ Statistics 26, pp. 536–545. URL:
 
 ``` r
 rkhs <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
-#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/toolkit/base/core/data/analysis/DiscreteKernel has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 plot_coef(rkhs)
-#> Error: object 'rkhs' not found
 ```

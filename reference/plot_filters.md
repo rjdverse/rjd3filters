@@ -170,11 +170,9 @@ plot_phase(
 
 ``` r
 filter <- lp_filter(6, endpoints = "DAF", kernel = "Henderson")
-#> Error in .jcheck(): java.lang.UnsupportedClassVersionError: jdplus/filters/base/r/LocalPolynomialFilters has been compiled by a more recent version of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 61.0
 plot_coef(filter, q = c(0,3), legend = TRUE)
-#> Error in apply(x, 2, trailingzero_as_na): dim(X) must have a positive length
+
 plot_gain(filter, q = c(0,3), legend = TRUE)
-#> Error in UseMethod("plot_gain", x): no applicable method for 'plot_gain' applied to an object of class "function"
+
 plot_phase(filter, q = c(0,3), legend = TRUE)
-#> Error in UseMethod("plot_phase", x): no applicable method for 'plot_phase' applied to an object of class "function"
 ```
