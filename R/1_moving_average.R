@@ -422,3 +422,34 @@ simple_ma <- function(order, lags = - trunc((order-1)/2)) {
 as.list.moving_average <- function(x, ...) {
   lapply(seq_along(x), function(i) x[i])
 }
+
+
+#' Get Macurves Filters
+#'
+#' @param seas_filter the filter to extract.
+#' @param period period of the filter.
+#' @examples
+#' ma_curves("S3X3")
+#' @export
+
+ma_curves <- function(seas_filter = c("S3X3", "S3X1", "S3X5", "S3X9", "S3X15"),
+                      period = 12) {
+  seas_filter <- match.arg(toupper(seas_filter),
+                           c("S3X3", "S3X1", "S3X5", "S3X9", "S3X15"))
+  seas_opt <- rJava::.jcall("jdplus/x12plus/base/api/SeasonalFilterOption",
+                            "Ljdplus/x12plus/base/api/SeasonalFilterOption;",
+                            "valueOf",
+                            seas_filter)
+
+  p <- rJava::.jnew("java/lang/Double", as.character(period))  # Creates a double-object
+  p <- rJava::.jcast(p, "java/lang/Number")  # Cast to number
+
+
+  java_seas_filter <- rJava::.jcall("jdplus/x12plus/base/core/X11SeasonalFiltersFactory",
+                              "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
+                              "filter",
+                              p,
+                              seas_opt)
+  return(.jd2r_finitefilters(java_seas_filter))
+}
+         
