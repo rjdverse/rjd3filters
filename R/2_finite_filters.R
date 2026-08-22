@@ -100,7 +100,7 @@ is.finite_filters <- function(x) {
 }
 
 #' @export
-.jd2r_finitefilters <- function(jf, first_to_last) {
+.jd2r_finitefilters <- function(jf, first_to_last = NULL) {
     jf <- .jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
     if (is.jnull(jf)) {
         #  if (.jinstanceof(jf, "jdplus/x12plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
@@ -153,10 +153,10 @@ is.finite_filters <- function(x) {
     rfilters <- lapply(jrfilter, .jd2ma)
     lfilters <- rev(lapply(jlfilter, .jd2ma))
 
-    if (missing(first_to_last) && all(diff(lengths(lfilters)) <= 0)) {
+    if (is.null(first_to_last) && all(diff(lengths(lfilters)) <= 0)) {
         lfilters <- rev(lfilters)
         rfilters <- rev(rfilters)
-    } else if (!missing(first_to_last) && first_to_last) {
+    } else if (!is.null(first_to_last) && first_to_last) {
         lfilters <- rev(lfilters)
         rfilters <- rev(rfilters)
     }
@@ -649,7 +649,7 @@ to_seasonal.finite_filters <- function(x, s) {
 #' @export
 impute_last_obs <- function(
     x,
-    n,
+    n = NULL,
     nperiod = 1,
     backward = TRUE,
     forward = TRUE
@@ -659,7 +659,7 @@ impute_last_obs <- function(
     }
     nrfilters <- length(x@rfilters)
     nlfilters <- length(x@lfilters)
-    if (missing(n)) {
+    if (is.null(n)) {
         n <- max(nrfilters, nlfilters)
     }
     n_r <- min(upper_bound(x@sfilter) - nrfilters, n)
