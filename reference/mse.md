@@ -22,7 +22,7 @@ mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 
 - density:
 
-  hypothesis on the spectral density: `"uniform"` (= white woise, the
+  hypothesis on the spectral density: `"uniform"` (= white noise, the
   default) or `"rw"` (= random walk).
 
 - passband:

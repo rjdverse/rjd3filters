@@ -39,19 +39,30 @@ numerically: the solution isn't exact.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-
 x <- retailsa$AllOtherGenMerchandiseStores
+
 ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 f_ql <- underlying_forecasts(x, ql)
 f_lc <- underlying_forecasts(x, lc)
 
-plot(window(x, start = 2007),
-     xlim = c(2007,2012))
-lines(ts(c(tail(x,1), f_ql), frequency = frequency(x), start = end(x)),
-      col = "red", lty = 2)
-lines(ts(c(tail(x,1), f_lc), frequency = frequency(x), start = end(x)),
-      col = "blue", lty = 2)
-} # }
+graphics::plot(window(x, start = 2007), xlim = c(2007, 2012))
+graphics::lines(
+    stats::ts(
+        c(utils::tail(x, 1), f_ql),
+        frequency = stats::frequency(x),
+        start = stats::end(x)
+    ),
+    col = "red",
+    lty = 2
+)
+graphics::lines(
+    stats::ts(
+        c(utils::tail(x, 1), f_lc),
+        frequency = stats::frequency(x),
+        start = stats::end(x)
+    ),
+    col = "blue",
+    lty = 2
+)
 ```

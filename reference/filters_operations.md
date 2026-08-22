@@ -153,5 +153,5 @@ x[i, j, ..., drop = TRUE]
 - zero_as_na:
 
   boolean indicating if, when merging several moving averages (`cbind`)
-  if trealing and leading zeros added to have a matrix form should be
+  if trailing and leading zeros added to have a matrix form should be
   replaced by `NA`.

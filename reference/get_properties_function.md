@@ -32,5 +32,5 @@ get_properties_function(
 ``` r
 filter <- lp_filter(3, kernel = "Henderson")
 sgain <- get_properties_function(filter, "Symmetric Gain")
-plot(sgain, xlim= c(0, pi/12))
+graphics::plot(sgain, xlim= c(0, pi/12))
 ```

@@ -32,8 +32,8 @@ filter(x, coefs, remove_missing = TRUE)
 
 The functions `filter` extends
 [`filter`](https://rdrr.io/r/stats/filter.html) allowing to apply every
-kind of moving averages (symmetric and asymmetric filters) or to apply
-aset multiple moving averages to deal with the boundaries.
+kind of moving averages (symmetric and asymmetric filters) or to apply a
+set of multiple moving averages to deal with the boundaries.
 
 Let \\x_t\\ be the input time series to filter.
 
@@ -66,7 +66,9 @@ lpp_coef <- lp_filter(horizon = lags, kernel = "Henderson", endpoints = "LC")
 fst_ma <- filter(x, fst_coef)
 lpp_ma <- filter(x, lpp_coef[,"q=2"])
 
-plot(ts.union(x, fst_ma, lpp_ma), plot.type = "single", col = c("black","red","blue"))
+graphics::plot(stats::ts.union(x, fst_ma, lpp_ma),
+               plot.type = "single",
+               col = c("black","red","blue"))
 
 
 trend <- filter(x, lpp_coef)

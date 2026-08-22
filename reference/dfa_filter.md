@@ -29,7 +29,7 @@ dfa_filter(
 
 - density:
 
-  hypothesis on the spectral density: `"uniform"` (= white woise, the
+  hypothesis on the spectral density: `"uniform"` (= white noise, the
   default) or `"rw"` (= random walk).
 
 - targetfilter:
@@ -60,6 +60,7 @@ average where \\p\\ and \\f\\ are two integers defined by the parameter
 ## Examples
 
 ``` r
+# \donttest{
 dfa_filter(horizon = 6, degree = 0)
 #>             q=6          q=5           q=4         q=3         q=2         q=1
 #> t-6 -0.01934985 -0.030012305 -0.0408092039 -0.04068978 -0.03622977 -0.03672904
@@ -118,4 +119,5 @@ dfa_filter(horizon = 6, degree = 2)
 #> t+4  0.00000000
 #> t+5  0.00000000
 #> t+6  0.00000000
+# }
 ```

@@ -42,7 +42,7 @@ rkhs_filter(
 
 - density:
 
-  hypothesis on the spectral density: `"uniform"` (= white woise, the
+  hypothesis on the spectral density: `"uniform"` (= white noise, the
   default) or `"rw"` (= random walk).
 
 - passband:
@@ -51,14 +51,14 @@ rkhs_filter(
 
 - optimalbw:
 
-  boolean indicating if the bandwith should be choosen by optimisation
+  boolean indicating if the bandwidth should be choosen by optimisation
   (between `optimal.minBandwidth` and `optimal.minBandwidth` using the
   criteria `asymmetricCriterion`). If `optimalbw = FALSE` then the
-  bandwith specified in `bandwidth` will be used.
+  bandwidth specified in `bandwidth` will be used.
 
 - optimal.minBandwidth, optimal.maxBandwidth:
 
-  the range used for the optimal bandwith selection.
+  the range used for the optimal bandwidth selection.
 
 - bandwidth:
 

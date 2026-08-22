@@ -18,7 +18,7 @@
 - [`rkhs_kernel()`](https://rjdverse.github.io/rjd3filters/reference/rkhs_kernel.md)
   : Get RKHS kernel function
 - [`rkhs_optimal_bw()`](https://rjdverse.github.io/rjd3filters/reference/rkhs_optimal_bw.md)
-  : Optimal Bandwith of Reproducing Kernel Hilbert Space (RKHS) Filters
+  : Optimal Bandwidth of Reproducing Kernel Hilbert Space (RKHS) Filters
 - [`rkhs_optimization_fun()`](https://rjdverse.github.io/rjd3filters/reference/rkhs_optimization_fun.md)
   : Optimization Function of Reproducing Kernel Hilbert Space (RKHS)
   Filters

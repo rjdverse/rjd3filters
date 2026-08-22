@@ -46,7 +46,7 @@ show(object)
 
 - trailing_zero, leading_zero:
 
-  boolean indicating wheter to remove leading/trailing zero and NA.
+  boolean indicating whether to remove leading/trailing zero and NA.
 
 - s:
 
@@ -77,7 +77,7 @@ e1 <- moving_average(rep(1,12), lags = -6)
 e1 <- e1/sum(e1)
 e2 <- moving_average(rep(1/12, 12), lags = -5)
 M2X12 <- (e1 + e2)/2
-coef(M2X12)
+stats::coef(M2X12)
 #>        t-6        t-5        t-4        t-3        t-2        t-1          t 
 #> 0.04166667 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 
 #>        t+1        t+2        t+3        t+4        t+5        t+6 
@@ -109,5 +109,5 @@ s <- si * M3X3_seasonal
 # or equivalently:
 s_mm <- M3X3_seasonal * (1 - M2X12)
 s <- y * s_mm
-plot(s)
+graphics::plot(s)
 ```

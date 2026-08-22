@@ -1,4 +1,4 @@
-# Optimal Bandwith of Reproducing Kernel Hilbert Space (RKHS) Filters
+# Optimal Bandwidth of Reproducing Kernel Hilbert Space (RKHS) Filters
 
 Function to export the optimal bandwidths used in Reproducing Kernel
 Hilbert Space (RKHS) filters
@@ -40,7 +40,7 @@ rkhs_optimal_bw(
 
 - density:
 
-  hypothesis on the spectral density: `"uniform"` (= white woise, the
+  hypothesis on the spectral density: `"uniform"` (= white noise, the
   default) or `"rw"` (= random walk).
 
 - passband:
@@ -49,7 +49,7 @@ rkhs_optimal_bw(
 
 - optimal.minBandwidth, optimal.maxBandwidth:
 
-  the range used for the optimal bandwith selection.
+  the range used for the optimal bandwidth selection.
 
 ## Examples
 

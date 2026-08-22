@@ -70,6 +70,6 @@ local polynomial regression, with application to trend-cycle analysis”.
 ``` r
 x <- retailsa$AllOtherGenMerchandiseStores
 trend <- localpolynomials(x, horizon = 6)
-plot(x)
-lines(trend, col = "red")
+graphics::plot(x)
+graphics::lines(trend, col = "red")
 ```
