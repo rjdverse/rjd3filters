@@ -414,7 +414,7 @@ plot_phase.finite_filters <- function(
     }
 }
 
-#' @keyword internal
+#' @keywords internal
 #' @importFrom MASS fractions
 xlabel <- function(x, symbol = "pi") {
     fracs <- strsplit(
@@ -436,7 +436,7 @@ xlabel <- function(x, symbol = "pi") {
     the_labels <- sub("1 * pi", " pi", the_labels, fixed = TRUE)
     parse(text = the_labels)
 }
-#' @keyword internal
+#' @keywords internal
 trailingzero_as_na <- function(x) {
     i <- length(x)
     while (x[i] == 0 && i > 0) {
@@ -450,7 +450,7 @@ trailingzero_as_na <- function(x) {
     #          by = 1)] <- NA
     # x
 }
-#' @keyword internal
+#' @keywords internal
 rm_leading_zero_or_na <- function(x) {
     if (identical(x, 0)) {
         return(x)
@@ -467,7 +467,7 @@ rm_leading_zero_or_na <- function(x) {
         x[-remove_i]
     }
 }
-#' @keyword internal
+#' @keywords internal
 rm_trailing_zero_or_na <- function(x) {
     if (identical(x, 0)) {
         return(x)
@@ -484,7 +484,7 @@ rm_trailing_zero_or_na <- function(x) {
         x[-remove_i]
     }
 }
-#' @keyword internal
+#' @keywords internal
 rm_trailing_zero <- function(x) {
     if (identical(x, 0)) {
         return(x)
@@ -501,7 +501,7 @@ rm_trailing_zero <- function(x) {
         x[-remove_i]
     }
 }
-#' @keyword internal
+#' @keywords internal
 remove_bound_NA <- function(x) {
     if (all(is.na(x))) {
         x
