@@ -296,6 +296,7 @@ rkhs_optimal_bw <- function(
     optimalBw
 }
 #' Get RKHS kernel function
+#'
 #' @inheritParams rkhs_filter
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
@@ -303,7 +304,9 @@ rkhs_optimal_bw <- function(
 #' triangular <- rkhs_kernel(kernel = "Triangular")
 #' graphics::plot(biweight, -1, 1)
 #' graphics::plot(triangular, -1, 1, add = TRUE, col = "orange")
-#' @export A function that takes a numeric input and returns the value of the RKHS kernel.
+#'
+#' @returns A function that takes a numeric input and returns the value of the RKHS kernel.
+#'
 #' @export
 rkhs_kernel <- function(
     kernel = c(
