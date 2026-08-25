@@ -15,7 +15,7 @@
 #' (p)^{d_0} & (p)^{d_0+1} & \cdots&(p)^{d_1}
 #' \end{pmatrix}
 #' }
-#'
+#' @returns A `"matrix"` of size (u-l+1) x (d1-d0+1).
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' # For example to reproduce DAF filters
 #' daf <- lp_filter(horizon = 6, endpoints = "DAF")

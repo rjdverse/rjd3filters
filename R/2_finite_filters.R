@@ -21,7 +21,10 @@ setClass(
 #' ff_lp
 #' ff_simple_ma
 #' ff_lp * ff_simple_ma
-#'
+#' # To get the symmetric filter and the right filters:
+#' ff_lp@sfilter
+#' ff_lp@rfilters
+#' @returns A `finite_filters` object or a boolean for `is.finite_filters()`.
 #' @export
 finite_filters <- function(
     sfilter,
@@ -33,6 +36,7 @@ finite_filters <- function(
 }
 
 #' @importFrom methods new
+#' @noRd
 #' @export
 finite_filters.moving_average <- function(
     sfilter,
@@ -61,7 +65,7 @@ finite_filters.moving_average <- function(
     )
     res
 }
-
+#' @noRd
 #' @export
 finite_filters.list <- function(
     sfilter,
@@ -81,7 +85,7 @@ finite_filters.list <- function(
     rfilters <- all_f[-1]
     finite_filters(sfilter = sfilter, rfilters = rfilters)
 }
-
+#' @noRd
 #' @export
 finite_filters.matrix <- function(
     sfilter,
@@ -99,6 +103,7 @@ is.finite_filters <- function(x) {
     is(x, "finite_filters")
 }
 
+#' TODO
 #' @export
 .jd2r_finitefilters <- function(jf, first_to_last = NULL) {
     jf <- .jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
@@ -588,6 +593,7 @@ setMethod(
         as.matrix(x)[i, j, ..., drop = drop]
     }
 )
+#' @rdname finite_filters
 #' @export
 to_seasonal.finite_filters <- function(x, s) {
     x@sfilter <- to_seasonal(x@sfilter, s)
@@ -646,6 +652,8 @@ to_seasonal.finite_filters <- function(x, s) {
 #' impute_last_obs(composite_ma, n = 3, nperiod = 1) * y
 #' # or using the filtered data of the same month in previous year
 #' impute_last_obs(composite_ma, n = 6, nperiod = 12) * y
+#'
+#' @returns A [finite_filters()] object.
 #' @export
 impute_last_obs <- function(
     x,

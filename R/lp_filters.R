@@ -9,7 +9,7 @@
 #' @param passband passband threshold.
 #' @param ic ic ratio.
 #'
-#' @return the target signal
+#' @returns A `vector` or `ts` object with the filtered time series.
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' x <- retailsa$AllOtherGenMerchandiseStores
@@ -120,6 +120,7 @@ localpolynomials <- function(
 #' henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
 #' plot_coef(henderson_f)
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
+#' @returns A [finite_filters()] object.
 #' @export
 lp_filter <- function(
     horizon = 6,
@@ -189,6 +190,7 @@ lp_filter <- function(
 
     return(.jd2r_finitefilters(jprops))
 }
+#' @keywords internal
 coefficients_names <- function(lb, ub) {
     x <- sprintf("t%+i", seq(lb, ub))
     x <- sub("+0", "", x, fixed = TRUE)

@@ -22,6 +22,7 @@
 #' dfa_filter(horizon = 6, degree = 0)
 #' dfa_filter(horizon = 6, degree = 2)
 #' }
+#' @returns A [finite_filters()] object.
 dfa_filter <- function(
     horizon = 6,
     degree = 0,

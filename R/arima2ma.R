@@ -9,11 +9,13 @@
 #' get_moving_average(fit)
 #'
 #' @importFrom stats arima
+#' @returns A [moving_average()] object.
 #' @export
 get_moving_average <- function(x, ...) {
     UseMethod("get_moving_average", x)
 }
 
+#' @noRd
 #' @importFrom stats coefficients
 #' @export
 get_moving_average.Arima <- function(x, ...) {
@@ -75,7 +77,7 @@ get_moving_average.Arima <- function(x, ...) {
         right = list(ma = ma_mm, sma = sma_mm)
     )
 }
-
+#' @noRd
 #' @export
 get_moving_average.regarima <- function(x, period = 12, ...) {
     specif <- x$specification$arima$specification
@@ -137,11 +139,12 @@ get_moving_average.regarima <- function(x, period = 12, ...) {
     )
 }
 
+#' @noRd
 #' @export
 get_moving_average.SA <- function(x, period = 12, ...) {
     get_moving_average(x$regarima, period = period, ...)
 }
-
+#' @noRd
 #' @export
 get_moving_average.JD3_SARIMA_ESTIMATION <- function(x, period = 12, ...) {
     order_ar <- x$phi
@@ -195,11 +198,13 @@ get_moving_average.JD3_SARIMA_ESTIMATION <- function(x, period = 12, ...) {
     )
 }
 
+#' @noRd
 #' @export
 get_moving_average.JD3_REGARIMA_OUTPUT <- function(x, ...) {
     get_moving_average(x$result, ...)
 }
 
+#' @noRd
 #' @export
 get_moving_average.JD3_REGARIMA_RSLTS <- function(x, ...) {
     get_moving_average(x$description$arima, ...)

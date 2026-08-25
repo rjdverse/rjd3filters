@@ -10,9 +10,9 @@ setClass(
 
 #' Operations on Filters
 #'
-#' Manipulation of [moving_average()] or [finite_filters()] objects
+#' Manipulation of [moving_average()] or [finite_filters()] objects.
 #'
-#' @param x,e1,e2 object
+#' @param x,e1,e2 object.
 #' @param i,j,value indices specifying elements to extract or replace and the new value
 #'
 #' @param ...,drop,na.rm other parameters.
@@ -20,6 +20,17 @@ setClass(
 #' if trailing and leading zeros added to have a matrix form should be replaced by `NA`.
 #'
 #' @name filters_operations
+#' @returns A [moving_average()] or [finite_filters()] object.
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
+#' e1 <- moving_average(rep(1,12), lags = -6)
+#' e1 <- e1/sum(e1)
+#' e2 <- moving_average(rep(1/12, 12), lags = -5)
+#' M2X12 <- (e1 + e2)/2
+#' M2X12
+#' h13 <- lp_filter(horizon = 6)
+#' h13
+#' h13 * M2X12
+#'
 NULL
 
 #' Manipulation of moving averages
@@ -34,13 +45,22 @@ NULL
 #' A moving average is defined by a set of coefficient \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'}
 #' such all time series \eqn{X_t} are transformed as:
 #' \deqn{
-#' M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}
+#' M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}.
 #' }
-#' The integer \eqn{p} is defined by the parameter \code{lags}.
+#' The integer \eqn{p} is defined by the parameter \code{lags} and can be retrieved by
+#' the function `lower_bound()`. The integer \eqn{f} is defined by the length of the coefficients
+#' and can be retrieved by the function `upper_bound()`.
+#' The length of the moving average is defined as \eqn{f+p+1} and can be retrieved by the function `length()`.
+#' A moving average is symmetric (`is_symmetric()`) if \eqn{p=f} and \eqn{\theta_{-k}=\theta_{k}} for all \eqn{k=0,\dots,p}.
 #'
 #' The function `to_seasonal()` transforms the moving average \eqn{\boldsymbol \theta} to:
 #' \deqn{
-#' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
+#' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}.
+#' }
+#'
+#' The functions `mirror()` and `rev()` transforms the moving average \eqn{\boldsymbol \theta} to:
+#' \deqn{
+#' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-f}^{+p}\theta_kX_{t+k}=\left(\sum_{k=-f}^{+p}\theta_kB^{-k}\right)X_{t}.
 #' }
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
@@ -77,6 +97,10 @@ NULL
 #' graphics::plot(s)
 #' @importFrom stats coef
 #' @importFrom methods new
+#' @returns A boolean for `is.moving_average()`, `is_symmetric()`.
+#' An integer for `length()` and `numeric() for `lower_bound()` and `upper_bound()`.
+#' A `"moving_average"` object for `moving_average()`, `mirror()`, `rev()` and `to_seasonal()`.
+#'
 #' @export
 moving_average <- function(
     x,
@@ -110,12 +134,14 @@ moving_average <- function(
     res
 }
 
+#' @keywords internal
 .jd2ma <- function(jobj, trailing_zero = FALSE) {
     x <- .jcall(jobj, "[D", "weightsToArray")
     lags <- .jcall(jobj, "I", "getLowerBound")
     moving_average(x, lags, trailing_zero = trailing_zero)
 }
 
+#' @keywords internal
 #' @importFrom stats coef
 .ma2jd <- function(x) {
     lags <- lower_bound(x)
@@ -138,6 +164,7 @@ is.moving_average <- function(x) {
     is(x, "moving_average")
 }
 
+#' @rdname moving_average
 #' @export
 coef.moving_average <- function(object, ...) {
     coefs <- object@coefficients
@@ -533,12 +560,14 @@ setMethod(
 #' simple_ma(3, -1) ^ 2
 #' # The M3X5 moving average is computed as
 #' simple_ma(3, -1) * simple_ma(5, -2)
+#' @returns A [moving_average()] object.
 #' @export
 simple_ma <- function(order, lags = -trunc((order - 1) / 2)) {
     moving_average(rep(1, order), lags = lags) / order
 }
 
-#'@export
+#' @noRd
+#' @export
 as.list.moving_average <- function(x, ...) {
     lapply(seq_along(x), function(i) x[i])
 }

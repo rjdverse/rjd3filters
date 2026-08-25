@@ -52,6 +52,7 @@
 #' @importFrom utils tail
 #' @importFrom graphics lines
 #' @importFrom graphics plot
+#' @returns An object of the same class as `x` (`ts`, `mts`, `vector` or `matrix`) with the implicit forecasts.
 #' @export
 implicit_forecasts <- function(x, coefs) {
     UseMethod("implicit_forecasts", x)
@@ -63,6 +64,7 @@ implicit_forecasts <- function(x, coefs) {
 #' @importFrom stats time
 #' @importFrom stats is.ts
 #' @importFrom utils tail
+#' @noRd
 #' @export
 implicit_forecasts.default <- function(x, coefs) {
     if (!inherits(coefs, "finite_filters")) {
@@ -90,6 +92,7 @@ implicit_forecasts.default <- function(x, coefs) {
     prev
 }
 
+#' @noRd
 #' @export
 implicit_forecasts.matrix <- function(x, coefs) {
     result <- do.call(

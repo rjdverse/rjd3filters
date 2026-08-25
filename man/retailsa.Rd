@@ -8,7 +8,7 @@
 A \code{list} of \code{ts} objects from january 1992 to december 2010.
 }
 \usage{
-retailsa
+data(retailsa)
 }
 \description{
 A dataset containing monthly seasonally adjusted retailed sales

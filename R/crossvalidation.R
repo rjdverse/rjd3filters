@@ -70,9 +70,16 @@
 #' Cleveland, W. S. and S. J. Devlin (1988).
 #' Locally weighted regression: An approach to regression analysis by local fitting.
 #' Journal of the American Statistical Association 83, 596–610.
-#'
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
+#' x <- retailsa$DrinkingPlaces
+#' h13 <- lp_filter(6)@sfilter
+#' cv(x, h13)
+#' cve(x, h13)
+#' loocve(x, h13)
+#' rt(x, h13)
+#' cp(x, h13, var = var_estimator(x, h13))
 #' @importFrom stats coef
-#'
+#' @returns Numeric value for the statistic and `ts()` or `vector()` for the estimates.
 #' @name diagnostics-fit
 #' @rdname diagnostics-fit
 #' @export
@@ -115,6 +122,7 @@ rt <- function(x, coef, ...) {
     }
     sc <- filter(x, coef)
     coef0 <- stats::coef(coef)["t"]
+    names(coef0) <- NULL
     mean((x - sc)^2, na.rm = TRUE) / (1 - 2 * coef0)
 }
 
@@ -129,6 +137,7 @@ cp <- function(x, coef, var, ...) {
     }
     sc <- filter(x, coef)
     coef0 <- stats::coef(coef)["t"]
+    names(coef0) <- NULL
     mse <- (x - sc)^2
     nb_obs <- sum(!is.na(mse))
     (1 / var) * sum(mse, na.rm = TRUE) - nb_obs * (1 - 2 * coef0)
@@ -153,7 +162,13 @@ cp <- function(x, coef, var, ...) {
 #' New York: Springer-Verlag.
 #' @seealso [df_var()].
 #'
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
+#' x <- retailsa$DrinkingPlaces
+#' h13 <- lp_filter(6)@sfilter
+#' var_estimator(x, h13)
+#'
 #' @importFrom stats coefficients
+#' @returns Numeric value with the statistic.
 #' @export
 var_estimator <- function(x, coef, ...) {
     coef <- moving_average(coef, ...)
@@ -175,7 +190,11 @@ var_estimator <- function(x, coef, ...) {
 #' @inheritParams confint_filter
 #'
 #' @seealso [var_estimator()].
+#' @returns Numeric value with the statistic (the degree is not necessary an integer).
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
+#' df_var(n = 100, coef = lp_filter(6)@sfilter)
 #' @importFrom stats coefficients
+#' @export
 df_var <- function(n, coef, exact_df = FALSE) {
     value_coef <- stats::coefficients(coef)
     coef0 <- value_coef["t"]
@@ -266,6 +285,7 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #'      col = c("red", "black", "black"),
 #'      lty = c(1, 2, 2))
 #' @export
+#' @returns A matrix or `mts` object with the filtered series and the lower and upper bounds of the confidence interval.
 #' @importFrom stats frequency
 #' @importFrom stats ts
 #' @importFrom stats start
@@ -396,7 +416,7 @@ confint_filter <- function(
         confidence_quantiles[, 1] * sqrt(estimated_variance) * corr_f
     sup <- filtered +
         confidence_quantiles[, 2] * sqrt(estimated_variance) * corr_f
-    res <- stats::ts.union(filtered, inf, sup)
+    res <- base::cbind(filtered, inf, sup)
     colnames(res) <- c("filtered", sprintf("%.1f%%", confidence_bounds * 100))
     res
 }
