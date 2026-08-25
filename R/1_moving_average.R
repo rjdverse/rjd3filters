@@ -134,6 +134,7 @@ moving_average <- function(
     res
 }
 
+#' @noRd
 #' @keywords internal
 .jd2ma <- function(jobj, trailing_zero = FALSE) {
     x <- .jcall(jobj, "[D", "weightsToArray")
@@ -141,6 +142,7 @@ moving_average <- function(
     moving_average(x, lags, trailing_zero = trailing_zero)
 }
 
+#' @noRd
 #' @keywords internal
 #' @importFrom stats coef
 .ma2jd <- function(x) {

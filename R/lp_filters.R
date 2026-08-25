@@ -190,6 +190,7 @@ lp_filter <- function(
 
     return(.jd2r_finitefilters(jprops))
 }
+#' @noRd
 #' @keywords internal
 coefficients_names <- function(lb, ub) {
     x <- sprintf("t%+i", seq(lb, ub))

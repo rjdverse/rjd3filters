@@ -88,6 +88,7 @@ filter.matrix <- function(x, coefs, remove_missing = TRUE) {
 #' @importFrom stats frequency
 #' @importFrom stats is.ts
 #' @importFrom stats start
+#' @noRd
 #' @keywords internal
 filter_ma <- function(x, coefs) {
     # if (!is.moving_average(coefs)) {
@@ -131,6 +132,7 @@ filter_ma <- function(x, coefs) {
 #' @importFrom stats ts
 #' @importFrom stats is.ts
 #' @importFrom stats start
+#' @noRd
 #' @keywords internal
 ff_ma <- function(x, coefs, remove_missing = TRUE) {
     if (!inherits(coefs, "finite_filters")) {
@@ -176,6 +178,7 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
     result
 }
 
+#' @noRd
 #' @keywords internal
 .r2jd_doubleseq <- function(x) {
     .jcall(
@@ -186,6 +189,7 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
     )
 }
 
+#' @noRd
 #' @keywords internal
 .finite_filters2jd <- function(ff) {
     jsymf <- .ma2jd(ff@sfilter)

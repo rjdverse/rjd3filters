@@ -101,6 +101,7 @@ mmsre_filter <- function(
     return(.jd2ma(jf))
 }
 
+#' @noRd
 #' @keywords internal
 #' @importFrom rjd3toolkit .r2jd_matrix
 .r2jd_fast_matrix <- function(s) {

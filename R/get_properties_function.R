@@ -26,6 +26,7 @@ get_properties_function <- function(
     UseMethod("get_properties_function", x)
 }
 
+#' @noRd
 #' @keywords internal
 get_gain_function <- function(x) {
     jgain <- .jcall(
@@ -37,6 +38,7 @@ get_gain_function <- function(x) {
         .jcall(jgain, "D", "applyAsDouble", x)
     })
 }
+#' @noRd
 #' @keywords internal
 get_phase_function <- function(x) {
     jphase <- .jcall(
@@ -48,6 +50,7 @@ get_phase_function <- function(x) {
         .jcall(jphase, "D", "applyAsDouble", x)
     })
 }
+#' @noRd
 #' @keywords internal
 get_frequency_response_function <- function(x) {
     jfrf <- .jcall(x, "Ljava/lang/Object;", "frequencyResponseFunction")
