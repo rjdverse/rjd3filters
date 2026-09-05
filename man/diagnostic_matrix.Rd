@@ -4,12 +4,13 @@
 \alias{diagnostic_matrix}
 \title{Compute quality criteria for asymmetric filters}
 \usage{
-diagnostic_matrix(x, lags, passband = pi/6, sweights, ...)
+diagnostic_matrix(x, lags, passband = pi/6, sweights = NULL, ...)
 }
 \arguments{
-\item{x}{Weights of the asymmetric filter (from -lags to m).}
+\item{x}{\code{moving_average} object or weights of the asymmetric filter
+(from -lags to m).}
 
-\item{lags}{Lags of the filter (should be positive).}
+\item{lags}{Lags of the filter (should be positive), only used if \code{x} is not a \code{moving_average}.}
 
 \item{passband}{passband threshold.}
 
@@ -43,6 +44,14 @@ For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
 \item{\code{T_w} } Timeliness criterium of Wildi and McElroy (2019)
 \item{\code{R_w} } Residual criterium of Wildi and McElroy (2019)
 }
+}
+\examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
+sweights <- filter[, "q=6"]
+aweights <- filter[, "q=0"]
+diagnostic_matrix(aweights, sweights = sweights)
+\dontshow{\}) # examplesIf}
 }
 \references{
 Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray

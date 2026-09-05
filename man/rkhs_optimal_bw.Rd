@@ -34,8 +34,11 @@ bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 \item{optimal.minBandwidth, optimal.maxBandwidth}{the range used for the
 optimal bandwidth selection.}
 }
+\value{
+A vector of optimal bandwidths for each lead time.
+}
 \description{
-Function to export the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters
+Function to compute the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters
 }
 \examples{
 \dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}

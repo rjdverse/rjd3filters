@@ -13,6 +13,9 @@ implicit_forecasts(x, coefs)
 coefficients of the asymmetric and symmetric filters. (from the symmetric
 filter to the shortest). See details.}
 }
+\value{
+An object of the same class as \code{x} (\code{ts}, \code{mts}, \code{vector} or \code{matrix}) with the implicit forecasts.
+}
 \description{
 Function to retrieve the implicit forecasts corresponding to the asymmetric filters
 }

@@ -41,6 +41,9 @@ approximation.}
 \item{...}{other arguments passed to the function \code{\link[=moving_average]{moving_average()}} to
 convert \code{coef} to a \code{"moving_average"} object.}
 }
+\value{
+A matrix or \code{mts} object with the filtered series and the lower and upper bounds of the confidence interval.
+}
 \description{
 Confidence intervals
 }

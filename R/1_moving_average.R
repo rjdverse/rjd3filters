@@ -167,6 +167,7 @@ is.moving_average <- function(x) {
 }
 
 #' @rdname moving_average
+#' @param ... other unused parameters.
 #' @export
 coef.moving_average <- function(object, ...) {
     coefs <- object@coefficients

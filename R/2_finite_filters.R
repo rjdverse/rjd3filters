@@ -103,39 +103,15 @@ is.finite_filters <- function(x) {
     is(x, "finite_filters")
 }
 
-#' TODO
+#' Java Utility Function
+#'
+#' These functions are used in all JDemetra+ 3.0 packages to easily interact between R and Java objects.
+#'
+#' @param jf java linear filter object.
 #' @export
-.jd2r_finitefilters <- function(jf, first_to_last = NULL) {
+.jd2r_finitefilters <- function(jf) {
     jf <- .jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
     if (is.jnull(jf)) {
-        #  if (.jinstanceof(jf, "jdplus/x12plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
-        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "symmetricFilter")
-        #    jlfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "leftEndPointsFilters")
-        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
-
-        #    sfilter = .jd2ma(jsfilter)
-        #    rfilters = lapply(jrfilter, .jd2ma)
-        #    lfilters = rev(lapply(jlfilter, .jd2ma))
-        #  } else if (.jinstanceof(jf, "jdplus/toolkit/base/core/math/linearfilters/FiltersToolkit$FiniteFilters")) {
-        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "getFilter")
-        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "getAfilters")
-        #    if (!first_to_last) # lp_filter
-        #      jrfilter <- rev(jrfilter)
-
-        #    while (is.jnull(jrfilter[[length(jrfilter)]])) { # DFA
-        #      jrfilter <- jrfilter[-length(jrfilter)]
-        #    }
-        #    sfilter <- .jd2ma(jsfilter)
-        #    rfilters <- lapply(jrfilter, .jd2ma)
-        #    lfilters <- NULL
-        #  } else if (.jinstanceof(jf, "jdplus/filters/base/core/filters/Filtering")) {
-        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
-        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
-
-        #    sfilter <- .jd2ma(jsfilter)
-        #    rfilters <- lapply(jrfilter, .jd2ma)
-        #    lfilters <- NULL
-        #  }
         return(NULL)
     }
     jsfilter <- .jcall(
@@ -158,10 +134,7 @@ is.finite_filters <- function(x) {
     rfilters <- lapply(jrfilter, .jd2ma)
     lfilters <- rev(lapply(jlfilter, .jd2ma))
 
-    if (is.null(first_to_last) && all(diff(lengths(lfilters)) <= 0)) {
-        lfilters <- rev(lfilters)
-        rfilters <- rev(rfilters)
-    } else if (!is.null(first_to_last) && first_to_last) {
+    if (all(diff(lengths(lfilters)) <= 0)) {
         lfilters <- rev(lfilters)
         rfilters <- rev(rfilters)
     }
@@ -594,6 +567,7 @@ setMethod(
     }
 )
 #' @rdname finite_filters
+#' @inheritParams to_seasonal
 #' @export
 to_seasonal.finite_filters <- function(x, s) {
     x@sfilter <- to_seasonal(x@sfilter, s)

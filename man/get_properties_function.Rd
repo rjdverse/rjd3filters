@@ -18,6 +18,9 @@ get_properties_function(
 
 \item{...}{unused other arguments.}
 }
+\value{
+A function.
+}
 \description{
 Get properties of filters
 }

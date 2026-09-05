@@ -34,7 +34,7 @@ localpolynomials(
 \item{passband}{passband threshold.}
 }
 \value{
-the target signal
+A \code{vector} or \code{ts} object with the filtered time series.
 }
 \description{
 Apply Local Polynomials Filters

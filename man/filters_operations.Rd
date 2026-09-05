@@ -133,13 +133,28 @@
 \arguments{
 \item{..., drop, na.rm}{other parameters.}
 
-\item{x, e1, e2}{object}
+\item{x, e1, e2}{object.}
 
 \item{i, j, value}{indices specifying elements to extract or replace and the new value}
 
 \item{zero_as_na}{boolean indicating if, when merging several moving averages (\code{cbind})
 if trailing and leading zeros added to have a matrix form should be replaced by \code{NA}.}
 }
+\value{
+A \code{\link[=moving_average]{moving_average()}} or \code{\link[=finite_filters]{finite_filters()}} object.
+}
 \description{
-Manipulation of \code{\link[=moving_average]{moving_average()}} or \code{\link[=finite_filters]{finite_filters()}} objects
+Manipulation of \code{\link[=moving_average]{moving_average()}} or \code{\link[=finite_filters]{finite_filters()}} objects.
+}
+\examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+e1 <- moving_average(rep(1,12), lags = -6)
+e1 <- e1/sum(e1)
+e2 <- moving_average(rep(1/12, 12), lags = -5)
+M2X12 <- (e1 + e2)/2
+M2X12
+h13 <- lp_filter(horizon = 6)
+h13
+h13 * M2X12
+\dontshow{\}) # examplesIf}
 }

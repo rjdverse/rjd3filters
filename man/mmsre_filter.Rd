@@ -33,6 +33,9 @@ See \code{\link[=lp_filter]{lp_filter()}} for the available kernels.}
 
 \item{passband}{passband threshold.}
 }
+\value{
+A \code{\link[=moving_average]{moving_average()}} object.
+}
 \description{
 Provides an asymmetric filter based on the given reference
 filter (usually symmetric) minimizing the mean square revision error.

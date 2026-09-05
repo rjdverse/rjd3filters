@@ -4,7 +4,7 @@
 \alias{impute_last_obs}
 \title{Impute Incomplete Finite Filters}
 \usage{
-impute_last_obs(x, n, nperiod = 1, backward = TRUE, forward = TRUE)
+impute_last_obs(x, n = NULL, nperiod = 1, backward = TRUE, forward = TRUE)
 }
 \arguments{
 \item{x}{a \code{\link[=finite_filters]{finite_filters()}} object.}
@@ -22,6 +22,9 @@ filtered data, etc.
 
 \item{backward, forward}{boolean indicating if the imputation should be done
 backward (on left filters), forward (on right filters).}
+}
+\value{
+A \code{\link[=finite_filters]{finite_filters()}} object.
 }
 \description{
 Impute Incomplete Finite Filters

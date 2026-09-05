@@ -31,6 +31,9 @@ dfa_filter(
 optimisation. The weight associated to the residual is derived so that the sum of
 the four weights are equal to 1.}
 }
+\value{
+A \code{\link[=finite_filters]{finite_filters()}} object.
+}
 \description{
 Direct Filter Approach
 }
