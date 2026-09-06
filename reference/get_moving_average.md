@@ -18,6 +18,12 @@ get_moving_average(x, ...)
 
   unused parameters
 
+## Value
+
+A
+[`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
+object.
+
 ## Examples
 
 ``` r

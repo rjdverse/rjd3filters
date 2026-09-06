@@ -25,6 +25,10 @@ var_estimator(x, coef, ...)
   [`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
   to convert `coef` to a `"moving_average"` object.
 
+## Value
+
+Numeric value with the statistic.
+
 ## Details
 
 Let \\(\theta_i)\_{-p\leq i \leq q}\\ be a moving average of length
@@ -43,3 +47,12 @@ Springer-Verlag.
 ## See also
 
 [`df_var()`](https://rjdverse.github.io/rjd3filters/reference/df_var.md).
+
+## Examples
+
+``` r
+x <- retailsa$DrinkingPlaces
+h13 <- lp_filter(6)@sfilter
+var_estimator(x, h13)
+#> [1] 325.1256
+```

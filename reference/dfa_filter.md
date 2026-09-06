@@ -47,6 +47,12 @@ dfa_filter(
   residual is derived so that the sum of the four weights are equal to
   1.
 
+## Value
+
+A
+[`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
+object.
+
 ## Details
 
 Moving average computed by a minimisation of a weighted mean of three

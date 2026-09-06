@@ -50,19 +50,23 @@
 
 
 <dt id="arg-d-d-">d0, d1<a class="anchor" aria-label="anchor" href="#arg-d-d-"></a></dt>
-<dd><p>lower and polynomial degree of the polynomial matrix.</p></dd>
+<dd><p>lower and upper polynomial degree of the polynomial matrix.</p></dd>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A <code>"matrix"</code> of size \((u-l+1) \times (d_1-d_0+1)\).</p>
+    </div>
+    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>polynomial_matrix()</code> computes the following matrix
+    <p><code>polynomial_matrix()</code> computes the following matrix:
 $$
 \begin{pmatrix}
 (l)^{d_0} &amp; (l)^{d_0+1} &amp; \cdots&amp;(l)^{d_1}\\
 (l+1)^{d_0} &amp; (l+1)^{d_0+1} &amp; \cdots&amp;(l+1)^{d_1} \\
 \vdots &amp; \vdots &amp; \cdots &amp; \vdots \\
-(p)^{d_0} &amp; (p)^{d_0+1} &amp; \cdots&amp;(p)^{d_1}
-\end{pmatrix}
+(u)^{d_0} &amp; (u)^{d_0+1} &amp; \cdots&amp;(u)^{d_1}
+\end{pmatrix}.
 $$</p>
     </div>
 

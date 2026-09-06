@@ -14,6 +14,9 @@ moving_average(
 
 is.moving_average(x)
 
+# S3 method for class 'moving_average'
+coef(object, ...)
+
 is_symmetric(x)
 
 upper_bound(x)
@@ -48,25 +51,47 @@ show(object)
 
   boolean indicating whether to remove leading/trailing zero and NA.
 
+- object:
+
+  `moving_average` object.
+
+- ...:
+
+  other unused parameters.
+
 - s:
 
   seasonal period for the `to_seasonal()` function.
 
-- object:
+## Value
 
-  `moving_average` object.
+A boolean for `is.moving_average()`, `is_symmetric()`. An integer for
+[`length()`](https://rdrr.io/r/base/length.html) and
+`numeric() for `lower_bound()`and`upper_bound()`. A `"moving_average"`object for`moving_average()`, `mirror()`, `rev()`and`to_seasonal()\`.
 
 ## Details
 
 A moving average is defined by a set of coefficient \\\boldsymbol
 \theta=(\theta\_{-p},\dots,\theta\_{f})'\\ such all time series \\X_t\\
 are transformed as: \$\$
-M\_{\boldsymbol\theta}(X_t)=\sum\_{k=-p}^{+f}\theta_kX\_{t+k}=\left(\sum\_{k=-p}^{+f}\theta_kB^{-k}\right)X\_{t}
-\$\$ The integer \\p\\ is defined by the parameter `lags`.
+M\_{\boldsymbol\theta}(X_t)=\sum\_{k=-p}^{+f}\theta_kX\_{t+k}=\left(\sum\_{k=-p}^{+f}\theta_kB^{-k}\right)X\_{t}.
+\$\$ The integer \\p\\ is defined by the parameter `lags` and can be
+retrieved by the function `lower_bound()`. The integer \\f\\ is defined
+by the length of the coefficients and can be retrieved by the function
+`upper_bound()`. The length of the moving average is defined as
+\\f+p+1\\ and can be retrieved by the function
+[`length()`](https://rdrr.io/r/base/length.html). A moving average is
+symmetric (`is_symmetric()`) if \\p=f\\ and \\\theta\_{-k}=\theta\_{k}\\
+for all \\k=0,\dots,p\\.
 
 The function `to_seasonal()` transforms the moving average \\\boldsymbol
 \theta\\ to: \$\$
-M\_{\boldsymbol\theta'}(X_t)=\sum\_{k=-p}^{+f}\theta_kX\_{t+ks}=\left(\sum\_{k=-p}^{+f}\theta_kB^{-ks}\right)X\_{t}
+M\_{\boldsymbol\theta'}(X_t)=\sum\_{k=-p}^{+f}\theta_kX\_{t+k}=\left(\sum\_{k=-p}^{+f}\theta_kB^{-k}\right)X\_{t}.
+\$\$
+
+The functions `mirror()` and [`rev()`](https://rdrr.io/r/base/rev.html)
+transforms the moving average \\\boldsymbol \theta\\ to: \$\$
+M\_{\boldsymbol\theta'}(X_t)=\sum\_{k=-f}^{+p}\theta_kX\_{t+k}=\left(\sum\_{k=-f}^{+p}\theta_kB^{-k}\right)X\_{t}.
 \$\$
 
 ## Examples

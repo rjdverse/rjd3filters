@@ -38,7 +38,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">impute_last_obs</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, nperiod <span class="op">=</span> <span class="fl">1</span>, backward <span class="op">=</span> <span class="cn">TRUE</span>, forward <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">impute_last_obs</span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="cn">NULL</span>, nperiod <span class="op">=</span> <span class="fl">1</span>, backward <span class="op">=</span> <span class="cn">TRUE</span>, forward <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -67,6 +67,10 @@ filtered data, etc.</p></li>
 backward (on left filters), forward (on right filters).</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A <code><a href="finite_filters.html">finite_filters()</a></code> object.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>When combining finite filters and a moving average, the first and/or the

@@ -62,7 +62,20 @@
 <dd><p>horizon (bandwidth) of the symmetric filter.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A function that takes a numeric input and returns the value of the RKHS kernel.</p>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">biweight</span> <span class="op">&lt;-</span> <span class="fu">rkhs_kernel</span><span class="op">(</span>kernel <span class="op">=</span> <span class="st">"Biweight"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">triangular</span> <span class="op">&lt;-</span> <span class="fu">rkhs_kernel</span><span class="op">(</span>kernel <span class="op">=</span> <span class="st">"Triangular"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">biweight</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">triangular</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="rkhs_kernel-1.png" alt="" width="700" height="433"></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

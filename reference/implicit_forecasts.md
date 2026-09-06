@@ -21,6 +21,11 @@ implicit_forecasts(x, coefs)
   asymmetric and symmetric filters. (from the symmetric filter to the
   shortest). See details.
 
+## Value
+
+An object of the same class as `x` (`ts`, `mts`, `vector` or `matrix`)
+with the implicit forecasts.
+
 ## Details
 
 Let \\h\\ be the bandwidth of the symmetric filter, \\v\_{-h}, \ldots,

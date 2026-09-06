@@ -66,7 +66,7 @@ rkhs_filter(
 
 ## Value
 
-a
+A
 [`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
 object.
 

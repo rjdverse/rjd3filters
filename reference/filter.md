@@ -28,6 +28,11 @@ filter(x, coefs, remove_missing = TRUE)
   if `TRUE` (default) leading and trailing NA are removed before
   filtering.
 
+## Value
+
+An object of the same class as `x` (`ts`, `mts`, `vector` or `matrix`)
+with the filtered time series.
+
 ## Details
 
 The functions `filter` extends

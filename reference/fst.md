@@ -29,8 +29,7 @@ fst(weights, lags, passband = pi/6, ...)
 
 ## Value
 
-The values of the 3 criteria, the gain and phase of the associated
-filter.
+A vector with the values of the 3 criteria.
 
 ## References
 

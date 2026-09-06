@@ -18,14 +18,18 @@ polynomial_matrix(l, u = abs(l), d0 = 0, d1 = 3)
 
 - d0, d1:
 
-  lower and polynomial degree of the polynomial matrix.
+  lower and upper polynomial degree of the polynomial matrix.
+
+## Value
+
+A `"matrix"` of size \\(u-l+1) \times (d_1-d_0+1)\\.
 
 ## Details
 
-`polynomial_matrix()` computes the following matrix \$\$ \begin{pmatrix}
-(l)^{d_0} & (l)^{d_0+1} & \cdots&(l)^{d_1}\\ (l+1)^{d_0} & (l+1)^{d_0+1}
-& \cdots&(l+1)^{d_1} \\ \vdots & \vdots & \cdots & \vdots \\ (p)^{d_0} &
-(p)^{d_0+1} & \cdots&(p)^{d_1} \end{pmatrix} \$\$
+`polynomial_matrix()` computes the following matrix: \$\$
+\begin{pmatrix} (l)^{d_0} & (l)^{d_0+1} & \cdots&(l)^{d_1}\\ (l+1)^{d_0}
+& (l+1)^{d_0+1} & \cdots&(l+1)^{d_1} \\ \vdots & \vdots & \cdots &
+\vdots \\ (u)^{d_0} & (u)^{d_0+1} & \cdots&(u)^{d_1} \end{pmatrix}. \$\$
 
 ## Examples
 

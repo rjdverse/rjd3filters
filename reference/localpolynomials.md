@@ -54,7 +54,7 @@ localpolynomials(
 
 ## Value
 
-the target signal
+A `vector` or `ts` object with the filtered time series.
 
 ## References
 

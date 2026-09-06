@@ -5,7 +5,7 @@ Impute Incomplete Finite Filters
 ## Usage
 
 ``` r
-impute_last_obs(x, n, nperiod = 1, backward = TRUE, forward = TRUE)
+impute_last_obs(x, n = NULL, nperiod = 1, backward = TRUE, forward = TRUE)
 ```
 
 ## Arguments
@@ -35,6 +35,12 @@ impute_last_obs(x, n, nperiod = 1, backward = TRUE, forward = TRUE)
 
   boolean indicating if the imputation should be done backward (on left
   filters), forward (on right filters).
+
+## Value
+
+A
+[`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
+object.
 
 ## Details
 

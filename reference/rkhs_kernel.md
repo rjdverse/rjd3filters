@@ -26,3 +26,17 @@ rkhs_kernel(
 - horizon:
 
   horizon (bandwidth) of the symmetric filter.
+
+## Value
+
+A function that takes a numeric input and returns the value of the RKHS
+kernel.
+
+## Examples
+
+``` r
+biweight <- rkhs_kernel(kernel = "Biweight")
+triangular <- rkhs_kernel(kernel = "Triangular")
+graphics::plot(biweight, -1, 1)
+graphics::plot(triangular, -1, 1, add = TRUE, col = "orange")
+```

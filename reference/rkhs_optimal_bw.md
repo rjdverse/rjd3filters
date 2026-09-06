@@ -1,6 +1,6 @@
 # Optimal Bandwidth of Reproducing Kernel Hilbert Space (RKHS) Filters
 
-Function to export the optimal bandwidths used in Reproducing Kernel
+Function to compute the optimal bandwidths used in Reproducing Kernel
 Hilbert Space (RKHS) filters
 
 ## Usage
@@ -50,6 +50,10 @@ rkhs_optimal_bw(
 - optimal.minBandwidth, optimal.maxBandwidth:
 
   the range used for the optimal bandwidth selection.
+
+## Value
+
+A vector of optimal bandwidths for each lead time.
 
 ## Examples
 

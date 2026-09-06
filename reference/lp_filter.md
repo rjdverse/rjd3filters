@@ -53,6 +53,10 @@ a
 [`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
 object.
 
+A
+[`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
+object.
+
 ## Details
 
 - "LC": Linear-Constant filter

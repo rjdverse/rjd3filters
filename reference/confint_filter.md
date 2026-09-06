@@ -68,6 +68,11 @@ confint_filter(
   [`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
   to convert `coef` to a `"moving_average"` object.
 
+## Value
+
+A matrix or `mts` object with the filtered series and the lower and
+upper bounds of the confidence interval.
+
 ## Details
 
 Let \\(\theta_i)\_{-p\leq i \leq q}\\ be a moving average of length

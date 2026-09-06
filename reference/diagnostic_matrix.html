@@ -41,7 +41,7 @@ filters</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">diagnostic_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">lags</span>, passband <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">6</span>, <span class="va">sweights</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">diagnostic_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">lags</span>, passband <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">6</span>, sweights <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -49,11 +49,12 @@ filters</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>Weights of the asymmetric filter (from -lags to m).</p></dd>
+<dd><p><code>moving_average</code> object or weights of the asymmetric filter
+(from -lags to m).</p></dd>
 
 
 <dt id="arg-lags">lags<a class="anchor" aria-label="anchor" href="#arg-lags"></a></dt>
-<dd><p>Lags of the filter (should be positive).</p></dd>
+<dd><p>Lags of the filter (should be positive), only used if <code>x</code> is not a <code>moving_average</code>.</p></dd>
 
 
 <dt id="arg-passband">passband<a class="anchor" aria-label="anchor" href="#arg-passband"></a></dt>
@@ -99,6 +100,18 @@ timeliness and smoothness in real-time signal extraction”. In: International
 Journal of Forecasting 35.3, pp. 1072–1084.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="lp_filter.html">lp_filter</a></span><span class="op">(</span>horizon <span class="op">=</span> <span class="fl">6</span>, kernel <span class="op">=</span> <span class="st">"Henderson"</span>, endpoints <span class="op">=</span> <span class="st">"LC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sweights</span> <span class="op">&lt;-</span> <span class="va">filter</span><span class="op">[</span>, <span class="st">"q=6"</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">aweights</span> <span class="op">&lt;-</span> <span class="va">filter</span><span class="op">[</span>, <span class="st">"q=0"</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">diagnostic_matrix</span><span class="op">(</span><span class="va">aweights</span>, sweights <span class="op">=</span> <span class="va">sweights</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           b_c           b_l           b_q           F_g           S_g </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -1.110223e-16 -4.066279e-01 -2.160733e+00  3.878572e-01  1.272295e+00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           T_g           A_w           S_w           T_w           R_w </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3.034079e-02  1.507927e-02  5.251704e-01  5.226739e-02  3.105944e-01 </span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

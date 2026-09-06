@@ -54,6 +54,12 @@ fst_filter(
   boolean indicating if the timeliness should be computed analytically
   (`TRUE`) or numerically (`FALSE`).
 
+## Value
+
+A
+[`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
+object.
+
 ## Details
 
 Moving average computed by a minimisation of a weighted mean of three

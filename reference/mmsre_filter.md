@@ -57,6 +57,12 @@ mmsre_filter(
 
   passband threshold.
 
+## Value
+
+A
+[`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
+object.
+
 ## Details
 
 The asymmetric filter \\\boldsymbol v=(v\_{-h},\dots,v{q})'\\ minimizes

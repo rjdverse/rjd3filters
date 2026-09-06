@@ -27,6 +27,10 @@ get_properties_function(
 
   unused other arguments.
 
+## Value
+
+A function.
+
 ## Examples
 
 ``` r

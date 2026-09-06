@@ -50,6 +50,11 @@ rkhs_optimization_fun(
 
   passband threshold.
 
+## Value
+
+A function that takes a bandwidth as input and returns the value of the
+optimization criterion.
+
 ## Examples
 
 ``` r

@@ -19,6 +19,12 @@ simple_ma(order, lags = -trunc((order - 1)/2))
 
   integer indicating the number of lags of the moving average.
 
+## Value
+
+A
+[`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
+object.
+
 ## Examples
 
 ``` r

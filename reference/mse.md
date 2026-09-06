@@ -12,13 +12,15 @@ mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 
 - aweights:
 
-  `moving_average` object or weights of the asymmetric filter (from -n
-  to m).
+  `moving_average` or `finite_filters` object or weights of the
+  asymmetric filter (from -n to m).
 
 - sweights:
 
   `moving_average` object or weights of the symmetric filter (from 0 to
-  n or -n to n).
+  n or -n to n). If `aweights` is a
+  [`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
+  object, `sweights` is by default the symmetric filter.
 
 - density:
 
@@ -35,7 +37,10 @@ mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 
 ## Value
 
-The criteria
+A vector with the value of the three criteria or a matrix if `sweights`
+is a
+[`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
+object.
 
 ## References
 

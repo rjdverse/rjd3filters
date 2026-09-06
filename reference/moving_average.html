@@ -47,6 +47,9 @@
 <span></span>
 <span><span class="fu">is.moving_average</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># S3 method for class 'moving_average'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">is_symmetric</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">upper_bound</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -83,25 +86,42 @@
 <dd><p>boolean indicating whether to remove leading/trailing zero and NA.</p></dd>
 
 
-<dt id="arg-s">s<a class="anchor" aria-label="anchor" href="#arg-s"></a></dt>
-<dd><p>seasonal period for the <code>to_seasonal()</code> function.</p></dd>
-
-
 <dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p><code>moving_average</code> object.</p></dd>
 
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>other unused parameters.</p></dd>
+
+
+<dt id="arg-s">s<a class="anchor" aria-label="anchor" href="#arg-s"></a></dt>
+<dd><p>seasonal period for the <code>to_seasonal()</code> function.</p></dd>
+
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A boolean for <code>is.moving_average()</code>, <code>is_symmetric()</code>.
+An integer for <code><a href="https://rdrr.io/r/base/length.html" class="external-link">length()</a></code> and <code>numeric() for </code>lower_bound()<code>and</code>upper_bound()<code>. A </code>"moving_average"<code>object for</code>moving_average()<code>, </code>mirror()<code>, </code>rev()<code>and</code>to_seasonal()`.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>A moving average is defined by a set of coefficient \(\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'\)
 such all time series \(X_t\) are transformed as:
 $$
-M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}
+M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}.
 $$
-The integer \(p\) is defined by the parameter <code>lags</code>.</p>
+The integer \(p\) is defined by the parameter <code>lags</code> and can be retrieved by
+the function <code>lower_bound()</code>. The integer \(f\) is defined by the length of the coefficients
+and can be retrieved by the function <code>upper_bound()</code>.
+The length of the moving average is defined as \(f+p+1\) and can be retrieved by the function <code><a href="https://rdrr.io/r/base/length.html" class="external-link">length()</a></code>.
+A moving average is symmetric (<code>is_symmetric()</code>) if \(p=f\) and \(\theta_{-k}=\theta_{k}\) for all \(k=0,\dots,p\).</p>
 <p>The function <code>to_seasonal()</code> transforms the moving average \(\boldsymbol \theta\) to:
 $$
-M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
+M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}.
+$$</p>
+<p>The functions <code>mirror()</code> and <code><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev()</a></code> transforms the moving average \(\boldsymbol \theta\) to:
+$$
+M_{\boldsymbol\theta'}(X_t)=\sum_{k=-f}^{+p}\theta_kX_{t+k}=\left(\sum_{k=-f}^{+p}\theta_kB^{-k}\right)X_{t}.
 $$</p>
     </div>
 

@@ -14,6 +14,9 @@ finite_filters(
 
 is.finite_filters(x)
 
+# S3 method for class 'finite_filters'
+to_seasonal(x, s)
+
 # S4 method for class 'finite_filters'
 show(object)
 ```
@@ -44,9 +47,19 @@ show(object)
 
   object to test the class.
 
+- s:
+
+  seasonal period for the
+  [`to_seasonal()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
+  function.
+
 - object:
 
   `finite_filters` object.
+
+## Value
+
+A `finite_filters` object or a boolean for `is.finite_filters()`.
 
 ## Examples
 
@@ -121,4 +134,26 @@ ff_lp * ff_simple_ma
 #> t+5  0.000000000  0.00000000  0.00000000
 #> t+6  0.000000000  0.00000000  0.00000000
 #> t+7  0.000000000  0.00000000  0.00000000
+# To get the symmetric filter and the right filters:
+ff_lp@sfilter
+#> [1] " - 0.0193 B^6 - 0.0279 B^5 + 0.0655 B^3 + 0.1474 B^2 + 0.2143 B + 0.2401 + 0.2143 F + 0.1474 F^2 + 0.0655 F^3 - 0.0279 F^5 - 0.0193 F^6"
+ff_lp@rfilters
+#> [[1]]
+#> [1] " - 0.0164 B^6 - 0.0258 B^5 + 0.0013 B^4 + 0.0659 B^3 + 0.1470 B^2 + 0.2131 B + 0.2380 + 0.2115 F + 0.1437 F^2 + 0.0610 F^3 - 0.0053 F^4 - 0.0340 F^5"
+#> 
+#> [[2]]
+#> [1] " - 0.0110 B^6 - 0.0220 B^5 + 0.0033 B^4 + 0.0663 B^3 + 0.1456 B^2 + 0.2100 B + 0.2332 + 0.2050 F + 0.1355 F^2 + 0.0511 F^3 - 0.0169 F^4"
+#> 
+#> [[3]]
+#> [1] " - 0.0081 B^6 - 0.0202 B^5 + 0.0041 B^4 + 0.0661 B^3 + 0.1444 B^2 + 0.2078 B + 0.2300 + 0.2008 F + 0.1302 F^2 + 0.0448 F^3"
+#> 
+#> [[4]]
+#> [1] " - 0.0160 B^6 - 0.0249 B^5 + 0.0027 B^4 + 0.0678 B^3 + 0.1494 B^2 + 0.2160 B + 0.2414 + 0.2154 F + 0.1481 F^2"
+#> 
+#> [[5]]
+#> [1] " - 0.0427 B^6 - 0.0386 B^5 + 0.0018 B^4 + 0.0799 B^3 + 0.1744 B^2 + 0.2539 B + 0.2922 + 0.2791 F"
+#> 
+#> [[6]]
+#> [1] " - 0.0919 B^6 - 0.0581 B^5 + 0.0120 B^4 + 0.1198 B^3 + 0.2439 B^2 + 0.3531 B + 0.4211"
+#> 
 ```

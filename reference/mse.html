@@ -46,13 +46,14 @@
 
 
 <dl><dt id="arg-aweights">aweights<a class="anchor" aria-label="anchor" href="#arg-aweights"></a></dt>
-<dd><p><code>moving_average</code> object or weights of the asymmetric filter
+<dd><p><code>moving_average</code> or <code>finite_filters</code> object or weights of the asymmetric filter
 (from -n to m).</p></dd>
 
 
 <dt id="arg-sweights">sweights<a class="anchor" aria-label="anchor" href="#arg-sweights"></a></dt>
 <dd><p><code>moving_average</code> object or weights of the symmetric filter
-(from 0 to n or -n to n).</p></dd>
+(from 0 to n or -n to n).
+If <code>aweights</code> is a <code><a href="finite_filters.html">finite_filters()</a></code> object, <code>sweights</code> is by default the symmetric filter.</p></dd>
 
 
 <dt id="arg-density">density<a class="anchor" aria-label="anchor" href="#arg-density"></a></dt>
@@ -70,7 +71,7 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The criteria</p>
+    <p>A vector with the value of the three criteria or a matrix if <code>sweights</code> is a <code><a href="finite_filters.html">finite_filters()</a></code> object.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
