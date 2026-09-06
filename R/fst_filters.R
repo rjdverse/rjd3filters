@@ -61,6 +61,7 @@
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- fst_filter(lags = 6, leads = 0)
 #' filter
+#' @returns A [finite_filters()] object.
 #' @references Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment,
 #' \url{https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/ks-gq-18-001}.
 #' @export
@@ -105,7 +106,7 @@ fst_filter <- function(
 #' @param passband Passband threshold for timeliness criterion.
 #' @param ... other unused arguments.
 #'
-#' @return The values of the 3 criteria, the gain and phase of the associated filter.
+#' @returns A vector with the values of the 3 criteria.
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' fst(filter[, "q=0"])
@@ -120,6 +121,7 @@ fst <- function(weights, lags, passband = pi / 6, ...) {
     UseMethod("fst", weights)
 }
 
+#' @noRd
 #' @export
 fst.default <- function(weights, lags, passband = pi / 6, ...) {
     jobj <- .jcall(
@@ -136,13 +138,14 @@ fst.default <- function(weights, lags, passband = pi / 6, ...) {
 }
 
 #' @importFrom stats coef
+#' @noRd
 #' @export
 fst.moving_average <- function(weights, lags, passband = pi / 6, ...) {
     lags <- lower_bound(weights)
     weights <- stats::coef(weights)
     fst(weights, lags, passband)
 }
-
+#' @noRd
 #' @export
 fst.finite_filters <- function(
     weights,
@@ -182,16 +185,17 @@ fst.finite_filters <- function(
 #' Accuracy/smoothness/timeliness criteria through spectral decomposition
 #'
 #'
+#' @param aweights `moving_average` or `finite_filters` object or weights of the asymmetric filter
+#'   (from -n to m).
 #' @param sweights `moving_average` object or weights of the symmetric filter
 #'   (from 0 to n or -n to n).
-#' @param aweights `moving_average` object or weights of the asymmetric filter
-#'   (from -n to m).
+#'   If `aweights` is a [finite_filters()] object, `sweights` is by default the symmetric filter.
 #' @param density hypothesis on the spectral density: \code{"uniform"}
 #'   (= white noise, the default) or  \code{"rw"} (= random walk).
 #' @param passband passband threshold.
 #' @param ... other unused arguments.
 #'
-#' @return The criteria
+#' @returns A vector with the value of the three criteria or a matrix if `sweights` is a [finite_filters()] object.
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' sweights <- filter[, "q=6"]
@@ -215,6 +219,7 @@ mse <- function(
 }
 
 #' @importFrom stats coef
+#' @noRd
 #' @export
 mse.default <- function(
     aweights,
@@ -256,7 +261,7 @@ mse.default <- function(
         residual = rslt[4]
     ))
 }
-
+#' @noRd
 #' @export
 mse.finite_filters <- function(
     aweights,

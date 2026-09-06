@@ -3,6 +3,7 @@
 \name{moving_average}
 \alias{moving_average}
 \alias{is.moving_average}
+\alias{coef.moving_average}
 \alias{is_symmetric}
 \alias{upper_bound}
 \alias{lower_bound}
@@ -21,6 +22,8 @@ moving_average(
 )
 
 is.moving_average(x)
+
+\method{coef}{moving_average}(object, ...)
 
 is_symmetric(x)
 
@@ -45,9 +48,15 @@ to_seasonal(x, s)
 
 \item{trailing_zero, leading_zero}{boolean indicating whether to remove leading/trailing zero and NA.}
 
-\item{s}{seasonal period for the \code{to_seasonal()} function.}
-
 \item{object}{\code{moving_average} object.}
+
+\item{...}{other unused parameters.}
+
+\item{s}{seasonal period for the \code{to_seasonal()} function.}
+}
+\value{
+A boolean for \code{is.moving_average()}, \code{is_symmetric()}.
+An integer for \code{length()} and \verb{numeric() for }lower_bound()\code{and}upper_bound()\verb{. A }"moving_average"\verb{object for}moving_average()\verb{, }mirror()\verb{, }rev()\code{and}to_seasonal()`.
 }
 \description{
 Manipulation of moving averages
@@ -56,13 +65,22 @@ Manipulation of moving averages
 A moving average is defined by a set of coefficient \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'}
 such all time series \eqn{X_t} are transformed as:
 \deqn{
-M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}
+M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}.
 }
-The integer \eqn{p} is defined by the parameter \code{lags}.
+The integer \eqn{p} is defined by the parameter \code{lags} and can be retrieved by
+the function \code{lower_bound()}. The integer \eqn{f} is defined by the length of the coefficients
+and can be retrieved by the function \code{upper_bound()}.
+The length of the moving average is defined as \eqn{f+p+1} and can be retrieved by the function \code{length()}.
+A moving average is symmetric (\code{is_symmetric()}) if \eqn{p=f} and \eqn{\theta_{-k}=\theta_{k}} for all \eqn{k=0,\dots,p}.
 
 The function \code{to_seasonal()} transforms the moving average \eqn{\boldsymbol \theta} to:
 \deqn{
-M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
+M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}.
+}
+
+The functions \code{mirror()} and \code{rev()} transforms the moving average \eqn{\boldsymbol \theta} to:
+\deqn{
+M_{\boldsymbol\theta'}(X_t)=\sum_{k=-f}^{+p}\theta_kX_{t+k}=\left(\sum_{k=-f}^{+p}\theta_kB^{-k}\right)X_{t}.
 }
 }
 \examples{

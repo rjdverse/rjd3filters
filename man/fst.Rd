@@ -16,7 +16,7 @@ fst(weights, lags, passband = pi/6, ...)
 \item{...}{other unused arguments.}
 }
 \value{
-The values of the 3 criteria, the gain and phase of the associated filter.
+A vector with the values of the 3 criteria.
 }
 \description{
 Compute the Fidelity, Smoothness and Timeliness (FST) criteria

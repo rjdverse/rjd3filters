@@ -9,6 +9,7 @@
 #' sgain <- get_properties_function(filter, "Symmetric Gain")
 #' graphics::plot(sgain, xlim= c(0, pi/12))
 #' @importFrom graphics plot
+#' @returns A function.
 #' @export
 get_properties_function <- function(
     x,
@@ -25,6 +26,8 @@ get_properties_function <- function(
     UseMethod("get_properties_function", x)
 }
 
+#' @noRd
+#' @keywords internal
 get_gain_function <- function(x) {
     jgain <- .jcall(
         x,
@@ -35,6 +38,8 @@ get_gain_function <- function(x) {
         .jcall(jgain, "D", "applyAsDouble", x)
     })
 }
+#' @noRd
+#' @keywords internal
 get_phase_function <- function(x) {
     jphase <- .jcall(
         x,
@@ -45,6 +50,8 @@ get_phase_function <- function(x) {
         .jcall(jphase, "D", "applyAsDouble", x)
     })
 }
+#' @noRd
+#' @keywords internal
 get_frequency_response_function <- function(x) {
     jfrf <- .jcall(x, "Ljava/lang/Object;", "frequencyResponseFunction")
 
@@ -59,6 +66,7 @@ get_frequency_response_function <- function(x) {
 }
 
 
+#' @noRd
 #' @export
 get_properties_function.moving_average <- function(
     x,
@@ -96,6 +104,7 @@ get_properties_function.moving_average <- function(
         }
     )
 }
+#' @noRd
 #' @export
 get_properties_function.finite_filters <- function(
     x,
@@ -129,8 +138,9 @@ get_properties_function.finite_filters <- function(
 #' Function du compute a diagnostic matrix of quality criteria for asymmetric
 #' filters
 #'
-#' @param x Weights of the asymmetric filter (from -lags to m).
-#' @param lags Lags of the filter (should be positive).
+#' @param x `moving_average` object or weights of the asymmetric filter
+#'   (from -lags to m).
+#' @param lags Lags of the filter (should be positive), only used if `x` is not a `moving_average`.
 #' @param passband passband threshold.
 #' @param sweights Weights of the symmetric filter (from 0 to lags or -lags to
 #'   lags).
@@ -165,9 +175,14 @@ get_properties_function.finite_filters <- function(
 #' timeliness and smoothness in real-time signal extraction”. In: International
 #' Journal of Forecasting 35.3, pp. 1072–1084.
 #'
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
+#' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
+#' sweights <- filter[, "q=6"]
+#' aweights <- filter[, "q=0"]
+#' diagnostic_matrix(aweights, sweights = sweights)
 #' @importFrom stats coef
 #' @export
-diagnostic_matrix <- function(x, lags, passband = pi / 6, sweights, ...) {
+diagnostic_matrix <- function(x, lags, passband = pi / 6, sweights = NULL, ...) {
     if (!is.moving_average(x)) {
         x <- moving_average(x, lags = lags)
     }
@@ -178,7 +193,7 @@ diagnostic_matrix <- function(x, lags, passband = pi / 6, sweights, ...) {
         sum(stats::coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)^2),
         fst(x, lags, passband = passband)
     )
-    if (!missing(sweights)) {
+    if (!is.null(sweights)) {
         results <- c(results, mse(x, sweights, passband = passband, ...))
     } else {
         results <- c(results, rep(NA, 4))

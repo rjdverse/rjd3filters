@@ -21,7 +21,7 @@
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' rkhs <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
 #' plot_coef(rkhs)
-#' @return a [finite_filters()] object.
+#' @returns A [finite_filters()] object.
 #' @export
 rkhs_filter <- function(
     horizon = 6,
@@ -94,6 +94,7 @@ rkhs_filter <- function(
 #' Export function used to compute the optimal bandwidth of Reproducing Kernel Hilbert Space (RKHS) filters
 #' @inheritParams rkhs_filter
 #' @inheritParams fst_filter
+#' @returns A function that takes a bandwidth as input and returns the value of the optimization criterion.
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' graphics::plot(
 #'     rkhs_optimization_fun(
@@ -228,11 +229,12 @@ rkhs_optimization_fun <- function(
 }
 #' Optimal Bandwidth of Reproducing Kernel Hilbert Space (RKHS) Filters
 #'
-#' Function to export the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters
+#' Function to compute the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters
 #' @inheritParams rkhs_filter
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' rkhs_optimal_bw(asymmetricCriterion = "Timeliness")
 #' rkhs_optimal_bw(asymmetricCriterion = "Timeliness", optimal.minBandwidth = 6.2)
+#' @returns A vector of optimal bandwidths for each lead time.
 #' @export
 rkhs_optimal_bw <- function(
     horizon = 6,
@@ -294,7 +296,17 @@ rkhs_optimal_bw <- function(
     optimalBw
 }
 #' Get RKHS kernel function
+#'
 #' @inheritParams rkhs_filter
+#'
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
+#' biweight <- rkhs_kernel(kernel = "Biweight")
+#' triangular <- rkhs_kernel(kernel = "Triangular")
+#' graphics::plot(biweight, -1, 1)
+#' graphics::plot(triangular, -1, 1, add = TRUE, col = "orange")
+#'
+#' @returns A function that takes a numeric input and returns the value of the RKHS kernel.
+#'
 #' @export
 rkhs_kernel <- function(
     kernel = c(

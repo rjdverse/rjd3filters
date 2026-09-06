@@ -15,8 +15,16 @@ df_var(n, coef, exact_df = FALSE)
 t-distribution (when \code{gaussian_distribution = FALSE}), otherwise uses an
 approximation.}
 }
+\value{
+Numeric value with the statistic (the degree is not necessary an integer).
+}
 \description{
 Compute the degrees of freedom for the variance estimator
+}
+\examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+df_var(n = 100, coef = lp_filter(6)@sfilter)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=var_estimator]{var_estimator()}}.

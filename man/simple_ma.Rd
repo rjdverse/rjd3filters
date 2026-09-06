@@ -11,6 +11,9 @@ simple_ma(order, lags = -trunc((order - 1)/2))
 
 \item{lags}{integer indicating the number of lags of the moving average.}
 }
+\value{
+A \code{\link[=moving_average]{moving_average()}} object.
+}
 \description{
 A simple moving average is a moving average whose coefficients are all equal and whose sum is 1
 }

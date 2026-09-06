@@ -7,11 +7,12 @@
 mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 }
 \arguments{
-\item{aweights}{\code{moving_average} object or weights of the asymmetric filter
+\item{aweights}{\code{moving_average} or \code{finite_filters} object or weights of the asymmetric filter
 (from -n to m).}
 
 \item{sweights}{\code{moving_average} object or weights of the symmetric filter
-(from 0 to n or -n to n).}
+(from 0 to n or -n to n).
+If \code{aweights} is a \code{\link[=finite_filters]{finite_filters()}} object, \code{sweights} is by default the symmetric filter.}
 
 \item{density}{hypothesis on the spectral density: \code{"uniform"}
 (= white noise, the default) or  \code{"rw"} (= random walk).}
@@ -21,7 +22,7 @@ mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 \item{...}{other unused arguments.}
 }
 \value{
-The criteria
+A vector with the value of the three criteria or a matrix if \code{sweights} is a \code{\link[=finite_filters]{finite_filters()}} object.
 }
 \description{
 Accuracy/smoothness/timeliness criteria through spectral decomposition

@@ -6,7 +6,7 @@
 #' @inheritParams localpolynomials
 #' @param sd_gauss standard deviation for gaussian kernel. By default 0.25.
 #'
-#' @return \code{tskernel} object (see \link[stats]{kernel}).
+#' @returns \code{tskernel} object (see \link[stats]{kernel}).
 #' @export
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)

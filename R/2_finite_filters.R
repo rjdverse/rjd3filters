@@ -21,7 +21,10 @@ setClass(
 #' ff_lp
 #' ff_simple_ma
 #' ff_lp * ff_simple_ma
-#'
+#' # To get the symmetric filter and the right filters:
+#' ff_lp@sfilter
+#' ff_lp@rfilters
+#' @returns A `finite_filters` object or a boolean for `is.finite_filters()`.
 #' @export
 finite_filters <- function(
     sfilter,
@@ -33,6 +36,7 @@ finite_filters <- function(
 }
 
 #' @importFrom methods new
+#' @noRd
 #' @export
 finite_filters.moving_average <- function(
     sfilter,
@@ -61,7 +65,7 @@ finite_filters.moving_average <- function(
     )
     res
 }
-
+#' @noRd
 #' @export
 finite_filters.list <- function(
     sfilter,
@@ -81,7 +85,7 @@ finite_filters.list <- function(
     rfilters <- all_f[-1]
     finite_filters(sfilter = sfilter, rfilters = rfilters)
 }
-
+#' @noRd
 #' @export
 finite_filters.matrix <- function(
     sfilter,
@@ -99,38 +103,15 @@ is.finite_filters <- function(x) {
     is(x, "finite_filters")
 }
 
+#' Java Utility Function
+#'
+#' These functions are used in all JDemetra+ 3.0 packages to easily interact between R and Java objects.
+#'
+#' @param jf java linear filter object.
 #' @export
-.jd2r_finitefilters <- function(jf, first_to_last) {
+.jd2r_finitefilters <- function(jf) {
     jf <- .jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
     if (is.jnull(jf)) {
-        #  if (.jinstanceof(jf, "jdplus/x12plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
-        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "symmetricFilter")
-        #    jlfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "leftEndPointsFilters")
-        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
-
-        #    sfilter = .jd2ma(jsfilter)
-        #    rfilters = lapply(jrfilter, .jd2ma)
-        #    lfilters = rev(lapply(jlfilter, .jd2ma))
-        #  } else if (.jinstanceof(jf, "jdplus/toolkit/base/core/math/linearfilters/FiltersToolkit$FiniteFilters")) {
-        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "getFilter")
-        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "getAfilters")
-        #    if (!first_to_last) # lp_filter
-        #      jrfilter <- rev(jrfilter)
-
-        #    while (is.jnull(jrfilter[[length(jrfilter)]])) { # DFA
-        #      jrfilter <- jrfilter[-length(jrfilter)]
-        #    }
-        #    sfilter <- .jd2ma(jsfilter)
-        #    rfilters <- lapply(jrfilter, .jd2ma)
-        #    lfilters <- NULL
-        #  } else if (.jinstanceof(jf, "jdplus/filters/base/core/filters/Filtering")) {
-        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
-        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
-
-        #    sfilter <- .jd2ma(jsfilter)
-        #    rfilters <- lapply(jrfilter, .jd2ma)
-        #    lfilters <- NULL
-        #  }
         return(NULL)
     }
     jsfilter <- .jcall(
@@ -153,10 +134,7 @@ is.finite_filters <- function(x) {
     rfilters <- lapply(jrfilter, .jd2ma)
     lfilters <- rev(lapply(jlfilter, .jd2ma))
 
-    if (missing(first_to_last) && all(diff(lengths(lfilters)) <= 0)) {
-        lfilters <- rev(lfilters)
-        rfilters <- rev(rfilters)
-    } else if (!missing(first_to_last) && first_to_last) {
+    if (all(diff(lengths(lfilters)) <= 0)) {
         lfilters <- rev(lfilters)
         rfilters <- rev(rfilters)
     }
@@ -588,6 +566,8 @@ setMethod(
         as.matrix(x)[i, j, ..., drop = drop]
     }
 )
+#' @rdname finite_filters
+#' @inheritParams to_seasonal
 #' @export
 to_seasonal.finite_filters <- function(x, s) {
     x@sfilter <- to_seasonal(x@sfilter, s)
@@ -646,10 +626,12 @@ to_seasonal.finite_filters <- function(x, s) {
 #' impute_last_obs(composite_ma, n = 3, nperiod = 1) * y
 #' # or using the filtered data of the same month in previous year
 #' impute_last_obs(composite_ma, n = 6, nperiod = 12) * y
+#'
+#' @returns A [finite_filters()] object.
 #' @export
 impute_last_obs <- function(
     x,
-    n,
+    n = NULL,
     nperiod = 1,
     backward = TRUE,
     forward = TRUE
@@ -659,7 +641,7 @@ impute_last_obs <- function(
     }
     nrfilters <- length(x@rfilters)
     nlfilters <- length(x@lfilters)
-    if (missing(n)) {
+    if (is.null(n)) {
         n <- max(nrfilters, nlfilters)
     }
     n_r <- min(upper_bound(x@sfilter) - nrfilters, n)

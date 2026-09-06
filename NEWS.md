@@ -48,7 +48,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * New functions to compute functions to compute diagnostics and goodness of fit of filtered series: cross validation (`cv()`) and cross validate estimate (`cve()`), leave-one-out cross validation estimate (`loocve`), CP statistic (`cp()`) and Rice's T statistics (`rt()`).
 * New function `confint_filter()` to compute confidence intervals for filtered series.
 * New function `is.finite_filters()`.
-* New parameter `zero_as_na` in `cbind.moving_average`, boolean indicating if trealing and leading zeros added to have a matrix form should be replaced by `NA`.
+* New parameter `zero_as_na` in `cbind.moving_average`, boolean indicating if trailing and leading zeros added to have a matrix form should be replaced by `NA`.
 
 ### Changed
 

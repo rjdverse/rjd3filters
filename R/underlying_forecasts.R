@@ -49,6 +49,7 @@
 #' @importFrom utils tail
 #' @importFrom graphics plot
 #' @importFrom graphics lines
+#' @returns An object of the same class as `x` (`ts`, `mts`, `vector` or `matrix`) with the underlying forecasts.
 #' @export
 underlying_forecasts <- function(x, coefs) {
     UseMethod("underlying_forecasts", x)
@@ -60,6 +61,7 @@ underlying_forecasts <- function(x, coefs) {
 #' @importFrom stats time
 #' @importFrom stats is.ts
 #' @importFrom utils tail
+#' @noRd
 #' @export
 underlying_forecasts.default <- function(x, coefs) {
     if (!inherits(coefs, "finite_filters")) {
@@ -88,6 +90,7 @@ underlying_forecasts.default <- function(x, coefs) {
     prev
 }
 
+#' @noRd
 #' @export
 underlying_forecasts.matrix <- function(x, coefs) {
     result <- do.call(

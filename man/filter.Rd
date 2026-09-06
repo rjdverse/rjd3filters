@@ -16,6 +16,9 @@ filter to the shortest). See details.}
 \item{remove_missing}{if \code{TRUE} (default) leading and trailing NA are
 removed before filtering.}
 }
+\value{
+An object of the same class as \code{x} (\code{ts}, \code{mts}, \code{vector} or \code{matrix}) with the filtered time series.
+}
 \description{
 Applies linear filtering to a univariate time series or to each series
 separately of a multivariate time series using either a moving average

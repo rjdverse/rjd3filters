@@ -46,7 +46,7 @@ optimal bandwidth selection.}
 \item{bandwidth}{the bandwidth to use if \code{optimalbw = FALSE}.}
 }
 \value{
-a \code{\link[=finite_filters]{finite_filters()}} object.
+A \code{\link[=finite_filters]{finite_filters()}} object.
 }
 \description{
 Estimation of a filter using Reproducing Kernel Hilbert Space (RKHS)

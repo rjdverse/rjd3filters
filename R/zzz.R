@@ -1,6 +1,7 @@
 #' @importFrom rJava .jcall .jarray .jcast is.jnull J .jnull
 NULL
 
+#' @noRd
 #' @keywords internal
 #' @importFrom rjd3jars check_java_version
 .onAttach <- function(libname, pkgname) {
@@ -8,6 +9,7 @@ NULL
     rjd3jars::check_java_version(silent = FALSE, startup = TRUE)
 }
 
+#' @noRd
 #' @keywords internal
 #' @importFrom rjd3jars check_java_version
 #' @importFrom rjd3jars reload_dictionaries

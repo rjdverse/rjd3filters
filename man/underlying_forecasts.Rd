@@ -13,6 +13,9 @@ underlying_forecasts(x, coefs)
 coefficients of the asymmetric and symmetric filters. (from the symmetric
 filter to the shortest). See details.}
 }
+\value{
+An object of the same class as \code{x} (\code{ts}, \code{mts}, \code{vector} or \code{matrix}) with the underlying forecasts.
+}
 \description{
 Function to retrieve the underlying forecasts corresponding to the asymmetric filters:
 the asymmetric filtering produce the same result than the symmetric filters applied to the extended series.

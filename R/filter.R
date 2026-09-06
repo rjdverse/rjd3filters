@@ -57,6 +57,7 @@
 #' trend <- filter(x, lpp_coef)
 #' # This is equivalent to:
 #' trend <- localpolynomials(x, horizon = 6)
+#' @returns An object of the same class as `x` (`ts`, `mts`, `vector` or `matrix`) with the filtered time series.
 #' @importFrom stats ts.union
 #' @importFrom graphics plot
 #' @export
@@ -87,6 +88,8 @@ filter.matrix <- function(x, coefs, remove_missing = TRUE) {
 #' @importFrom stats frequency
 #' @importFrom stats is.ts
 #' @importFrom stats start
+#' @noRd
+#' @keywords internal
 filter_ma <- function(x, coefs) {
     # if (!is.moving_average(coefs)) {
     #   coefs <- moving_average(coefs, -abs(lags))
@@ -129,6 +132,8 @@ filter_ma <- function(x, coefs) {
 #' @importFrom stats ts
 #' @importFrom stats is.ts
 #' @importFrom stats start
+#' @noRd
+#' @keywords internal
 ff_ma <- function(x, coefs, remove_missing = TRUE) {
     if (!inherits(coefs, "finite_filters")) {
         coefs <- finite_filters(coefs)
@@ -173,6 +178,8 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
     result
 }
 
+#' @noRd
+#' @keywords internal
 .r2jd_doubleseq <- function(x) {
     .jcall(
         "jdplus/toolkit/base/api/data/DoubleSeq",
@@ -182,6 +189,8 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
     )
 }
 
+#' @noRd
+#' @keywords internal
 .finite_filters2jd <- function(ff) {
     jsymf <- .ma2jd(ff@sfilter)
     rfilters <- ff@rfilters

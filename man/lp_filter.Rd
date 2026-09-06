@@ -32,6 +32,8 @@ lp_filter(
 }
 \value{
 a \code{\link[=finite_filters]{finite_filters()}} object.
+
+A \code{\link[=finite_filters]{finite_filters()}} object.
 }
 \description{
 Local Polynomials Filters

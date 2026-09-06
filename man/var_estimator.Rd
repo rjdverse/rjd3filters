@@ -13,6 +13,9 @@ var_estimator(x, coef, ...)
 
 \item{...}{other arguments passed to the function \code{\link[=moving_average]{moving_average()}} to convert \code{coef} to a \code{"moving_average"} object.}
 }
+\value{
+Numeric value with the statistic.
+}
 \description{
 Variance Estimator
 }
@@ -25,6 +28,13 @@ can be estimated using the normalized residual sum of squares, which can be simp
 \hat\sigma^2=\frac{1}{n-(p+q)}\sum_{t=p+1}^{n-q}
 \frac{(y_t-\hat \mu_t)^2}{1-2w_0^2+\sum_{i=-p}^q w_i^2}
 }
+}
+\examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+x <- retailsa$DrinkingPlaces
+h13 <- lp_filter(6)@sfilter
+var_estimator(x, h13)
+\dontshow{\}) # examplesIf}
 }
 \references{
 Loader, Clive. 1999.

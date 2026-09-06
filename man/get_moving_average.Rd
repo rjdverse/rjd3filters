@@ -11,6 +11,9 @@ get_moving_average(x, ...)
 
 \item{...}{unused parameters}
 }
+\value{
+A \code{\link[=moving_average]{moving_average()}} object.
+}
 \description{
 Get Moving Averages from ARIMA model
 }

@@ -29,7 +29,7 @@
 #' \eqn{\boldsymbol U_p'\boldsymbol v=\boldsymbol U'\boldsymbol \theta}.
 #'
 #' The matrix \eqn{\boldsymbol Z} represents the bias of the asymmetric filter: usually constraints imposed to the symmetric filter but not to the asymmetric filter.
-#'
+#' @returns A [moving_average()] object.
 #' @inheritParams lp_filter
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' QL <- lp_filter(endpoints = "QL", ic = 3.5)
@@ -101,6 +101,8 @@ mmsre_filter <- function(
     return(.jd2ma(jf))
 }
 
+#' @noRd
+#' @keywords internal
 #' @importFrom rjd3toolkit .r2jd_matrix
 .r2jd_fast_matrix <- function(s) {
     if (is.null(s)) {

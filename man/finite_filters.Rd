@@ -3,6 +3,7 @@
 \name{finite_filters}
 \alias{finite_filters}
 \alias{is.finite_filters}
+\alias{to_seasonal.finite_filters}
 \alias{show,finite_filters-method}
 \title{Manipulating Finite Filters}
 \usage{
@@ -14,6 +15,8 @@ finite_filters(
 )
 
 is.finite_filters(x)
+
+\method{to_seasonal}{finite_filters}(x, s)
 
 \S4method{show}{finite_filters}(object)
 }
@@ -31,7 +34,12 @@ the last one (real-time estimates).}
 
 \item{x}{object to test the class.}
 
+\item{s}{seasonal period for the \code{to_seasonal()} function.}
+
 \item{object}{\code{finite_filters} object.}
+}
+\value{
+A \code{finite_filters} object or a boolean for \code{is.finite_filters()}.
 }
 \description{
 Manipulating Finite Filters
@@ -44,5 +52,8 @@ ff_simple_ma <- finite_filters(moving_average(c(1, 1, 1), lags = -1)/3,
 ff_lp
 ff_simple_ma
 ff_lp * ff_simple_ma
+# To get the symmetric filter and the right filters:
+ff_lp@sfilter
+ff_lp@rfilters
 \dontshow{\}) # examplesIf}
 }

@@ -32,6 +32,9 @@ bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 
 \item{passband}{passband threshold.}
 }
+\value{
+A function that takes a bandwidth as input and returns the value of the optimization criterion.
+}
 \description{
 Export function used to compute the optimal bandwidth of Reproducing Kernel Hilbert Space (RKHS) filters
 }
