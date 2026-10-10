@@ -40,6 +40,7 @@ reference:
   - '`impute_last_obs`'
   - '`moving_average`'
   - '`plot_filters`'
+  - '`print,finite_filters-method`'
 - title: Data
   contents:
   - '`retailsa`'
