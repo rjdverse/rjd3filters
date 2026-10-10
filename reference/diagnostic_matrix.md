@@ -1,7 +1,7 @@
 # Compute quality criteria for asymmetric filters
 
-Function du compute a diagnostic matrix of quality criteria for
-asymmetric filters
+Function to compute a diagnostic matrix of quality criteria for
+asymmetric filters.
 
 ## Usage
 
@@ -37,10 +37,14 @@ diagnostic_matrix(x, lags, passband = pi/6, sweights = NULL, ...)
   optional arguments to
   [`mse`](https://rjdverse.github.io/rjd3filters/reference/mse.md).
 
+## Value
+
+A `vector` of length 10 with the quality criteria.
+
 ## Details
 
 For a moving average of coefficients \\\theta=(\theta_i)\_{-p\le i\le
-q}\\ `diagnostic_matrix` returns a `list` with the following ten
+q}\\ `diagnostic_matrix` returns a `vector` with the following ten
 criteria:
 
 - `b_c` Constant bias (if \\b_c=0\\, \\\theta\\ preserve constant
@@ -65,6 +69,9 @@ criteria:
 - `T_w` Timeliness criterium of Wildi and McElroy (2019)
 
 - `R_w` Residual criterium of Wildi and McElroy (2019)
+
+`A_w`, `S_w`, `T_w` and `R_w` are computed only if the weights of the
+symmetric filter are provided (`sweights`).
 
 ## References
 

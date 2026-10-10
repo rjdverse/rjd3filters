@@ -107,7 +107,6 @@
 - [`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
   [`is.finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
   [`to_seasonal(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
-  [`show(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
   : Manipulating Finite Filters
 - [`get_moving_average()`](https://rjdverse.github.io/rjd3filters/reference/get_moving_average.md)
   : Get Moving Averages from ARIMA model
@@ -129,6 +128,10 @@
   [`plot_gain()`](https://rjdverse.github.io/rjd3filters/reference/plot_filters.md)
   [`plot_phase()`](https://rjdverse.github.io/rjd3filters/reference/plot_filters.md)
   : Plots filters properties
+- [`print(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/print.finite_filters.md)
+  [`show(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/print.finite_filters.md)
+  [`as.matrix(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/print.finite_filters.md)
+  : Print method for Finite Filters Objects
 
 ## Data
 

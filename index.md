@@ -31,24 +31,27 @@ Running rjd3 packages requires **Java 21 or higher**. How to set up such
 a configuration in R is explained
 [here](https://doc.jdemetra.org/#Rconfig).
 
-### Latest release
-
-To get the current stable version (from the latest release):
-
-- From GitHub:
-
 ``` r
 
-# install.packages("remotes")
-remotes::install_github("rjdverse/rjd3toolkit@*release")
-remotes::install_github("rjdverse/rjd3filters@*release")
+# Install release version from CRAN
+install.packages("rjd3filters")
 ```
+
+To install the developpment version:
 
 - From [r-universe](https://rjdverse.r-universe.dev/rjd3filters):
 
 ``` r
 
 install.packages("rjd3filters", repos = c("https://rjdverse.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+- From GitHub:
+
+``` r
+
+# install.packages("remotes")
+remotes::install_github("rjdverse/rjd3filters")
 ```
 
 ### Development version

@@ -162,7 +162,7 @@ A
 [`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
 or
 [`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
-object.
+object resulting from the operation.
 
 ## Examples
 

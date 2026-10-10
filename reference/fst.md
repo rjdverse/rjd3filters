@@ -29,7 +29,7 @@ fst(weights, lags, passband = pi/6, ...)
 
 ## Value
 
-A vector with the values of the 3 criteria.
+A named vector with the values of the 3 criteria.
 
 ## References
 

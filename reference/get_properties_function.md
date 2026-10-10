@@ -29,7 +29,8 @@ get_properties_function(
 
 ## Value
 
-A function.
+A function that takes a frequency as input and returns the value of the
+selected component.
 
 ## Examples
 

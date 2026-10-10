@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rjd3filters</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,19 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mse</span><span class="op">(</span><span class="va">aweights</span>, <span class="va">sweights</span>, density <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"uniform"</span>, <span class="st">"rw"</span><span class="op">)</span>, passband <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">6</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mse</span><span class="op">(</span><span class="va">aweights</span>, <span class="va">sweights</span>, density <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"uniform"</span>, <span class="st">"rw"</span><span class="op">)</span>, passband <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">6</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'finite_filters'</span></span>
+<span><span class="fu">mse</span><span class="op">(</span></span>
+<span>  <span class="va">aweights</span>,</span>
+<span>  sweights <span class="op">=</span> <span class="va">aweights</span><span class="op">@</span><span class="va">sfilter</span>,</span>
+<span>  density <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"uniform"</span>, <span class="st">"rw"</span><span class="op">)</span>,</span>
+<span>  passband <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">6</span>,</span>
+<span>  sfilter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rfilters <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  lfilters <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -68,10 +80,18 @@ If <code>aweights</code> is a <code><a href="finite_filters.html">finite_filters
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>other unused arguments.</p></dd>
 
+
+<dt id="arg-sfilter-rfilters-lfilters">sfilter, rfilters, lfilters<a class="anchor" aria-label="anchor" href="#arg-sfilter-rfilters-lfilters"></a></dt>
+<dd><p>boolean indicating if the criteria should be computed for the symmetric filter
+(<code>sfilter = TRUE</code> by default), the right filters (<code>rfilters = TRUE</code> by default) and
+the left filters (<code>lfilters = FALSE</code> by default).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A vector with the value of the three criteria or a matrix if <code>sweights</code> is a <code><a href="finite_filters.html">finite_filters()</a></code> object.</p>
+    <p>If <code>sweights</code> is a <code><a href="finite_filters.html">finite_filters()</a></code> object, a matrix with the value of the three criteria for asymmetric and
+symmetric filters (depending on the value of <code>sfilter</code>, <code>rfilters</code> and <code>lfilters</code>).</p>
+<p>Otherwise, a named vector with the value of the three criteria is returned.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -107,7 +127,7 @@ International Journal of Forecasting 35.3, pp. 1072–1084.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jean Palate, Alain Quartier-la-Tente.</p>
+  <p>Developed by Alain Quartier-la-Tente, Jean Palate.</p>
 </div>
 
 <div class="pkgdown-footer-right">

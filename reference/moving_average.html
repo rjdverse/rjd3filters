@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rjd3filters</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,8 +100,12 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A boolean for <code>is.moving_average()</code>, <code>is_symmetric()</code>.
-An integer for <code><a href="https://rdrr.io/r/base/length.html" class="external-link">length()</a></code> and <code>numeric() for </code>lower_bound()<code>and</code>upper_bound()<code>. A </code>"moving_average"<code>object for</code>moving_average()<code>, </code>mirror()<code>, </code>rev()<code>and</code>to_seasonal()`.</p>
+    <p><code>moving_average()</code> returns a <code>"moving_average"</code> object which is an S4 class with three slots:</p><ul><li><p><code>coefficients</code>: a numeric vector of coefficients.</p></li>
+<li><p><code>lower_bound</code>: an integer indicating the number of lags.</p></li>
+<li><p><code>upper_bound</code>: an integer indicating the number of leads (automatically computed).</p></li>
+</ul><p><code>is.moving_average()</code> and <code>is_symmetric()</code> return a boolean.
+<code><a href="https://rdrr.io/r/base/length.html" class="external-link">length()</a></code>, <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>, <code>lower_bound()</code> and <code>upper_bound()</code> return an integer.
+<code>mirror()</code>, <code><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev()</a></code> and <code>to_seasonal()</code> return a <code>"moving_average"</code> object.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -173,7 +177,7 @@ $$</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jean Palate, Alain Quartier-la-Tente.</p>
+  <p>Developed by Alain Quartier-la-Tente, Jean Palate.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -166,6 +166,10 @@ plot_phase(
   boolean indicatif if the phase function is normalized by the
   frequency.
 
+## Value
+
+No return value, called for side effects.
+
 ## Examples
 
 ``` r

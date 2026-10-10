@@ -1,7 +1,7 @@
 # Optimization Function of Reproducing Kernel Hilbert Space (RKHS) Filters
 
 Export function used to compute the optimal bandwidth of Reproducing
-Kernel Hilbert Space (RKHS) filters
+Kernel Hilbert Space (RKHS) filters.
 
 ## Usage
 

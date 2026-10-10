@@ -65,9 +65,22 @@ show(object)
 
 ## Value
 
-A boolean for `is.moving_average()`, `is_symmetric()`. An integer for
-[`length()`](https://rdrr.io/r/base/length.html) and
-`numeric() for `lower_bound()`and`upper_bound()`. A `"moving_average"`object for`moving_average()`, `mirror()`, `rev()`and`to_seasonal()\`.
+`moving_average()` returns a `"moving_average"` object which is an S4
+class with three slots:
+
+- `coefficients`: a numeric vector of coefficients.
+
+- `lower_bound`: an integer indicating the number of lags.
+
+- `upper_bound`: an integer indicating the number of leads
+  (automatically computed).
+
+`is.moving_average()` and `is_symmetric()` return a boolean.
+[`length()`](https://rdrr.io/r/base/length.html),
+[`numeric()`](https://rdrr.io/r/base/numeric.html), `lower_bound()` and
+`upper_bound()` return an integer. `mirror()`,
+[`rev()`](https://rdrr.io/r/base/rev.html) and `to_seasonal()` return a
+`"moving_average"` object.
 
 ## Details
 

@@ -6,6 +6,18 @@ Accuracy/smoothness/timeliness criteria through spectral decomposition
 
 ``` r
 mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
+
+# S3 method for class 'finite_filters'
+mse(
+  aweights,
+  sweights = aweights@sfilter,
+  density = c("uniform", "rw"),
+  passband = pi/6,
+  sfilter = TRUE,
+  rfilters = TRUE,
+  lfilters = FALSE,
+  ...
+)
 ```
 
 ## Arguments
@@ -35,12 +47,23 @@ mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 
   other unused arguments.
 
+- sfilter, rfilters, lfilters:
+
+  boolean indicating if the criteria should be computed for the
+  symmetric filter (`sfilter = TRUE` by default), the right filters
+  (`rfilters = TRUE` by default) and the left filters
+  (`lfilters = FALSE` by default).
+
 ## Value
 
-A vector with the value of the three criteria or a matrix if `sweights`
-is a
+If `sweights` is a
 [`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
-object.
+object, a matrix with the value of the three criteria for asymmetric and
+symmetric filters (depending on the value of `sfilter`, `rfilters` and
+`lfilters`).
+
+Otherwise, a named vector with the value of the three criteria is
+returned.
 
 ## References
 

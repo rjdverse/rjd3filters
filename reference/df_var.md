@@ -28,8 +28,8 @@ df_var(n, coef, exact_df = FALSE)
 
 ## Value
 
-Numeric value with the statistic (the degree is not necessary an
-integer).
+Numeric value with the statistic (the degree of freedom is not necessary
+an integer).
 
 ## See also
 

@@ -1,6 +1,10 @@
 # Manipulating Finite Filters
 
-Manipulating Finite Filters
+Finite filters are a set of moving averages used to compute the filtered
+values of a time series. The symmetric filter is used on the central
+points (i.e. to obtain final estimates), while the right and left
+filters are used on the boundaries (at the end and beginning of the
+series) when the symmetric filter cannot be applied due to lack of data.
 
 ## Usage
 
@@ -16,9 +20,6 @@ is.finite_filters(x)
 
 # S3 method for class 'finite_filters'
 to_seasonal(x, s)
-
-# S4 method for class 'finite_filters'
-show(object)
 ```
 
 ## Arguments
@@ -53,13 +54,31 @@ show(object)
   [`to_seasonal()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
   function.
 
-- object:
-
-  `finite_filters` object.
-
 ## Value
 
-A `finite_filters` object or a boolean for `is.finite_filters()`.
+`finite_filters()` returns a `"finite_filters"` object, which is an S4
+class with three slots:
+
+- `sfilter`: the symmetric filter
+  ([`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
+  object) used on the central points.
+
+- `rfilters`: a list of
+  [`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
+  objects used on the boundaries at the end of the series (when the
+  symmetric filter cannot be applied due to missing future data).
+
+- `lfilters`: a list of
+  [`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
+  objects used on the boundaries at the beginning of the series (when
+  the symmetric filter cannot be applied due to missing past data).
+
+`is.finite_filters()` returns `TRUE` if the object is a
+`"finite_filters"` object, `FALSE` otherwise.
+
+## See also
+
+[print,finite_filters-method](https://rjdverse.github.io/rjd3filters/reference/print.finite_filters.md).
 
 ## Examples
 
