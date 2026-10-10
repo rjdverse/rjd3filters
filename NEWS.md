@@ -5,19 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.4.0]
 
 ### Added
 
 * New method `underlying_forecasts()`.
-* New JARS related to version [3.7.1](https://github.com/jdemetra/jdplus-main/releases/tag/v3.7.1) of JDemetra+.
 
 ### Changed
 
 * Correction in internal functions when filtering series with NA and the beginning and not and the end of the series.
 * For polynomial methods, default I/C ratio fixed to 3.5 (as in X-11 for H-13).
 * `implicit_forecast()` function renamed to `implicit_forecasts()`.
-- Updated jdplus-incubator JARS from 2.5.3-SNAPSHOT to 2.5.2
+* New JARS related to version [2.5.2](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.5.2).
 
 ## [2.3.0] - 2025-04-24
 
