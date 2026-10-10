@@ -190,7 +190,7 @@ var_estimator <- function(x, coef, ...) {
 #' @inheritParams confint_filter
 #'
 #' @seealso [var_estimator()].
-#' @returns Numeric value with the statistic (the degree is not necessary an integer).
+#' @returns Numeric value with the statistic (the degree of freedom is not necessary an integer).
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' df_var(n = 100, coef = lp_filter(6)@sfilter)
 #' @importFrom stats coefficients

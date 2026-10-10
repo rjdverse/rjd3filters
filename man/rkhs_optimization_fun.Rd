@@ -36,7 +36,7 @@ bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 A function that takes a bandwidth as input and returns the value of the optimization criterion.
 }
 \description{
-Export function used to compute the optimal bandwidth of Reproducing Kernel Hilbert Space (RKHS) filters
+Export function used to compute the optimal bandwidth of Reproducing Kernel Hilbert Space (RKHS) filters.
 }
 \examples{
 \dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}

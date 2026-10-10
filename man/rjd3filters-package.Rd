@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
 
-Functions to build and apply symmetric and asymmetric moving averages (= linear filters) for trend-cycle extraction. In particular, it implements several modern approaches for real-time estimates from the viewpoint of revisions and time delay in detecting turning points. It includes the local polynomial approach of Proietti and Luati (2008), the Reproducing Kernel Hilbert Space (RKHS) of Dagum and Bianconcini (2008) and the Fidelity-Smoothness-Timeliness approach of Grun-Rehomme, Guggemos, and Ladiray (2018). It is based on 'Java' libraries developped in 'JDemetra+' (\url{https://github.com/jdemetra}), time series analysis software.
+Build and apply symmetric and asymmetric moving averages (= linear filters) for trend-cycle extraction. In particular, it implements several modern approaches for real-time estimates from the viewpoint of revisions and time delay in detecting turning points. It includes the local polynomial approach of Proietti and Luati (2008), the Reproducing Kernel Hilbert Space (RKHS) of Dagum and Bianconcini (2008) and the Fidelity-Smoothness-Timeliness approach of Grun-Rehomme, Guggemos, and Ladiray (2018). It is based on 'Java' libraries developed in 'JDemetra+' (\url{https://github.com/jdemetra}), time series analysis software.
 }
 \seealso{
 Useful links:

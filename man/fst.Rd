@@ -16,7 +16,7 @@ fst(weights, lags, passband = pi/6, ...)
 \item{...}{other unused arguments.}
 }
 \value{
-A vector with the values of the 3 criteria.
+A named vector with the values of the 3 criteria.
 }
 \description{
 Compute the Fidelity, Smoothness and Timeliness (FST) criteria

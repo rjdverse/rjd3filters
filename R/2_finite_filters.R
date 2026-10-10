@@ -4,6 +4,11 @@ setClass(
 )
 #' Manipulating Finite Filters
 #'
+#' Finite filters are a set of moving averages used to compute the filtered values of a time series.
+#' The symmetric filter is used on the central points (i.e. to obtain final estimates),
+#' while the right and left filters are used on the boundaries (at the end and beginning of the series)
+#' when the symmetric filter cannot be applied due to lack of data.
+#'
 #' @param sfilter the symmetric filter ([moving_average()] object) or
 #'  a `matrix` or `list` with all the coefficients.
 #' @param rfilters the right filters (used on the last points).
@@ -11,7 +16,6 @@ setClass(
 #' @param first_to_last boolean indicating if the first element of `rfilters`
 #'   is the first asymmetric filter (when only one observation is missing) or
 #'   the last one (real-time estimates).
-#' @param object `finite_filters` object.
 #' @param x object to test the class.
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
@@ -24,7 +28,13 @@ setClass(
 #' # To get the symmetric filter and the right filters:
 #' ff_lp@sfilter
 #' ff_lp@rfilters
-#' @returns A `finite_filters` object or a boolean for `is.finite_filters()`.
+#' @returns `finite_filters()` returns a `"finite_filters"` object, which is an S4 class with three slots:
+#' - `sfilter`: the symmetric filter ([moving_average()] object) used on the central points.
+#' - `rfilters`: a list of [moving_average()] objects used on the boundaries at the end of the series (when the symmetric filter cannot be applied due to missing future data).
+#' - `lfilters`: a list of [moving_average()] objects used on the boundaries at the beginning of the series (when the symmetric filter cannot be applied due to missing past data).
+#'
+#' `is.finite_filters()` returns `TRUE` if the object is a `"finite_filters"` object, `FALSE` otherwise.
+#' @seealso [print,finite_filters-method].
 #' @export
 finite_filters <- function(
     sfilter,
@@ -107,7 +117,10 @@ is.finite_filters <- function(x) {
 #'
 #' These functions are used in all JDemetra+ 3.0 packages to easily interact between R and Java objects.
 #'
-#' @param jf java linear filter object.
+#' @param jf Java linear filter object.
+#'
+#' @returns `.jd2r_finitefilters()` returns a `finite_filters` object.
+#'
 #' @export
 .jd2r_finitefilters <- function(jf) {
     jf <- .jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
@@ -343,40 +356,7 @@ setMethod(
         e1
     }
 )
-#' @method as.matrix finite_filters
-#' @export
-as.matrix.finite_filters <- function(
-    x,
-    sfilter = TRUE,
-    rfilters = TRUE,
-    lfilters = FALSE,
-    zero_as_na = FALSE,
-    ...
-) {
-    sfilter_s <- rfilters_s <- lfilters_s <-
-        index_s <- index_r <- index_l <- NULL
-    if (!any(sfilter, rfilters, lfilters)) {
-        return(NULL)
-    }
-    if (sfilter) {
-        sfilter_s <- list(x@sfilter)
-        index_s <- length(x@rfilters)
-    }
-    if (lfilters && length(x@lfilters) > 0) {
-        lfilters_s <- x@lfilters
-        index_l <- seq(0, -(length(x@lfilters) - 1))
-    }
-    if (rfilters && length(x@rfilters) > 0) {
-        rfilters_s <- x@rfilters
-        index_r <- seq(length(x@rfilters) - 1, 0)
-    }
-    mat <- do.call(
-        cbind,
-        c(lfilters_s, sfilter_s, rfilters_s, list(zero_as_na = zero_as_na))
-    )
-    colnames(mat) <- sprintf("q=%i", c(index_l, index_s, index_r))
-    mat
-}
+
 #' @rdname filters_operations
 #' @export
 setMethod(

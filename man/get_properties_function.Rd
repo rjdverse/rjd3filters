@@ -19,7 +19,7 @@ get_properties_function(
 \item{...}{unused other arguments.}
 }
 \value{
-A function.
+A function that takes a frequency as input and returns the value of the selected component.
 }
 \description{
 Get properties of filters

@@ -140,6 +140,9 @@ plot_phase(
 
 \item{normalized}{boolean indicatif if the phase function is normalized by the frequency.}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 Functions to plot the coefficients, the gain and the phase functions.
 }

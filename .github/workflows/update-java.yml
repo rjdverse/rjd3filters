@@ -26,4 +26,4 @@ jobs:
         uses: TanguyBarthelemy/actions/update-java-dependencies@main
         with:
           update_type: ${{ inputs.update_type }}
-          branch: "develop"
+          branch: ${{ github.ref_name }}

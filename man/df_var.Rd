@@ -16,7 +16,7 @@ t-distribution (when \code{gaussian_distribution = FALSE}), otherwise uses an
 approximation.}
 }
 \value{
-Numeric value with the statistic (the degree is not necessary an integer).
+Numeric value with the statistic (the degree of freedom is not necessary an integer).
 }
 \description{
 Compute the degrees of freedom for the variance estimator

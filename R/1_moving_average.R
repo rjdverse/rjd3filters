@@ -20,7 +20,8 @@ setClass(
 #' if trailing and leading zeros added to have a matrix form should be replaced by `NA`.
 #'
 #' @name filters_operations
-#' @returns A [moving_average()] or [finite_filters()] object.
+#' @returns A [moving_average()] or [finite_filters()] object resulting from the operation.
+#'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' e1 <- moving_average(rep(1,12), lags = -6)
 #' e1 <- e1/sum(e1)
@@ -97,9 +98,14 @@ NULL
 #' graphics::plot(s)
 #' @importFrom stats coef
 #' @importFrom methods new
-#' @returns A boolean for `is.moving_average()`, `is_symmetric()`.
-#' An integer for `length()` and `numeric() for `lower_bound()` and `upper_bound()`.
-#' A `"moving_average"` object for `moving_average()`, `mirror()`, `rev()` and `to_seasonal()`.
+#' @returns `moving_average()` returns a `"moving_average"` object which is an S4 class with three slots:
+#' - `coefficients`: a numeric vector of coefficients.
+#' - `lower_bound`: an integer indicating the number of lags.
+#' - `upper_bound`: an integer indicating the number of leads (automatically computed).
+#'
+#' `is.moving_average()` and `is_symmetric()` return a boolean.
+#' `length()`, `numeric()`, `lower_bound()` and `upper_bound()` return an integer.
+#' `mirror()`, `rev()` and `to_seasonal()` return a `"moving_average"` object.
 #'
 #' @export
 moving_average <- function(

@@ -1,19 +1,19 @@
 Package: rjd3filters
 Type: Package
 Title: Trend-Cycle Extraction with Linear Filters with 'JDemetra+ 3.x'
-Version: 2.4.0.9000
+Version: 2.4.0
 Authors@R: c(
-  person("Jean", "Palate", role = c("aut"),
-         email = "palatejean@gmail.com"),
   person("Alain", "Quartier-la-Tente", role = c("aut", "cre", "cph"),
          email = "alain.quartier@yahoo.fr",
          comment = c(ORCID = "0000-0001-7890-3857")),
+  person("Jean", "Palate", role = c("aut"),
+         email = "palatejean@gmail.com"),
   person("Tanguy", "Barthelemy", role = c("ctb"),
          email ="tanguy.barthelemy@insee.fr"),
   person("Anna", "Smyk", role = c("ctb"),
          email ="anna.smyk@insee.fr")
    )
-Description: Functions to build and apply symmetric and asymmetric moving 
+Description: Build and apply symmetric and asymmetric moving 
     averages (= linear filters) for trend-cycle extraction.
     In particular, it implements several modern approaches for real-time estimates
     from the viewpoint of revisions and time delay in detecting turning points.
@@ -21,7 +21,7 @@ Description: Functions to build and apply symmetric and asymmetric moving
     Reproducing Kernel Hilbert Space (RKHS) of Dagum and Bianconcini (2008) and
     the Fidelity-Smoothness-Timeliness approach of Grun-Rehomme, Guggemos, and 
     Ladiray (2018).
-    It is based on 'Java' libraries developped in 'JDemetra+'
+    It is based on 'Java' libraries developed in 'JDemetra+'
     (<https://github.com/jdemetra>), time series analysis software.
 Depends:
     R (>= 4.1.0)

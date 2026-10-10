@@ -141,7 +141,7 @@
 if trailing and leading zeros added to have a matrix form should be replaced by \code{NA}.}
 }
 \value{
-A \code{\link[=moving_average]{moving_average()}} or \code{\link[=finite_filters]{finite_filters()}} object.
+A \code{\link[=moving_average]{moving_average()}} or \code{\link[=finite_filters]{finite_filters()}} object resulting from the operation.
 }
 \description{
 Manipulation of \code{\link[=moving_average]{moving_average()}} or \code{\link[=finite_filters]{finite_filters()}} objects.
