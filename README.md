@@ -4,13 +4,19 @@
 # `rjd3filters` <a href="https://rjdverse.github.io/rjd3filters/"><img src="man/figures/logo.png" align="right" height="150" style="float:right; height:150px;"/></a>
 
 <!-- badges: start -->
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters) -->
 
-[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml)
-[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
+[![R universe
+version](https://rjdverse.r-universe.dev/rjd3filters/badges/version)](https://rjdverse.r-universe.dev/rjd3filters)
+[![Mentioned in Awesome Official
+Statistics](https://awesome.re/mentioned-badge.svg)](https://github.com/SNStatComp/awesome-official-statistics-software)
+
+[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yml)
+[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yml)
 
 [![GH Pages
-built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml)
+built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yml)
 <!-- badges: end -->
 
 rjd3filters is an R package on linear filters for real-time trend-cycle
@@ -34,26 +40,28 @@ computed.
 rjd3filters relies on the
 [rJava](https://CRAN.R-project.org/package=rJava) package.
 
-Running rjd3 packages requires **Java 17 or higher**. How to set up such
+Running rjd3 packages requires **Java 21 or higher**. How to set up such
 a configuration in R is explained
-[here](https://jdemetra-new-documentation.netlify.app/#Rconfig).
-
-### Latest release
-
-To get the current stable version (from the latest release):
-
-- From GitHub:
+[here](https://doc.jdemetra.org/#Rconfig).
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("rjdverse/rjd3toolkit@*release")
-remotes::install_github("rjdverse/rjd3filters@*release")
+# Install release version from CRAN
+install.packages("rjd3filters")
 ```
+
+To install the developpment version:
 
 - From [r-universe](https://rjdverse.r-universe.dev/rjd3filters):
 
 ``` r
 install.packages("rjd3filters", repos = c("https://rjdverse.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+- From GitHub:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("rjdverse/rjd3filters")
 ```
 
 ### Development version
@@ -98,17 +106,17 @@ legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
        col= c("black", "orange", "lightblue", "red"), lty = 1)
 ```
 
-<img src="man/figures/README-plot-global-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-plot-global-1.png" alt="" style="display: block; margin: auto;" />
 
-The last estimates can also be analysed with the `implicit_forecast`
-function that retreive the implicit forecasts corresponding to the
+The last estimates can also be analysed with the `implicit_forecasts`
+function that retrieve the implicit forecasts corresponding to the
 asymmetric filters (i.e., the forecasts needed to have the same
 end-points estimates but using the symmetric filter).
 
 ``` r
-f_musgrave <- implicit_forecast(y, musgrave)
-f_fst <- implicit_forecast(y, fst_notimeliness)
-f_rkhs <- implicit_forecast(y, rkhs_timeliness)
+f_musgrave <- implicit_forecasts(y, musgrave)
+f_fst <- implicit_forecasts(y, fst_notimeliness)
+f_rkhs <- implicit_forecasts(y, rkhs_timeliness)
 
 plot(window(y, start = 2007),
      xlim = c(2007, 2012), ylim = c(3600, 4600),
@@ -130,7 +138,7 @@ legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS", "Forecasts"),
        lty = c(1, 1, 1, 1, 2))
 ```
 
-<img src="man/figures/README-plot-forecast-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-plot-forecast-1.png" alt="" style="display: block; margin: auto;" />
 
 The real-time estimates (when no future points are available) can also
 be compared:
@@ -149,7 +157,7 @@ legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
        col= c("black", "orange", "lightblue", "red"), lty = 1)
 ```
 
-<img src="man/figures/README-plot-q0-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-plot-q0-1.png" alt="" style="display: block; margin: auto;" />
 
 ### Comparison of the filters
 
@@ -166,17 +174,17 @@ sapply(X = q_0_coefs,
        FUN = diagnostic_matrix,
        lags = 6,
        sweights = musgrave[, "q=6"])
-#>         Musgrave fst_notimeliness rkhs_timeliness
-#> b_c  0.000000000     2.220446e-16     0.000000000
-#> b_l -0.575984377    -1.554312e-15    -0.611459167
-#> b_q -1.144593858     1.554312e-15     0.027626749
-#> F_g  0.357509832     9.587810e-01     0.381135700
-#> S_g  1.137610871     2.402400e+00     1.207752284
-#> T_g  0.034088260     4.676398e-04     0.023197411
-#> A_w  0.008306348     1.823745e-02     0.003677964
-#> S_w  0.449956378     3.575634e+00     0.628156109
-#> T_w  0.061789932     7.940547e-04     0.043540181
-#> R_w  0.299548665     1.721377e-01     0.219948644
+#>          Musgrave fst_notimeliness rkhs_timeliness
+#> b_c -1.110223e-16     2.220446e-16     0.000000000
+#> b_l -4.066279e-01    -1.554312e-15    -0.611459167
+#> b_q -2.160733e+00     1.554312e-15     0.027626749
+#> F_g  3.878572e-01     9.587810e-01     0.381135700
+#> S_g  1.272295e+00     2.402400e+00     1.207752284
+#> T_g  3.034079e-02     4.676398e-04     0.023197411
+#> A_w  1.507927e-02     1.823745e-02     0.003677964
+#> S_w  5.251704e-01     3.575634e+00     0.628156109
+#> T_w  5.226739e-02     7.940547e-04     0.043540181
+#> R_w  3.105944e-01     1.721377e-01     0.219948644
 ```
 
 The filters can also be compared by plotting there coefficients
@@ -208,7 +216,7 @@ legend("topright", legend = c("Musgrave", "FST", "RKHS"),
 par(def.par)
 ```
 
-<img src="man/figures/README-diagnostic-plots-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-diagnostic-plots-1.png" alt="" style="display: block; margin: auto;" />
 
 Confidence intervals can also be computed with the `confint_filter`
 function:
@@ -224,7 +232,7 @@ legend("topleft", legend = c("y", "Smoothed", "CI (95%)"),
        col= c("grey", "red", "black"), lty = c(1, 1, 2))
 ```
 
-<img src="man/figures/README-confint-plot-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-confint-plot-1.png" alt="" style="display: block; margin: auto;" />
 
 ### Manipulate moving averages
 
@@ -261,7 +269,7 @@ plot_gain(M3X3, main = "M3X3 applied to each month")
 plot_gain(M3X3_seasonal, main = "M3X3 applied to the global series")
 ```
 
-<img src="man/figures/README-mm-plots-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-mm-plots-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
 par(def.par)
@@ -285,28 +293,28 @@ central filter cannot be applied.
 ``` r
 musgrave
 #>             q=6          q=5          q=4          q=3          q=2
-#> t-6 -0.01934985 -0.016609040 -0.011623676 -0.009152423 -0.016139228
-#> t-5 -0.02786378 -0.025914479 -0.022541271 -0.020981640 -0.024948087
-#> t-4  0.00000000  0.001157790  0.002918842  0.003566851  0.002620762
-#> t-3  0.06549178  0.065858066  0.066006963  0.065743350  0.067817618
-#> t-2  0.14735651  0.146931288  0.145468029  0.144292794  0.149387420
-#> t-1  0.21433675  0.213120014  0.210044599  0.207957742  0.216072726
-#> t    0.24005716  0.238048915  0.233361346  0.230362866  0.241498208
-#> t+1  0.21433675  0.211536998  0.205237273  0.201327171  0.215482871
-#> t+2  0.14735651  0.143765257  0.135853376  0.131031652  0.148207710
-#> t+3  0.06549178  0.061109020  0.051584983  0.045851637  0.000000000
-#> t+4  0.00000000 -0.005174272 -0.016310464  0.000000000  0.000000000
-#> t+5 -0.02786378 -0.033829557  0.000000000  0.000000000  0.000000000
+#> t-6 -0.01934985 -0.016429821 -0.010992405 -0.008134877 -0.016032761
+#> t-5 -0.02786378 -0.025767846 -0.022036255 -0.020190215 -0.024868237
+#> t-4  0.00000000  0.001271838  0.003297605  0.004132155  0.002673996
+#> t-3  0.06549178  0.065939529  0.066259471  0.066082532  0.067844235
+#> t-2  0.14735651  0.146980166  0.145594283  0.144405855  0.149387420
+#> t-1  0.21433675  0.213136306  0.210044599  0.207844681  0.216046109
+#> t    0.24005716  0.238032623  0.233235092  0.230023684  0.241444975
+#> t+1  0.21433675  0.211488120  0.204984764  0.200761868  0.215403021
+#> t+2  0.14735651  0.143683794  0.135474614  0.130240227  0.148101243
+#> t+3  0.06549178  0.060994971  0.051079966  0.044834091  0.000000000
+#> t+4  0.00000000 -0.005320905 -0.016941735  0.000000000  0.000000000
+#> t+5 -0.02786378 -0.034008775  0.000000000  0.000000000  0.000000000
 #> t+6 -0.01934985  0.000000000  0.000000000  0.000000000  0.000000000
 #>              q=1         q=0
-#> t-6 -0.037925830 -0.07371504
-#> t-5 -0.035216813 -0.04601336
-#> t-4  0.003869912  0.01806602
-#> t-3  0.080584644  0.11977342
-#> t-2  0.173672322  0.23785375
-#> t-1  0.251875504  0.34104960
-#> t    0.288818862  0.40298562
-#> t+1  0.274321400  0.00000000
+#> t-6 -0.042706925 -0.09186038
+#> t-5 -0.038631881 -0.05811026
+#> t-4  0.001820871  0.01201758
+#> t-3  0.079901630  0.11977342
+#> t-2  0.174355336  0.24390220
+#> t-1  0.253924544  0.35314649
+#> t    0.292233930  0.42113096
+#> t+1  0.279102495  0.00000000
 #> t+2  0.000000000  0.00000000
 #> t+3  0.000000000  0.00000000
 #> t+4  0.000000000  0.00000000
@@ -314,36 +322,36 @@ musgrave
 #> t+6  0.000000000  0.00000000
 musgrave * M3X3
 #>              q=6          q=5          q=4           q=3          q=2
-#> t-8 -0.002149983 -0.001845449 -0.001291520 -0.0010169359 -0.001793248
-#> t-7 -0.007395941 -0.006570284 -0.005087625 -0.0043651651 -0.006358505
-#> t-6 -0.012641899 -0.011166476 -0.008559414 -0.0073170774 -0.010632566
-#> t-5 -0.006311026 -0.004754208 -0.002114058 -0.0009303015 -0.003784842
-#> t-4  0.022584742  0.023742532  0.025503585  0.0261515939  0.025205505
-#> t-3  0.075295705  0.075661988  0.075810884  0.0755472713  0.077621540
-#> t-2  0.137975973  0.137550748  0.136087489  0.1349122536  0.140006880
-#> t-1  0.188629568  0.187412835  0.184337420  0.1822505629  0.190365547
-#> t    0.208025720  0.206017479  0.201329910  0.1983314300  0.209466772
-#> t+1  0.188629568  0.185829819  0.179530094  0.1756199919  0.182437019
-#> t+2  0.137975973  0.134384717  0.126472836  0.1242017153  0.124120786
-#> t+3  0.075295705  0.070912941  0.066564227  0.0667717095  0.056877588
-#> t+4  0.022584742  0.020311263  0.021121328  0.0247483251  0.016467523
-#> t+5 -0.006311026 -0.005636466  0.002107117  0.0050946263  0.000000000
-#> t+6 -0.012641899 -0.008092598 -0.001812274  0.0000000000  0.000000000
-#> t+7 -0.007395941 -0.003758840  0.000000000  0.0000000000  0.000000000
+#> t-8 -0.002149983 -0.001825536 -0.001221378 -0.0009038752 -0.001781418
+#> t-7 -0.007395941 -0.006514165 -0.004891230 -0.0040511076 -0.006325973
+#> t-6 -0.012641899 -0.011061480 -0.008194680 -0.0067392118 -0.010573418
+#> t-5 -0.006311026 -0.004631108 -0.001693210 -0.0002770620 -0.003719779
+#> t-4  0.022584742  0.023856581  0.025882347  0.0267168972  0.025258738
+#> t-3  0.075295705  0.075743451  0.076063393  0.0758864533  0.077648157
+#> t-2  0.137975973  0.137599625  0.136213743  0.1350253143  0.140006880
+#> t-1  0.188629568  0.187429127  0.184337420  0.1821375022  0.190338930
+#> t    0.208025720  0.206001187  0.201203655  0.1979922479  0.209413538
+#> t+1  0.188629568  0.185780941  0.179277585  0.1750546886  0.182371956
+#> t+2  0.137975973  0.134303254  0.126094073  0.1235484758  0.124061638
+#> t+3  0.075295705  0.070798893  0.066143380  0.0661938438  0.056845056
+#> t+4  0.022584742  0.020188163  0.020756594  0.0244342677  0.016455694
+#> t+5 -0.006311026 -0.005741463  0.001910722  0.0049815656  0.000000000
+#> t+6 -0.012641899 -0.008148717 -0.001882415  0.0000000000  0.000000000
+#> t+7 -0.007395941 -0.003778753  0.000000000  0.0000000000  0.000000000
 #> t+8 -0.002149983  0.000000000  0.000000000  0.0000000000  0.000000000
 #>              q=1         q=0
-#> t-8 -0.004213981 -0.00819056
-#> t-7 -0.012340941 -0.02149372
-#> t-6 -0.020037912 -0.03278954
-#> t-5 -0.010353070 -0.01439608
-#> t-4  0.026454654  0.04065076
-#> t-3  0.090388566  0.12957734
-#> t-2  0.164291782  0.22847321
-#> t-1  0.226168325  0.26940011
-#> t    0.232502524  0.23654553
-#> t+1  0.183608603  0.12744676
-#> t+2  0.093051296  0.04477618
-#> t+3  0.030480156  0.00000000
+#> t-8 -0.004745214 -0.01020671
+#> t-7 -0.013782859 -0.02687011
+#> t-6 -0.022618185 -0.04219823
+#> t-5 -0.013085125 -0.02380477
+#> t-4  0.024405614  0.03460232
+#> t-3  0.089705552  0.12957734
+#> t-2  0.164974795  0.23452166
+#> t-1  0.228217365  0.27880880
+#> t    0.235234578  0.24595423
+#> t+1  0.186188877  0.13282316
+#> t+2  0.094493213  0.04679233
+#> t+3  0.031011388  0.00000000
 #> t+4  0.000000000  0.00000000
 #> t+5  0.000000000  0.00000000
 #> t+6  0.000000000  0.00000000
@@ -366,12 +374,12 @@ Seasonal Adjustment*. URL:
 Proietti, Tommaso and Alessandra Luati (Dec. 2008). “Real time
 estimation in local polynomial regression, with application to
 trend-cycle analysis”. In: *Ann. Appl. Stat.* 2.4, pp. 1523–1553. URL:
-<https://doi.org/10.1214/08-AOAS195>.
+[https://doi.org/10.1214/08-AOAS195](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-2/issue-4/Real-time-estimation-in-local-polynomial-regression-with-application-to/10.1214/08-AOAS195.full).
 
 Wildi, Marc and Tucker McElroy (2019). “The trilemma between accuracy,
 timeliness and smoothness in real-time signal extraction”. In:
 *International Journal of Forecasting* 35.3, pp. 1072–1084. URL:
-[https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://EconPapers.repec.org/RePEc:eee:intfor:v:35:y:2019:i:3:p:1072-1084).
+[https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://econpapers.repec.org/article/eeeintfor/v_3a35_3ay_3a2019_3ai_3a3_3ap_3a1072-1084.htm).
 
 ## Package Maintenance and contributing
 
@@ -384,4 +392,4 @@ should be added or updated.
 
 The code of this project is licensed under the [European Union Public
 Licence
-(EUPL)](https://interoperable-europe.ec.europa.eu:443/collection/eupl/eupl-text-eupl-12).
+(EUPL)](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).

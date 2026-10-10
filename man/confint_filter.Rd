@@ -18,52 +18,70 @@ confint_filter(
 \arguments{
 \item{x}{input time series.}
 
-\item{coef}{moving-average (\code{\link[=moving_average]{moving_average()}}) or finite filter (\code{\link[=finite_filters]{finite_filters()}}) used to filter the series.}
+\item{coef}{moving-average (\code{\link[=moving_average]{moving_average()}}) or finite filter
+(\code{\link[=finite_filters]{finite_filters()}}) used to filter the series.}
 
-\item{coef_var}{moving-average (\code{\link[=moving_average]{moving_average()}}) or finite filter (\code{\link[=finite_filters]{finite_filters()}}) used compute the variance (throw \code{\link[=var_estimator]{var_estimator()}}).
+\item{coef_var}{moving-average (\code{\link[=moving_average]{moving_average()}}) or finite filter
+(\code{\link[=finite_filters]{finite_filters()}}) used compute the variance (throw \code{\link[=var_estimator]{var_estimator()}}).
 By default equal to \code{coef}.}
 
 \item{level}{confidence level.}
 
-\item{asymmetric_var}{if \code{asymmetric_var = TRUE} then the variance is estimated for each asymmetric filters instead of using the variance associated the symmetric estimates.}
+\item{asymmetric_var}{if \code{asymmetric_var = TRUE} then the variance is
+estimated for each asymmetric filters instead of using the variance
+associated the symmetric estimates.}
 
-\item{gaussian_distribution}{if \code{TRUE} use the normal distribution to compute the confidence interval, otherwise use the t-distribution.}
+\item{gaussian_distribution}{if \code{TRUE} use the normal distribution to
+compute the confidence interval, otherwise use the t-distribution.}
 
-\item{exact_df}{if \code{TRUE} compute the exact degrees of freedom for the t-distribution (when \code{gaussian_distribution = FALSE}), otherwise uses an approximation.}
+\item{exact_df}{if \code{TRUE} compute the exact degrees of freedom for the
+t-distribution (when \code{gaussian_distribution = FALSE}), otherwise uses an
+approximation.}
 
-\item{...}{other arguments passed to the function \code{\link[=moving_average]{moving_average()}} to convert \code{coef} to a \code{"moving_average"} object.}
+\item{...}{other arguments passed to the function \code{\link[=moving_average]{moving_average()}} to
+convert \code{coef} to a \code{"moving_average"} object.}
+}
+\value{
+A matrix or \code{mts} object with the filtered series and the lower and upper bounds of the confidence interval.
 }
 \description{
 Confidence intervals
 }
 \details{
-Let \eqn{(\theta_i)_{-p\leq i \leq q}} be a moving average of length \eqn{p+q+1} used
-to filter a time series \eqn{(y_i)_{1\leq i \leq n}}.
+Let \eqn{(\theta_i)_{-p\leq i \leq q}} be a moving average of length
+\eqn{p+q+1} used to filter a time series \eqn{(y_i)_{1\leq i \leq n}}.
 Let denote \eqn{\hat{\mu}_t} the filtered series computed at time \eqn{t} as:
 \deqn{
 \hat{\mu}_t = \sum_{i=-p}^q \theta_i y_{t+i}.
 }
-If \eqn{\hat{\mu}_t} is unbiased, a approximate confidence for the true mean is:
+If \eqn{\hat{\mu}_t} is unbiased, a approximate confidence for the true mean
+is:
 \deqn{
 \left[\hat{\mu}_t - z_{1-\alpha/2} \hat{\sigma} \sqrt{\sum_{i=-p}^q\theta_i^2};
 \hat{\mu}_t + z_{1-\alpha/2} \hat{\sigma} \sqrt{\sum_{i=-p}^q\theta_i^2}
 \right],
 }
-where \eqn{z_{1-\alpha/2}} is the quantile \eqn{1-\alpha/2} of the standard normal distribution.
+where \eqn{z_{1-\alpha/2}} is the quantile \eqn{1-\alpha/2} of the standard
+normal distribution.
 
-The estimate of the variance \eqn{\hat{\sigma}} is obtained using \code{\link[=var_estimator]{var_estimator()}} with the parameter \code{coef_var}.
-The assumption that \eqn{\hat{\mu}_t} is unbiased is rarely exactly true, so variance estimates and confidence intervals are usually computed at small bandwidths where bias is small.
+The estimate of the variance \eqn{\hat{\sigma}} is obtained using
+\code{\link[=var_estimator]{var_estimator()}} with the parameter \code{coef_var}.
+The assumption that \eqn{\hat{\mu}_t} is unbiased is rarely exactly true, so
+variance estimates and confidence intervals are usually computed at small
+bandwidths where bias is small.
 
-When \code{coef} (or \code{coef_var}) is a finite filter, the last points of the confidence interval are
-computed using the corresponding asymmetric filters
+When \code{coef} (or \code{coef_var}) is a finite filter, the last points of the
+confidence interval are computed using the corresponding asymmetric filters
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 x <- retailsa$DrinkingPlaces
 coef <- lp_filter(6)
 confint <- confint_filter(x, coef)
-plot(confint, plot.type = "single",
+graphics::plot(confint, plot.type = "single",
      col = c("red", "black", "black"),
      lty = c(1, 2, 2))
+\dontshow{\}) # examplesIf}
 }
 \references{
 Loader, Clive. 1999.

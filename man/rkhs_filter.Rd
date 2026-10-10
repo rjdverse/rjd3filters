@@ -26,30 +26,40 @@ rkhs_filter(
 
 \item{kernel}{kernel uses.}
 
-\item{asymmetricCriterion}{the criteria used to compute the optimal bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
+\item{asymmetricCriterion}{the criteria used to compute the optimal
+bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 
-\item{optimalbw}{boolean indicating if the bandwith should be choosen by optimisation (between \code{optimal.minBandwidth} and
+\item{optimalbw}{boolean indicating if the bandwidth should be choosen by
+optimisation (between \code{optimal.minBandwidth} and
 \code{optimal.minBandwidth} using the criteria \code{asymmetricCriterion}).
-If \code{optimalbw = FALSE} then the bandwith specified in \code{bandwidth} will be  used.}
+If \code{optimalbw = FALSE} then the bandwidth specified in
+\code{bandwidth} will be  used.}
 
-\item{optimal.minBandwidth, optimal.maxBandwidth}{the range used for the optimal bandwith selection.}
+\item{optimal.minBandwidth, optimal.maxBandwidth}{the range used for the
+optimal bandwidth selection.}
 
 \item{bandwidth}{the bandwidth to use if \code{optimalbw = FALSE}.}
 }
 \value{
-a \code{\link[=finite_filters]{finite_filters()}} object.
+A \code{\link[=finite_filters]{finite_filters()}} object.
 }
 \description{
 Estimation of a filter using Reproducing Kernel Hilbert Space (RKHS)
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 rkhs <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
 plot_coef(rkhs)
+\dontshow{\}) # examplesIf}
 }
 \references{
-Dagum, Estela Bee and Silvia Bianconcini (2008). “The Henderson Smoother in Reproducing Kernel Hilbert Space”. In: Journal of Business & Economic Statistics 26, pp. 536–545. URL: \url{https://ideas.repec.org/a/bes/jnlbes/v26y2008p536-545.html}.
+Dagum, Estela Bee and Silvia Bianconcini (2008). “The Henderson
+Smoother in Reproducing Kernel Hilbert Space”. In: Journal of Business &
+Economic Statistics 26, pp. 536–545. URL:
+\url{https://ideas.repec.org/a/bes/jnlbes/v26y2008p536-545.html}.
 }

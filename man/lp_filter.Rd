@@ -10,7 +10,7 @@ lp_filter(
   kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube",
     "Gaussian", "Triangular", "Parabolic"),
   endpoints = c("LC", "QL", "CQ", "CC", "DAF", "CN"),
-  ic = 4.5,
+  ic = 3.5,
   tweight = 0,
   passband = pi/12
 )
@@ -32,6 +32,8 @@ lp_filter(
 }
 \value{
 a \code{\link[=finite_filters]{finite_filters()}} object.
+
+A \code{\link[=finite_filters]{finite_filters()}} object.
 }
 \description{
 Local Polynomials Filters
@@ -47,8 +49,10 @@ Local Polynomials Filters
 }
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
 plot_coef(henderson_f)
+\dontshow{\}) # examplesIf}
 }
 \references{
 Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.

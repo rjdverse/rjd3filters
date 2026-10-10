@@ -28,6 +28,9 @@ cp(x, coef, var, ...)
 
 \item{var}{variance used to compute the CP statistic (\code{cp()}).}
 }
+\value{
+Numeric value for the statistic and \code{ts()} or \code{vector()} for the estimates.
+}
 \description{
 Set of functions to compute diagnostics and goodness of fit of filtered series:
 cross validation (\code{cv()}) and cross validate estimate (\code{cve()}),
@@ -84,6 +87,17 @@ The Rice's T statistic (\code{rt()}) is defined as:
   1-2\theta_0
 }
 }
+}
+\examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+x <- retailsa$DrinkingPlaces
+h13 <- lp_filter(6)@sfilter
+cv(x, h13)
+cve(x, h13)
+loocve(x, h13)
+rt(x, h13)
+cp(x, h13, var = var_estimator(x, h13))
+\dontshow{\}) # examplesIf}
 }
 \references{
 Loader, Clive. 1999.

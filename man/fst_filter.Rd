@@ -32,6 +32,9 @@ fst_filter(
 
 \item{timeliness.antiphase}{boolean indicating if the timeliness should be computed analytically (\code{TRUE}) or numerically (\code{FALSE}).}
 }
+\value{
+A \code{\link[=finite_filters]{finite_filters()}} object.
+}
 \description{
 Estimation of a filter using the Fidelity-Smoothness-Timeliness criteria
 }
@@ -86,8 +89,10 @@ a=\begin{pmatrix}
 }
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 filter <- fst_filter(lags = 6, leads = 0)
 filter
+\dontshow{\}) # examplesIf}
 }
 \references{
 Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment,

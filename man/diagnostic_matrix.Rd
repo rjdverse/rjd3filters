@@ -4,26 +4,32 @@
 \alias{diagnostic_matrix}
 \title{Compute quality criteria for asymmetric filters}
 \usage{
-diagnostic_matrix(x, lags, passband = pi/6, sweights, ...)
+diagnostic_matrix(x, lags, passband = pi/6, sweights = NULL, ...)
 }
 \arguments{
-\item{x}{Weights of the asymmetric filter (from -lags to m).}
+\item{x}{\code{moving_average} object or weights of the asymmetric filter
+(from -lags to m).}
 
-\item{lags}{Lags of the filter (should be positive).}
+\item{lags}{Lags of the filter (should be positive), only used if \code{x} is not a \code{moving_average}.}
 
 \item{passband}{passband threshold.}
 
-\item{sweights}{Weights of the symmetric filter (from 0 to lags or -lags to lags).
-If missing, the criteria from the functions \code{\link{mse}} are not computed.}
+\item{sweights}{Weights of the symmetric filter (from 0 to lags or -lags to
+lags).
+If missing, the criteria from the functions \code{\link{mse}} are not
+computed.}
 
 \item{...}{optional arguments to \code{\link{mse}}.}
 }
+\value{
+A \code{vector} of length 10 with the quality criteria.
+}
 \description{
-Function du compute a diagnostic matrix of quality criteria for asymmetric filters
+Function to compute a diagnostic matrix of quality criteria for asymmetric filters.
 }
 \details{
 For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
-\code{diagnostic_matrix} returns a \code{list} with the following ten criteria:
+\code{diagnostic_matrix} returns a \code{vector} with the following ten criteria:
 \itemize{
 \item{\code{b_c} } Constant bias (if \eqn{b_c=0}, \eqn{\theta} preserve constant trends)
 \deqn{\sum_{i=-p}^q\theta_i - 1}
@@ -40,9 +46,22 @@ For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
 \item{\code{T_w} } Timeliness criterium of Wildi and McElroy (2019)
 \item{\code{R_w} } Residual criterium of Wildi and McElroy (2019)
 }
+\code{A_w}, \code{S_w}, \code{T_w} and \code{R_w} are computed only if the weights of the symmetric filter are provided (\code{sweights}).
+}
+\examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
+sweights <- filter[, "q=6"]
+aweights <- filter[, "q=0"]
+diagnostic_matrix(aweights, sweights = sweights)
+\dontshow{\}) # examplesIf}
 }
 \references{
-Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment.
+Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray
+(2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on
+Seasonal Adjustment.
 
-Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy,
+timeliness and smoothness in real-time signal extraction”. In: International
+Journal of Forecasting 35.3, pp. 1072–1084.
 }

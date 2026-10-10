@@ -26,5 +26,7 @@ Function to get the coefficient associated to a kernel. Those
 coefficients are then used to compute the different filters.
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 get_kernel("Henderson", horizon = 3)
+\dontshow{\}) # examplesIf}
 }

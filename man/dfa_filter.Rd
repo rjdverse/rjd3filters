@@ -20,7 +20,8 @@ dfa_filter(
 
 \item{degree}{degree of polynomial.}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{targetfilter}{the weights of the symmetric target filters (by default the Henderson filter).}
 
@@ -29,6 +30,9 @@ dfa_filter(
 \item{accuracy.weight, smoothness.weight, timeliness.weight}{the weight used for the
 optimisation. The weight associated to the residual is derived so that the sum of
 the four weights are equal to 1.}
+}
+\value{
+A \code{\link[=finite_filters]{finite_filters()}} object.
 }
 \description{
 Direct Filter Approach
@@ -42,6 +46,10 @@ Let \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'} be a moving average
 The three criteria are:
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+\donttest{
 dfa_filter(horizon = 6, degree = 0)
 dfa_filter(horizon = 6, degree = 2)
+}
+\dontshow{\}) # examplesIf}
 }

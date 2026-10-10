@@ -33,6 +33,9 @@ See \code{\link[=lp_filter]{lp_filter()}} for the available kernels.}
 
 \item{passband}{passband threshold.}
 }
+\value{
+A \code{\link[=moving_average]{moving_average()}} object.
+}
 \description{
 Provides an asymmetric filter based on the given reference
 filter (usually symmetric) minimizing the mean square revision error.
@@ -57,6 +60,7 @@ with \eqn{\boldsymbol U_p} the first \eqn{h+q+1} rows and \eqn{\boldsymbol U_f} 
 The matrix \eqn{\boldsymbol Z} represents the bias of the asymmetric filter: usually constraints imposed to the symmetric filter but not to the asymmetric filter.
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 QL <- lp_filter(endpoints = "QL", ic = 3.5)
 LC <- lp_filter(endpoints = "LC", ic = 3.5)
 DAF <- lp_filter(endpoints = "DAF")
@@ -88,6 +92,7 @@ mmsre_filter(
   kernel = "Uniform"
 )
 LC[, "q=2"]
+\dontshow{\}) # examplesIf}
 }
 \references{
 Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.

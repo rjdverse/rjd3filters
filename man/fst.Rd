@@ -16,16 +16,18 @@ fst(weights, lags, passband = pi/6, ...)
 \item{...}{other unused arguments.}
 }
 \value{
-The values of the 3 criteria, the gain and phase of the associated filter.
+A named vector with the values of the 3 criteria.
 }
 \description{
 Compute the Fidelity, Smoothness and Timeliness (FST) criteria
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 fst(filter[, "q=0"])
 # To compute the statistics on all filters:
 fst(filter)
+\dontshow{\}) # examplesIf}
 }
 \references{
 Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment,

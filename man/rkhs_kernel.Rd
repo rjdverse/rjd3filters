@@ -18,6 +18,17 @@ rkhs_kernel(
 
 \item{horizon}{horizon (bandwidth) of the symmetric filter.}
 }
+\value{
+A function that takes a numeric input and returns the value of the RKHS kernel.
+}
 \description{
 Get RKHS kernel function
+}
+\examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+biweight <- rkhs_kernel(kernel = "Biweight")
+triangular <- rkhs_kernel(kernel = "Triangular")
+graphics::plot(biweight, -1, 1)
+graphics::plot(triangular, -1, 1, add = TRUE, col = "orange")
+\dontshow{\}) # examplesIf}
 }

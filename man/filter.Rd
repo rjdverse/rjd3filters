@@ -9,33 +9,45 @@ filter(x, coefs, remove_missing = TRUE)
 \arguments{
 \item{x}{a univariate or multivariate time series.}
 
-\item{coefs}{a \code{matrix} or a \code{list} that contains all the coefficients of the asymmetric and symmetric filters.
-(from the symmetric filter to the shortest). See details.}
+\item{coefs}{a \code{matrix} or a \code{list} that contains all the
+coefficients of the asymmetric and symmetric filters. (from the symmetric
+filter to the shortest). See details.}
 
-\item{remove_missing}{if \code{TRUE} (default) leading and trailing NA are removed before filtering.}
+\item{remove_missing}{if \code{TRUE} (default) leading and trailing NA are
+removed before filtering.}
+}
+\value{
+An object of the same class as \code{x} (\code{ts}, \code{mts}, \code{vector} or \code{matrix}) with the filtered time series.
 }
 \description{
-Applies linear filtering to a univariate time series or to each series separately of a multivariate time series using either a moving average (symmetric or asymmetric) or a combination of
-symmetric moving average at the center and asymmetric moving averages at the bounds.
+Applies linear filtering to a univariate time series or to each series
+separately of a multivariate time series using either a moving average
+(symmetric or asymmetric) or a combination of symmetric moving average at
+the center and asymmetric moving averages at the bounds.
 }
 \details{
-The functions \code{filter} extends \code{\link[stats]{filter}} allowing to apply every kind of moving averages
-(symmetric and asymmetric filters) or to apply aset multiple moving averages
-to deal with the boundaries.
+The functions \code{filter} extends \code{\link[stats]{filter}} allowing to
+apply every kind of moving averages (symmetric and asymmetric filters) or to
+apply a set of multiple moving averages to deal with the boundaries.
 
 Let \eqn{x_t} be the input time series to filter.
 \itemize{
-\item If \code{coef} is an object \code{\link[=moving_average]{moving_average()}}, of length \eqn{q}, the result \eqn{y} is equal at time \eqn{t} to:
+\item If \code{coef} is an object \code{\link[=moving_average]{moving_average()}}, of length \eqn{q}, the result
+\eqn{y} is equal at time \eqn{t} to:
 \deqn{y[t] = x[t-lags] * coef[1] + x[t-lags+1] * coef[1] + ... + x[t-lags+q] * coef[q]}.
-It extends the function \code{\link[stats]{filter}} that would add \code{NA} at the end of the time series.
-\item If \code{coef} is a \code{matrix}, \code{list} or \code{\link[=finite_filters]{finite_filters()}} object,  at the center,
-the symmetric moving average is used (first column/element of \code{coefs}).
-At the boundaries, the last moving average of \code{coefs} is used to compute the filtered
-time series \eqn{y[n]} (no future point known), the second to last to compute the filtered
-time series \eqn{y[n-1]} (one future point known)...
+It extends the function \code{\link[stats]{filter}} that would add \code{NA}
+at the end of the time series.
+\item If \code{coef} is a \code{matrix}, \code{list} or \code{\link[=finite_filters]{finite_filters()}} object,  at the
+center, the symmetric moving average is used (first column/element of
+\code{coefs}).
+At the boundaries, the last moving average of \code{coefs} is used to
+compute the filtered time series \eqn{y[n]} (no future point known), the
+second to last to compute the filtered time series \eqn{y[n-1]} (one future
+point known)...
 }
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 x <- retailsa$DrinkingPlaces
 
 lags <- 6
@@ -46,9 +58,12 @@ lpp_coef <- lp_filter(horizon = lags, kernel = "Henderson", endpoints = "LC")
 fst_ma <- filter(x, fst_coef)
 lpp_ma <- filter(x, lpp_coef[,"q=2"])
 
-plot(ts.union(x, fst_ma, lpp_ma), plot.type = "single", col = c("black","red","blue"))
+graphics::plot(stats::ts.union(x, fst_ma, lpp_ma),
+               plot.type = "single",
+               col = c("black","red","blue"))
 
 trend <- filter(x, lpp_coef)
 # This is equivalent to:
 trend <- localpolynomials(x, horizon = 6)
+\dontshow{\}) # examplesIf}
 }

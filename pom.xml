@@ -11,7 +11,7 @@
 	<description>Usage: mvn -Pcopy-jars</description>
 
 	<properties>
-		<jdplus-incubator.version>2.3.0</jdplus-incubator.version>
+		<jdplus-incubator.version>2.5.2</jdplus-incubator.version>
 	</properties>
 
 	<dependencies>
@@ -108,7 +108,17 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>jdemetra-snapshots</id>
+			<id>central-snapshots</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>old-snapshots</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 			<releases>
 				<enabled>false</enabled>

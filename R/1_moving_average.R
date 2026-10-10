@@ -1,29 +1,44 @@
-#'@importFrom methods is
-setClass("moving_average",
-         slots = c(coefficients = "numeric",
-                   lower_bound = "numeric",
-                   upper_bound = "numeric")
+#' @importFrom methods is
+setClass(
+    "moving_average",
+    slots = c(
+        coefficients = "numeric",
+        lower_bound = "numeric",
+        upper_bound = "numeric"
+    )
 )
 
 #' Operations on Filters
 #'
-#' Manipulation of [moving_average()] or [finite_filters()] objects
+#' Manipulation of [moving_average()] or [finite_filters()] objects.
 #'
-#' @param x,e1,e2 object
+#' @param x,e1,e2 object.
 #' @param i,j,value indices specifying elements to extract or replace and the new value
 #'
 #' @param ...,drop,na.rm other parameters.
 #' @param zero_as_na boolean indicating if, when merging several moving averages (`cbind`)
-#' if trealing and leading zeros added to have a matrix form should be replaced by `NA`.
+#' if trailing and leading zeros added to have a matrix form should be replaced by `NA`.
 #'
 #' @name filters_operations
+#' @returns A [moving_average()] or [finite_filters()] object resulting from the operation.
+#'
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
+#' e1 <- moving_average(rep(1,12), lags = -6)
+#' e1 <- e1/sum(e1)
+#' e2 <- moving_average(rep(1/12, 12), lags = -5)
+#' M2X12 <- (e1 + e2)/2
+#' M2X12
+#' h13 <- lp_filter(horizon = 6)
+#' h13
+#' h13 * M2X12
+#'
 NULL
 
 #' Manipulation of moving averages
 #'
 #' @param x vector of coefficients.
 #' @param lags integer indicating the number of lags of the moving average.
-#' @param trailing_zero,leading_zero boolean indicating wheter to remove leading/trailing zero and NA.
+#' @param trailing_zero,leading_zero boolean indicating whether to remove leading/trailing zero and NA.
 #' @param s seasonal period for the \code{to_seasonal()} function.
 #' @param object `moving_average` object.
 #'
@@ -31,22 +46,31 @@ NULL
 #' A moving average is defined by a set of coefficient \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'}
 #' such all time series \eqn{X_t} are transformed as:
 #' \deqn{
-#' M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}
+#' M_{\boldsymbol\theta}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}.
 #' }
-#' The integer \eqn{p} is defined by the parameter \code{lags}.
+#' The integer \eqn{p} is defined by the parameter \code{lags} and can be retrieved by
+#' the function `lower_bound()`. The integer \eqn{f} is defined by the length of the coefficients
+#' and can be retrieved by the function `upper_bound()`.
+#' The length of the moving average is defined as \eqn{f+p+1} and can be retrieved by the function `length()`.
+#' A moving average is symmetric (`is_symmetric()`) if \eqn{p=f} and \eqn{\theta_{-k}=\theta_{k}} for all \eqn{k=0,\dots,p}.
 #'
 #' The function `to_seasonal()` transforms the moving average \eqn{\boldsymbol \theta} to:
 #' \deqn{
-#' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
+#' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+k}=\left(\sum_{k=-p}^{+f}\theta_kB^{-k}\right)X_{t}.
 #' }
 #'
-#' @examples
+#' The functions `mirror()` and `rev()` transforms the moving average \eqn{\boldsymbol \theta} to:
+#' \deqn{
+#' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-f}^{+p}\theta_kX_{t+k}=\left(\sum_{k=-f}^{+p}\theta_kB^{-k}\right)X_{t}.
+#' }
+#'
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' y <- retailsa$AllOtherGenMerchandiseStores
 #' e1 <- moving_average(rep(1,12), lags = -6)
 #' e1 <- e1/sum(e1)
 #' e2 <- moving_average(rep(1/12, 12), lags = -5)
 #' M2X12 <- (e1 + e2)/2
-#' coef(M2X12)
+#' stats::coef(M2X12)
 #' M3 <- moving_average(rep(1/3, 3), lags = -1)
 #' M3X3 <- M3 * M3
 #' # M3X3 moving average applied to each month
@@ -71,333 +95,466 @@ NULL
 #' # or equivalently:
 #' s_mm <- M3X3_seasonal * (1 - M2X12)
 #' s <- y * s_mm
-#' plot(s)
+#' graphics::plot(s)
+#' @importFrom stats coef
+#' @importFrom methods new
+#' @returns `moving_average()` returns a `"moving_average"` object which is an S4 class with three slots:
+#' - `coefficients`: a numeric vector of coefficients.
+#' - `lower_bound`: an integer indicating the number of lags.
+#' - `upper_bound`: an integer indicating the number of leads (automatically computed).
+#'
+#' `is.moving_average()` and `is_symmetric()` return a boolean.
+#' `length()`, `numeric()`, `lower_bound()` and `upper_bound()` return an integer.
+#' `mirror()`, `rev()` and `to_seasonal()` return a `"moving_average"` object.
+#'
 #' @export
-moving_average <- function(x, lags = -length(x), trailing_zero = FALSE, leading_zero = FALSE) {
-  if (inherits(x, "moving_average"))
-    return(x)
-  x <- as.numeric(x)
-  if (trailing_zero)
-    x <- rm_trailing_zero_or_na(x)
-  if (leading_zero) {
-    new_x <- rm_leading_zero_or_na(x)
-    lags <- lags - (length(new_x) - length(x))
-    x <- new_x
-  }
-  upper_bound <- lags + length(x) -1
-  # remove 1 if it is >= 0 (central term)
-  # upper_bound = upper_bound - (upper_bound >= 0)
+moving_average <- function(
+    x,
+    lags = -length(x),
+    trailing_zero = FALSE,
+    leading_zero = FALSE
+) {
+    if (inherits(x, "moving_average")) {
+        return(x)
+    }
+    x <- as.numeric(x)
+    if (trailing_zero) {
+        x <- rm_trailing_zero_or_na(x)
+    }
+    if (leading_zero) {
+        new_x <- rm_leading_zero_or_na(x)
+        lags <- lags - (length(new_x) - length(x))
+        x <- new_x
+    }
+    upper_bound <- lags + length(x) - 1
+    # remove 1 if it is >= 0 (central term)
+    # upper_bound = upper_bound - (upper_bound >= 0)
 
-  names(x) <- coefficients_names(lags,
-                                 upper_bound)
-  res <- new("moving_average",
-             coefficients = x, lower_bound = lags,
-             upper_bound = upper_bound)
-  res
+    names(x) <- coefficients_names(lags, upper_bound)
+    res <- methods::new(
+        "moving_average",
+        coefficients = x,
+        lower_bound = lags,
+        upper_bound = upper_bound
+    )
+    res
 }
+
+#' @noRd
+#' @keywords internal
 .jd2ma <- function(jobj, trailing_zero = FALSE) {
-  x <- .jcall(jobj, "[D", "weightsToArray")
-  lags <- .jcall(jobj, "I", "getLowerBound")
-  moving_average(x, lags, trailing_zero = trailing_zero)
+    x <- .jcall(jobj, "[D", "weightsToArray")
+    lags <- .jcall(jobj, "I", "getLowerBound")
+    moving_average(x, lags, trailing_zero = trailing_zero)
 }
+
+#' @noRd
+#' @keywords internal
+#' @importFrom stats coef
 .ma2jd <- function(x) {
-  lags <- lower_bound(x)
-  coefs <- as.numeric(coef(x))
-  if (length(x) == 1) {
-    coefs <- .jarray(coefs)
-  }
-  .jcall("jdplus/toolkit/base/core/math/linearfilters/FiniteFilter",
-         "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
-         "of", coefs,
-         as.integer(lags))
+    lags <- lower_bound(x)
+    coefs <- as.numeric(stats::coef(x))
+    if (length(x) == 1) {
+        coefs <- .jarray(coefs)
+    }
+    .jcall(
+        "jdplus/toolkit/base/core/math/linearfilters/FiniteFilter",
+        "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
+        "of",
+        coefs,
+        as.integer(lags)
+    )
 }
+
 #' @rdname moving_average
 #' @export
 is.moving_average <- function(x) {
-  is(x, "moving_average")
+    is(x, "moving_average")
 }
-#' @importFrom stats coef coefficients end qnorm qt ts.union
+
+#' @rdname moving_average
+#' @param ... other unused parameters.
 #' @export
 coef.moving_average <- function(object, ...) {
-  coefs <- object@coefficients
-  return(coefs)
+    coefs <- object@coefficients
+    return(coefs)
 }
+
+#' @importFrom stats coef
 #' @rdname moving_average
 #' @export
 is_symmetric <- function(x) {
-  # .jcall(.ma2jd(x), "Z", "isSymmetric")
-  (upper_bound(x) == (-lower_bound(x))) &&
-    isTRUE(all.equal(coef(x), rev(coef(x)), check.attributes = FALSE))
+    # .jcall(.ma2jd(x), "Z", "isSymmetric")
+    (upper_bound(x) == (-lower_bound(x))) &&
+        isTRUE(all.equal(
+            stats::coef(x),
+            rev(stats::coef(x)),
+            check.attributes = FALSE
+        ))
 }
+
 #' @rdname moving_average
 #' @export
 upper_bound <- function(x) {
-  x@upper_bound
+    x@upper_bound
 }
+
 #' @rdname moving_average
 #' @export
 lower_bound <- function(x) {
-  x@lower_bound
+    x@lower_bound
 }
+
 #' @rdname moving_average
 #' @export
 mirror <- function(x) {
-  .jd2ma(.jcall(.ma2jd(x), "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;", "mirror"))
+    .jd2ma(.jcall(
+        .ma2jd(x),
+        "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
+        "mirror"
+    ))
 }
+
 #' @method rev moving_average
 #' @rdname moving_average
 #' @export
 rev.moving_average <- function(x) {
-  mirror(x)
+    mirror(x)
 }
+
+#' @importFrom stats coef
 #' @rdname moving_average
 #' @export
 length.moving_average <- function(x) {
-  length(coef(x))
+    length(stats::coef(x))
 }
+
 #' @rdname moving_average
 #' @export
 to_seasonal <- function(x, s) {
-  UseMethod("to_seasonal", x)
-}
-#' @export
-to_seasonal.default <- function(x, s) {
-  lb <- lower_bound(x)
-  up <- upper_bound(x)
-  coefs <- coef(x)
-  new_coefs <- c(unlist(lapply(coefs[-length(x)],
-                               function(x) {
-                                 c(x, rep(0, s - 1))
-                               })),
-                 coefs[length(x)])
-  moving_average(new_coefs, lb * s)
+    UseMethod("to_seasonal", x)
 }
 
+#' @importFrom stats coef
+#' @export
+to_seasonal.default <- function(x, s) {
+    lb <- lower_bound(x)
+    up <- upper_bound(x)
+    coefs <- stats::coef(x)
+    new_coefs <- c(
+        unlist(lapply(coefs[-length(x)], function(x) {
+            c(x, rep(0, s - 1))
+        })),
+        coefs[length(x)]
+    )
+    moving_average(new_coefs, lb * s)
+}
+
+#' @importFrom stats coef
 #' @rdname filters_operations
 #' @export
 sum.moving_average <- function(..., na.rm = FALSE) {
-  sum(
-    unlist(lapply(list(...),
-                  function(x) sum(coef(x),na.rm = na.rm)
+    sum(
+        unlist(lapply(
+            list(...),
+            function(x) sum(stats::coef(x), na.rm = na.rm)
+        ))
     )
-    )
-  )
 }
-#' @rdname filters_operations
-#' @export
-setMethod("[",
-          signature(x = "moving_average",
-                    i = "numeric"),
-          function(x, i) {
-            coefs <- coef(x)
-            indices <- seq_along(coefs)[i]
-            coefs[-indices] <- 0
-            if (all(coefs == 0))
-              return(moving_average(0, lags = lower_bound(x) + indices - 1))
 
-            moving_average(coefs, lags = lower_bound(x),
-                           leading_zero = TRUE, trailing_zero = TRUE)
-          })
+#' @importFrom stats coef
 #' @rdname filters_operations
 #' @export
-setMethod("[",
-          signature(x = "moving_average",
-                    i = "logical"),
-          function(x, i) {
-            coefs <- coef(x)
-            indices <- seq_along(coefs)[i]
-            coefs[!indices] <- 0
-            moving_average(coefs, lags = lower_bound(x),
-                           leading_zero = TRUE, trailing_zero = TRUE)
-          })
+setMethod("[", signature(x = "moving_average", i = "numeric"), function(x, i) {
+    coefs <- stats::coef(x)
+    indices <- seq_along(coefs)[i]
+    coefs[-indices] <- 0
+    if (all(coefs == 0)) {
+        return(moving_average(0, lags = lower_bound(x) + indices - 1))
+    }
+
+    moving_average(
+        coefs,
+        lags = lower_bound(x),
+        leading_zero = TRUE,
+        trailing_zero = TRUE
+    )
+})
+
+#' @importFrom stats coef
 #' @rdname filters_operations
 #' @export
-setReplaceMethod("[",
-                 signature(x = "moving_average",
-                           i = "ANY",
-                           j = "missing",
-                           value = "numeric"),
-                 function(x, i, value) {
-                   x@coefficients[i] <- value
-                   x
-                 })
+setMethod("[", signature(x = "moving_average", i = "logical"), function(x, i) {
+    coefs <- stats::coef(x)
+    indices <- seq_along(coefs)[i]
+    coefs[!indices] <- 0
+    moving_average(
+        coefs,
+        lags = lower_bound(x),
+        leading_zero = TRUE,
+        trailing_zero = TRUE
+    )
+})
+
+#' @rdname filters_operations
+#' @export
+setReplaceMethod(
+    "[",
+    signature(
+        x = "moving_average",
+        i = "ANY",
+        j = "missing",
+        value = "numeric"
+    ),
+    function(x, i, value) {
+        x@coefficients[i] <- value
+        x
+    }
+)
+
+#' @importFrom stats coef
 #' @rdname filters_operations
 #' @export
 cbind.moving_average <- function(..., zero_as_na = FALSE) {
-  all_mm <- list(...)
-  new_lb <- min(sapply(all_mm, lower_bound))
-  new_ub <- max(sapply(all_mm, upper_bound))
-  nb_uterms <- max(sapply(all_mm, function(x) lower_bound(x) + length(x)))
-  if (zero_as_na) {
-      blank_value <- NA
-  } else {
-      blank_value <- 0
-  }
-  new_mm <- lapply(all_mm, function(x) {
-    c(rep(blank_value, abs(new_lb - lower_bound(x))),
-      coef(x),
-      rep(blank_value, abs(nb_uterms - (lower_bound(x) + length(x))))
-    )
-  })
-  new_mm <- do.call(cbind, new_mm)
-  rownames(new_mm) <- coefficients_names(new_lb, new_ub)
-  new_mm
+    all_mm <- list(...)
+    new_lb <- min(sapply(all_mm, lower_bound))
+    new_ub <- max(sapply(all_mm, upper_bound))
+    nb_uterms <- max(sapply(all_mm, function(x) lower_bound(x) + length(x)))
+    if (zero_as_na) {
+        blank_value <- NA
+    } else {
+        blank_value <- 0
+    }
+    new_mm <- lapply(all_mm, function(x) {
+        c(
+            rep(blank_value, abs(new_lb - lower_bound(x))),
+            stats::coef(x),
+            rep(blank_value, abs(nb_uterms - (lower_bound(x) + length(x))))
+        )
+    })
+    new_mm <- do.call(cbind, new_mm)
+    rownames(new_mm) <- coefficients_names(new_lb, new_ub)
+    new_mm
 }
+
 #' @rdname filters_operations
 #' @export
 rbind.moving_average <- function(...) {
-  t(cbind(...))
+    t(cbind(...))
 }
-#' @rdname filters_operations
-#' @export
-setMethod("+",
-          signature(e1 = "moving_average",
-                    e2 = "moving_average"),
-          function(e1, e2) {
-            finiteFilter <- J("jdplus.toolkit.base.core.math.linearfilters.FiniteFilter")
-            jobj <- .jcall(finiteFilter,
-                           "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
-                           "add",
-                           .jcast(.ma2jd(e1), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"),
-                           .jcast(.ma2jd(e2), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"))
-
-            .jd2ma(jobj)
-          })
-#' @rdname filters_operations
-#' @export
-setMethod("+",
-          signature(e1 = "moving_average",
-                    e2 = "numeric"),
-          function(e1, e2) {
-            e1 + moving_average(e2,0)
-          })
-#' @rdname filters_operations
-#' @export
-setMethod("+",
-          signature(e1 = "numeric",
-                    e2 = "moving_average"),
-          function(e1, e2) {
-            e2 + e1
-          })
-#' @rdname filters_operations
-#' @export
-setMethod("+", signature(e1 = "moving_average", e2 = "missing"), function(e1,e2) e1)
-#' @rdname filters_operations
-#' @export
-setMethod("-",
-          signature(e1 = "moving_average",
-                    e2 = "missing"),
-          function(e1, e2) {
-            finiteFilter <- J("jdplus.toolkit.base.core.math.linearfilters.FiniteFilter")
-            jobj <- .jcall(finiteFilter,
-                           "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
-                           "negate",
-                           .jcast(.ma2jd(e1), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"))
-            .jd2ma(jobj)
-          })
-#' @rdname filters_operations
-#' @export
-setMethod("-",
-          signature(e1 = "moving_average",
-                    e2 = "moving_average"),
-          function(e1, e2) {
-            finiteFilter <- J("jdplus.toolkit.base.core.math.linearfilters.FiniteFilter")
-            jobj <- .jcall(finiteFilter,
-                           "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
-                           "subtract",
-                           .jcast(.ma2jd(e1), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"),
-                           .jcast(.ma2jd(e2), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"))
-            .jd2ma(jobj)
-          })
-#' @rdname filters_operations
-#' @export
-setMethod("-",
-          signature(e1 = "moving_average",
-                    e2 = "numeric"),
-          function(e1, e2) {
-            e1 + (- e2)
-          })
-#' @rdname filters_operations
-#' @export
-setMethod("-",
-          signature(e1 = "numeric",
-                    e2 = "moving_average"),
-          function(e1, e2) {
-            e1 + (- e2)
-          })
-#' @rdname filters_operations
-#' @export
-setMethod("*",
-          signature(e1 = "moving_average",
-                    e2 = "moving_average"),
-          function(e1, e2) {
-            finiteFilter <- J("jdplus.toolkit.base.core.math.linearfilters.FiniteFilter")
-            jobj <- .jcall(finiteFilter,
-                           "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
-                           "multiply",
-                           .jcast(.ma2jd(e1), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"),
-                           .jcast(.ma2jd(e2), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"))
-            .jd2ma(jobj)
-          })
-#' @rdname filters_operations
-#' @export
-setMethod("*",
-          signature(e1 = "moving_average",
-                    e2 = "numeric"),
-          function(e1, e2) {
-            if (length(e2) == 1) {
-              e1 * moving_average(e2,0)
-            } else {
-              filter(e2, e1)
-            }
-          })
 
 #' @rdname filters_operations
 #' @export
-setMethod("*",
-          signature(e1 = "numeric",
-                    e2 = "moving_average"),
-          function(e1, e2) {
-            if (length(e1) == 1) {
-              moving_average(e1,0) * e2
-            } else {
-              filter(e1, e2)
-            }
-          })
+setMethod(
+    "+",
+    signature(e1 = "moving_average", e2 = "moving_average"),
+    function(e1, e2) {
+        finiteFilter <- J(
+            "jdplus.toolkit.base.core.math.linearfilters.FiniteFilter"
+        )
+        jobj <- .jcall(
+            finiteFilter,
+            "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
+            "add",
+            .jcast(
+                .ma2jd(e1),
+                "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+            ),
+            .jcast(
+                .ma2jd(e2),
+                "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+            )
+        )
+
+        .jd2ma(jobj)
+    }
+)
+
 #' @rdname filters_operations
 #' @export
-setMethod("*",
-          signature(e2 = "moving_average"),
-          function(e1, e2) {
-            filter(e1,e2)
-          })
+setMethod(
+    "+",
+    signature(e1 = "moving_average", e2 = "numeric"),
+    function(e1, e2) {
+        e1 + moving_average(e2, 0)
+    }
+)
+
 #' @rdname filters_operations
 #' @export
-setMethod("*",
-          signature(e1 = "moving_average"),
-          function(e1, e2) {
+setMethod(
+    "+",
+    signature(e1 = "numeric", e2 = "moving_average"),
+    function(e1, e2) {
+        e2 + e1
+    }
+)
+
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "+",
+    signature(e1 = "moving_average", e2 = "missing"),
+    function(e1, e2) e1
+)
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "-",
+    signature(e1 = "moving_average", e2 = "missing"),
+    function(e1, e2) {
+        finiteFilter <- J(
+            "jdplus.toolkit.base.core.math.linearfilters.FiniteFilter"
+        )
+        jobj <- .jcall(
+            finiteFilter,
+            "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
+            "negate",
+            .jcast(
+                .ma2jd(e1),
+                "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+            )
+        )
+        .jd2ma(jobj)
+    }
+)
+
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "-",
+    signature(e1 = "moving_average", e2 = "moving_average"),
+    function(e1, e2) {
+        finiteFilter <- J(
+            "jdplus.toolkit.base.core.math.linearfilters.FiniteFilter"
+        )
+        jobj <- .jcall(
+            finiteFilter,
+            "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
+            "subtract",
+            .jcast(
+                .ma2jd(e1),
+                "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+            ),
+            .jcast(
+                .ma2jd(e2),
+                "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+            )
+        )
+        .jd2ma(jobj)
+    }
+)
+
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "-",
+    signature(e1 = "moving_average", e2 = "numeric"),
+    function(e1, e2) {
+        e1 + (-e2)
+    }
+)
+
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "-",
+    signature(e1 = "numeric", e2 = "moving_average"),
+    function(e1, e2) {
+        e1 + (-e2)
+    }
+)
+
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "*",
+    signature(e1 = "moving_average", e2 = "moving_average"),
+    function(e1, e2) {
+        finiteFilter <- J(
+            "jdplus.toolkit.base.core.math.linearfilters.FiniteFilter"
+        )
+        jobj <- .jcall(
+            finiteFilter,
+            "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
+            "multiply",
+            .jcast(
+                .ma2jd(e1),
+                "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+            ),
+            .jcast(
+                .ma2jd(e2),
+                "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+            )
+        )
+        .jd2ma(jobj)
+    }
+)
+
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "*",
+    signature(e1 = "moving_average", e2 = "numeric"),
+    function(e1, e2) {
+        if (length(e2) == 1) {
+            e1 * moving_average(e2, 0)
+        } else {
             filter(e2, e1)
-          })
+        }
+    }
+)
+
 #' @rdname filters_operations
 #' @export
-setMethod("/",
-          signature(e1 = "moving_average",
-                    e2 = "numeric"),
-          function(e1, e2) {
-            e1 * moving_average(1/e2,0)
-          })
+setMethod(
+    "*",
+    signature(e1 = "numeric", e2 = "moving_average"),
+    function(e1, e2) {
+        if (length(e1) == 1) {
+            moving_average(e1, 0) * e2
+        } else {
+            filter(e1, e2)
+        }
+    }
+)
+
 #' @rdname filters_operations
 #' @export
-setMethod("^",
-          signature(e1 = "moving_average",
-                    e2 = "numeric"),
-          function(e1, e2) {
-            if (e2 == 0) {
-              moving_average(1, 0)
-            } else {
-              Reduce(`*`, rep(list(e1), e2))
-            }
-          })
+setMethod("*", signature(e2 = "moving_average"), function(e1, e2) {
+    filter(e1, e2)
+})
+
+#' @rdname filters_operations
+#' @export
+setMethod("*", signature(e1 = "moving_average"), function(e1, e2) {
+    filter(e2, e1)
+})
+
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "/",
+    signature(e1 = "moving_average", e2 = "numeric"),
+    function(e1, e2) {
+        e1 * moving_average(1 / e2, 0)
+    }
+)
+
+#' @rdname filters_operations
+#' @export
+setMethod(
+    "^",
+    signature(e1 = "moving_average", e2 = "numeric"),
+    function(e1, e2) {
+        if (e2 == 0) {
+            moving_average(1, 0)
+        } else {
+            Reduce(`*`, rep(list(e1), e2))
+        }
+    }
+)
+
 #' Simple Moving Average
 #'
 #' A simple moving average is a moving average whose coefficients are all equal and whose sum is 1
@@ -405,18 +562,21 @@ setMethod("^",
 #' @param order number of terms of the moving_average
 #' @inheritParams moving_average
 #'
-#' @examples
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' # The M2X12 moving average is computed as
 #' (simple_ma(12, -6) + simple_ma(12, -5)) / 2
 #' # The M3X3 moving average is computed as
 #' simple_ma(3, -1) ^ 2
 #' # The M3X5 moving average is computed as
 #' simple_ma(3, -1) * simple_ma(5, -2)
+#' @returns A [moving_average()] object.
 #' @export
-simple_ma <- function(order, lags = - trunc((order-1)/2)) {
-  moving_average(rep(1, order), lags = lags) / order
+simple_ma <- function(order, lags = -trunc((order - 1) / 2)) {
+    moving_average(rep(1, order), lags = lags) / order
 }
-#'@export
+
+#' @noRd
+#' @export
 as.list.moving_average <- function(x, ...) {
-  lapply(seq_along(x), function(i) x[i])
+    lapply(seq_along(x), function(i) x[i])
 }

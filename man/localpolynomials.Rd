@@ -11,7 +11,7 @@ localpolynomials(
   kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube",
     "Gaussian", "Triangular", "Parabolic"),
   endpoints = c("LC", "QL", "CQ", "CC", "DAF"),
-  ic = 4.5,
+  ic = 3.5,
   tweight = 0,
   passband = pi/12
 )
@@ -34,16 +34,18 @@ localpolynomials(
 \item{passband}{passband threshold.}
 }
 \value{
-the target signal
+A \code{vector} or \code{ts} object with the filtered time series.
 }
 \description{
 Apply Local Polynomials Filters
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 x <- retailsa$AllOtherGenMerchandiseStores
 trend <- localpolynomials(x, horizon = 6)
-plot(x)
-lines(trend, col = "red")
+graphics::plot(x)
+graphics::lines(trend, col = "red")
+\dontshow{\}) # examplesIf}
 }
 \references{
 Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.

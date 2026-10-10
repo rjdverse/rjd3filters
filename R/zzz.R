@@ -1,35 +1,48 @@
-#' @import rJava
-#' @importFrom graphics axis lines plot matplot
-#' @importFrom stats frequency ts
-#' @importFrom rjd3toolkit .proc_data .proc_dictionary .jd2r_matrix .r2jd_matrix
+#' @importFrom rJava .jcall .jarray .jcast is.jnull J .jnull
 NULL
 
+#' @noRd
+#' @keywords internal
+#' @importFrom rjd3jars check_java_version
+.onAttach <- function(libname, pkgname) {
+    # Check Java version
+    rjd3jars::check_java_version(silent = FALSE, startup = TRUE)
+}
+
+#' @noRd
+#' @keywords internal
+#' @importFrom rjd3jars check_java_version
+#' @importFrom rjd3jars reload_dictionaries
+#' @importFrom rJava .jpackage
 .onLoad <- function(libname, pkgname) {
-    if (!requireNamespace("rjd3toolkit", quietly = TRUE)) stop("Loading rjd3 libraries failed")
-    # For debugts_ging: to see if Jars are effectively loaded
-    # options(java.parameters = "-verbose:class")
-
-    # TODO : devtools will look only in RJDemetra3\java for JAR files so copied them there too
-    result <- .jpackage(pkgname, lib.loc=libname)
-    if (!result) stop("Loading java packages failed")
-
-    # what's your java  version?  Need > 1.5.0.
-    jversion <- .jcall('java.lang.System','S','getProperty','java.version')
-    if (jversion < "1.8.0") {
-        stop("Your java version is ", jversion, ".  Need 1.8.0 or higher.")
+    # Loading dependencies
+    if (!requireNamespace("rjd3jars", quietly = TRUE)) {
+        stop("Loading {rjd3jars} failed", call. = FALSE)
+    }
+    if (!requireNamespace("rjd3toolkit", quietly = TRUE)) {
+        stop("Loading {rjd3toolkit} failed", call. = FALSE)
     }
 
-}
+    # Loading Java class
+    jar_dir <- file.path(libname, pkgname, "inst", "java")
+    jars_inst <- list.files(
+        jar_dir,
+        pattern = "\\.jar$",
+        full.names = TRUE,
+        all.files = TRUE
+    )
+    result <- rJava::.jpackage(
+        pkgname,
+        lib.loc = libname,
+        morePaths = jars_inst
+    )
+    if (!result) {
+        stop("Loading Java packages failed")
+    }
 
-.onAttach <- function(libname , pkgname) {
-    jversion <- .jcall('java.lang.System','S','getProperty','java.version')
-    packageStartupMessage("Java requirements fullfilled, found version ",jversion)
+    # If java >= 21, then reload dictionnaries
+    has_java <- rjd3jars::check_java_version(silent = TRUE)
+    if (has_java) {
+        rjd3jars::reload_dictionaries()
+    }
 }
-
-#' Seasonally Adjusted Retail Sales
-#'
-#' A dataset containing monthly seasonally adjusted retailed sales
-#'
-#' @docType data
-#' @format A \code{list} of \code{ts} objects from january 1992 to december 2010.
-"retailsa"

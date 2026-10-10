@@ -22,7 +22,8 @@ reference:
   - '`diagnostics-fit`'
   - '`diagnostic_matrix`'
   - '`fst`'
-  - '`implicit_forecast`'
+  - '`implicit_forecasts`'
+  - '`underlying_forecasts`'
   - '`get_properties_function`'
   - '`mse`'
   - '`var_estimator`'
@@ -39,10 +40,11 @@ reference:
   - '`impute_last_obs`'
   - '`moving_average`'
   - '`plot_filters`'
+  - '`print,finite_filters-method`'
 - title: Data
   contents:
   - '`retailsa`'
-
-- title: Deprecated functions
+- title: Wrangling Java objects
+  desc: Functions to easily interact between R and Java objects
   contents:
-  - '`deprecated-rjd3filters`'
+  - '`.jd2r_finitefilters`'

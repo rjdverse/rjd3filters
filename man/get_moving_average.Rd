@@ -11,11 +11,16 @@ get_moving_average(x, ...)
 
 \item{...}{unused parameters}
 }
+\value{
+A \code{\link[=moving_average]{moving_average()}} object.
+}
 \description{
 Get Moving Averages from ARIMA model
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 fit <- stats::arima(log10(AirPassengers), c(0, 1, 1),
 seasonal = list(order = c(0, 1, 1), period = 12))
 get_moving_average(fit)
+\dontshow{\}) # examplesIf}
 }

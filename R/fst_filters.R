@@ -58,22 +58,43 @@
 #' \end{pmatrix}
 #' }
 #'
-#'
-#' @examples
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- fst_filter(lags = 6, leads = 0)
 #' filter
+#' @returns A [finite_filters()] object.
 #' @references Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment,
 #' \url{https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/ks-gq-18-001}.
 #' @export
-fst_filter<-function(lags = 6, leads = 0, pdegree = 2,
-                    smoothness.weight = 1, smoothness.degree = 3, timeliness.weight = 0,
-                    timeliness.passband = pi/6, timeliness.antiphase = TRUE) {
-  jobj<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;",
-               "fstfilter", as.integer(lags), as.integer(leads), as.integer(pdegree), smoothness.weight, as.integer(smoothness.degree),
-               timeliness.weight, timeliness.passband, as.logical(timeliness.antiphase))
-  jfilter <- .jcall(jobj, "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;", "getFilter")
+fst_filter <- function(
+    lags = 6,
+    leads = 0,
+    pdegree = 2,
+    smoothness.weight = 1,
+    smoothness.degree = 3,
+    timeliness.weight = 0,
+    timeliness.passband = pi / 6,
+    timeliness.antiphase = TRUE
+) {
+    jobj <- .jcall(
+        "jdplus/filters/base/core/AdvancedFiltersToolkit",
+        "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;",
+        "fstfilter",
+        as.integer(lags),
+        as.integer(leads),
+        as.integer(pdegree),
+        smoothness.weight,
+        as.integer(smoothness.degree),
+        timeliness.weight,
+        timeliness.passband,
+        as.logical(timeliness.antiphase)
+    )
+    jfilter <- .jcall(
+        jobj,
+        "Ljdplus/toolkit/base/core/math/linearfilters/FiniteFilter;",
+        "getFilter"
+    )
 
-  return(.jd2ma(jfilter))
+    return(.jd2ma(jfilter))
 }
 
 #' FST criteria
@@ -85,8 +106,8 @@ fst_filter<-function(lags = 6, leads = 0, pdegree = 2,
 #' @param passband Passband threshold for timeliness criterion.
 #' @param ... other unused arguments.
 #'
-#' @return The values of the 3 criteria, the gain and phase of the associated filter.
-#' @examples
+#' @returns A named vector with the values of the 3 criteria.
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' fst(filter[, "q=0"])
 #' # To compute the statistics on all filters:
@@ -96,121 +117,196 @@ fst_filter<-function(lags = 6, leads = 0, pdegree = 2,
 #'
 #' @export
 #'
-fst <- function(weights, lags, passband=pi/6, ...) {
-  UseMethod("fst", weights)
+fst <- function(weights, lags, passband = pi / 6, ...) {
+    UseMethod("fst", weights)
 }
-#' @export
-fst.default<-function(weights, lags, passband=pi/6, ...) {
-  jobj<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;", "fst",
-               weights, as.integer(lags), passband)
-  criteria<-.jcall(jobj, "[D", "getCriterions")
-  names(criteria) <- c("Fidelity", "Smoothness", "Timeliness")
-  return(criteria)
-}
-#' @export
-fst.moving_average<-function(weights, lags, passband=pi/6, ...) {
-  lags <- lower_bound(weights)
-  weights <- coef(weights)
-  fst(weights, lags, passband)
-}
-#' @export
-fst.finite_filters<-function(weights, lags, passband=pi/6,
-                             sfilter = TRUE, rfilters = TRUE, lfilters = FALSE, ...) {
-  if (!any(sfilter, rfilters, lfilters))
-    return(NULL)
 
-  sfilter_s <- rfilters_s <- lfilters_s <-
-    index_s <- index_r <- index_l <- NULL
-  if (sfilter) {
-    sfilter_s <- list(weights@sfilter)
-    index_s <- length(weights@rfilters)
-  }
-  if (lfilters && length(weights@lfilters) > 0) {
-    lfilters_s <- weights@lfilters
-    index_l <- seq(0, -(length(weights@lfilters) - 1))
-  }
-  if (rfilters && length(weights@rfilters) > 0) {
-    rfilters_s <- weights@rfilters
-    index_r <- seq(length(weights@rfilters) - 1, 0)
-  }
-  mat <- do.call(
-    cbind,
-    lapply(c(lfilters_s, sfilter_s, rfilters_s),
-           fst, passband = passband)
-  )
-  colnames(mat) <- sprintf("q=%i", c(index_l, index_s, index_r))
-  mat
+#' @noRd
+#' @export
+fst.default <- function(weights, lags, passband = pi / 6, ...) {
+    jobj <- .jcall(
+        "jdplus/filters/base/core/AdvancedFiltersToolkit",
+        "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;",
+        "fst",
+        weights,
+        as.integer(lags),
+        passband
+    )
+    criteria <- .jcall(jobj, "[D", "getCriterions")
+    names(criteria) <- c("Fidelity", "Smoothness", "Timeliness")
+    return(criteria)
+}
+
+#' @importFrom stats coef
+#' @noRd
+#' @export
+fst.moving_average <- function(weights, lags, passband = pi / 6, ...) {
+    lags <- lower_bound(weights)
+    weights <- stats::coef(weights)
+    fst(weights, lags, passband)
+}
+#' @noRd
+#' @export
+fst.finite_filters <- function(
+    weights,
+    lags,
+    passband = pi / 6,
+    sfilter = TRUE,
+    rfilters = TRUE,
+    lfilters = FALSE,
+    ...
+) {
+    if (!any(sfilter, rfilters, lfilters)) {
+        return(NULL)
+    }
+
+    sfilter_s <- rfilters_s <- lfilters_s <-
+        index_s <- index_r <- index_l <- NULL
+    if (sfilter) {
+        sfilter_s <- list(weights@sfilter)
+        index_s <- length(weights@rfilters)
+    }
+    if (lfilters && length(weights@lfilters) > 0) {
+        lfilters_s <- weights@lfilters
+        index_l <- seq(0, -(length(weights@lfilters) - 1))
+    }
+    if (rfilters && length(weights@rfilters) > 0) {
+        rfilters_s <- weights@rfilters
+        index_r <- seq(length(weights@rfilters) - 1, 0)
+    }
+    mat <- do.call(
+        cbind,
+        lapply(c(lfilters_s, sfilter_s, rfilters_s), fst, passband = passband)
+    )
+    colnames(mat) <- sprintf("q=%i", c(index_l, index_s, index_r))
+    mat
 }
 
 #' Accuracy/smoothness/timeliness criteria through spectral decomposition
 #'
 #'
-#' @param sweights `moving_average` object or weights of the symmetric filter (from 0 to n or -n to n).
-#' @param aweights `moving_average` object or weights of the asymmetric filter (from -n to m).
-#' @param density hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).
+#' @param aweights `moving_average` or `finite_filters` object or weights of the asymmetric filter
+#'   (from -n to m).
+#' @param sweights `moving_average` object or weights of the symmetric filter
+#'   (from 0 to n or -n to n).
+#'   If `aweights` is a [finite_filters()] object, `sweights` is by default the symmetric filter.
+#' @param density hypothesis on the spectral density: \code{"uniform"}
+#'   (= white noise, the default) or  \code{"rw"} (= random walk).
 #' @param passband passband threshold.
 #' @param ... other unused arguments.
+#' @param sfilter,rfilters,lfilters boolean indicating if the criteria should be computed for the symmetric filter
+#' (`sfilter = TRUE` by default), the right filters (`rfilters = TRUE` by default) and
+#' the left filters (`lfilters = FALSE` by default).
 #'
-#' @return The criteria
-#' @examples
+#' @returns If `sweights` is a [finite_filters()] object, a matrix with the value of the three criteria for asymmetric and
+#' symmetric filters (depending on the value of `sfilter`, `rfilters` and `lfilters`).
+#'
+#' Otherwise, a named vector with the value of the three criteria is returned.
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' sweights <- filter[, "q=6"]
 #' aweights <- filter[, "q=0"]
 #' mse(aweights, sweights)
 #' # Or to compute directly the criteria on all asymmetric filters:
 #' mse(filter)
-#' @references Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+#' @references Wildi, Marc and McElroy, Tucker (2019). “The trilemma between
+#' accuracy, timeliness and smoothness in real-time signal extraction”. In:
+#' International Journal of Forecasting 35.3, pp. 1072–1084.
+#'
 #' @export
-mse<-function(aweights, sweights, density=c("uniform", "rw"), passband = pi/6, ...) {
-  UseMethod("mse", aweights)
+mse <- function(
+    aweights,
+    sweights,
+    density = c("uniform", "rw"),
+    passband = pi / 6,
+    ...
+) {
+    UseMethod("mse", aweights)
 }
-#' @export
-mse.default<-function(aweights, sweights, density=c("uniform", "rw"), passband = pi/6, ...) {
-  if (is.moving_average(aweights))
-    aweights <- coef(aweights)
 
-  if (is.moving_average(sweights)) {
-    if (lower_bound(sweights) < 0) {
-      # we asume sweights were specify from [-n to n] instead of [0,n]
-      sweights <- coef(sweights)[seq(lower_bound(sweights), -1)]
-    } else {
-      sweights <- coef(sweights)
+#' @importFrom stats coef
+#' @noRd
+#' @export
+mse.default <- function(
+    aweights,
+    sweights,
+    density = c("uniform", "rw"),
+    passband = pi / 6,
+    ...
+) {
+    if (is.moving_average(aweights)) {
+        aweights <- stats::coef(aweights)
     }
-  } else if (length(sweights)>length(aweights)) {
-    # we asume sweights were specify from [-n to n] instead of [0,n]
-    n <- (length(sweights)-1)/2
-    sweights <- sweights[-seq_len(n)]
-  }
-  spectral <- match.arg(density)
-  rslt<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "[D", "mseDecomposition",
-               sweights, aweights, spectral, passband)
-  return(c(accuracy=rslt[1], smoothness=rslt[2], timeliness=rslt[3], residual=rslt[4]))
-}
-#' @export
-mse.finite_filters<-function(aweights, sweights = aweights@sfilter, density=c("uniform", "rw"), passband = pi/6,
-                            sfilter = TRUE, rfilters = TRUE, lfilters = FALSE, ...) {
-  if (!any(sfilter, rfilters, lfilters))
-    return(NULL)
 
-  sfilter_s <- rfilters_s <- lfilters_s <-
-    index_s <- index_r <- index_l <- NULL
-  if (sfilter) {
-    sfilter_s <- list(aweights@sfilter)
-    index_s <- length(aweights@rfilters)
-  }
-  if (lfilters && length(aweights@lfilters) > 0) {
-    lfilters_s <- aweights@lfilters
-    index_l <- seq(0, -(length(aweights@lfilters) - 1))
-  }
-  if (rfilters && length(aweights@rfilters) > 0) {
-    rfilters_s <- aweights@rfilters
-    index_r <- seq(length(aweights@rfilters) - 1, 0)
-  }
-  mat <- do.call(
-    cbind,
-    lapply(c(lfilters_s, sfilter_s, rfilters_s),
-           mse, sweights = sweights, density = density, passband = passband)
-  )
-  colnames(mat) <- sprintf("q=%i", c(index_l, index_s, index_r))
-  mat
+    if (is.moving_average(sweights)) {
+        if (lower_bound(sweights) < 0) {
+            # we asume sweights were specify from [-n to n] instead of [0,n]
+            sweights <- stats::coef(sweights)[seq(lower_bound(sweights), -1)]
+        } else {
+            sweights <- stats::coef(sweights)
+        }
+    } else if (length(sweights) > length(aweights)) {
+        # we asume sweights were specify from [-n to n] instead of [0,n]
+        n <- (length(sweights) - 1) / 2
+        sweights <- sweights[-seq_len(n)]
+    }
+    spectral <- match.arg(density)
+    rslt <- .jcall(
+        "jdplus/filters/base/core/AdvancedFiltersToolkit",
+        "[D",
+        "mseDecomposition",
+        sweights,
+        aweights,
+        spectral,
+        passband
+    )
+    return(c(
+        accuracy = rslt[1],
+        smoothness = rslt[2],
+        timeliness = rslt[3],
+        residual = rslt[4]
+    ))
+}
+#' @name mse
+#' @export
+mse.finite_filters <- function(
+    aweights,
+    sweights = aweights@sfilter,
+    density = c("uniform", "rw"),
+    passband = pi / 6,
+    sfilter = TRUE,
+    rfilters = TRUE,
+    lfilters = FALSE,
+    ...
+) {
+    if (!any(sfilter, rfilters, lfilters)) {
+        return(NULL)
+    }
+
+    sfilter_s <- rfilters_s <- lfilters_s <-
+        index_s <- index_r <- index_l <- NULL
+    if (sfilter) {
+        sfilter_s <- list(aweights@sfilter)
+        index_s <- length(aweights@rfilters)
+    }
+    if (lfilters && length(aweights@lfilters) > 0) {
+        lfilters_s <- aweights@lfilters
+        index_l <- seq(0, -(length(aweights@lfilters) - 1))
+    }
+    if (rfilters && length(aweights@rfilters) > 0) {
+        rfilters_s <- aweights@rfilters
+        index_r <- seq(length(aweights@rfilters) - 1, 0)
+    }
+    mat <- do.call(
+        cbind,
+        lapply(
+            c(lfilters_s, sfilter_s, rfilters_s),
+            mse,
+            sweights = sweights,
+            density = density,
+            passband = passband
+        )
+    )
+    colnames(mat) <- sprintf("q=%i", c(index_l, index_s, index_r))
+    mat
 }

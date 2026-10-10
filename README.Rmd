@@ -18,13 +18,14 @@ options(max.print = 1000L)
 # `rjd3filters` <a href="https://rjdverse.github.io/rjd3filters/"><img src="man/figures/logo.png" align="right" height="150" style="float:right; height:150px;"/></a>
 
 <!-- badges: start -->
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters) -->
-[![Mentioned in Awesome Official Statistics ](https://awesome.re/mentioned-badge.svg)](http://www.awesomeofficialstatistics.org)
+[![CRAN status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
+[![R universe version](https://rjdverse.r-universe.dev/rjd3filters/badges/version)](https://rjdverse.r-universe.dev/rjd3filters)
+[![Mentioned in Awesome Official Statistics ](https://awesome.re/mentioned-badge.svg)](https://github.com/SNStatComp/awesome-official-statistics-software)
 
-[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml)
-[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml)
+[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yml)
+[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yml)
 
-[![GH Pages built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml)
+[![GH Pages built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yml)
 <!-- badges: end -->
 
 
@@ -43,25 +44,27 @@ Some quality criteria defined by Wildi and McElroy (2019) can also be computed.
 
 rjd3filters relies on the [rJava](https://CRAN.R-project.org/package=rJava) package.
 
-Running rjd3 packages requires **Java 17 or higher**. How to set up such a configuration in R is explained [here](https://jdemetra-new-documentation.netlify.app/#Rconfig). 
+Running rjd3 packages requires **Java 21 or higher**. 
+How to set up such a configuration in R is explained [here](https://doc.jdemetra.org/#Rconfig). 
 
-
-### Latest release
-
-To get the current stable version (from the latest release):
-
-- From GitHub:
-
-```{r, echo = TRUE, eval = FALSE}
-# install.packages("remotes")
-remotes::install_github("rjdverse/rjd3toolkit@*release")
-remotes::install_github("rjdverse/rjd3filters@*release")
+```{r, eval = FALSE}
+# Install release version from CRAN
+install.packages("rjd3filters")
 ```
+
+To install the developpment version:
 
 - From [r-universe](https://rjdverse.r-universe.dev/rjd3filters):
 
 ```{r, echo = TRUE, eval = FALSE}
 install.packages("rjd3filters", repos = c("https://rjdverse.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+- From GitHub:
+
+```{r, echo = TRUE, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("rjdverse/rjd3filters")
 ```
 
 
@@ -105,12 +108,12 @@ legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
        col= c("black", "orange", "lightblue", "red"), lty = 1)
 ```
 
-The last estimates can also be analysed with the `implicit_forecast` function that retreive the implicit forecasts corresponding to the asymmetric filters (i.e., the forecasts needed to have the same end-points estimates but using the symmetric filter).
+The last estimates can also be analysed with the `implicit_forecasts` function that retrieve the implicit forecasts corresponding to the asymmetric filters (i.e., the forecasts needed to have the same end-points estimates but using the symmetric filter).
 
 ```{r plot-forecast}
-f_musgrave <- implicit_forecast(y, musgrave)
-f_fst <- implicit_forecast(y, fst_notimeliness)
-f_rkhs <- implicit_forecast(y, rkhs_timeliness)
+f_musgrave <- implicit_forecasts(y, musgrave)
+f_fst <- implicit_forecasts(y, fst_notimeliness)
+f_rkhs <- implicit_forecasts(y, rkhs_timeliness)
 
 plot(window(y, start = 2007),
      xlim = c(2007, 2012), ylim = c(3600, 4600),
@@ -258,9 +261,9 @@ Dagum, Estela Bee and Silvia Bianconcini (2008). “The Henderson Smoother in Re
 
 Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: *Handbook on Seasonal Adjustment*. URL: https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/KS-GQ-18-001.
 
-Proietti, Tommaso and Alessandra Luati (Dec. 2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”. In: *Ann. Appl. Stat.* 2.4, pp. 1523–1553. URL: https://doi.org/10.1214/08-AOAS195.
+Proietti, Tommaso and Alessandra Luati (Dec. 2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”. In: *Ann. Appl. Stat.* 2.4, pp. 1523–1553. URL: [https://doi.org/10.1214/08-AOAS195](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-2/issue-4/Real-time-estimation-in-local-polynomial-regression-with-application-to/10.1214/08-AOAS195.full).
 
-Wildi, Marc and Tucker McElroy (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: *International Journal of Forecasting* 35.3, pp. 1072–1084. URL: [https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://EconPapers.repec.org/RePEc:eee:intfor:v:35:y:2019:i:3:p:1072-1084).
+Wildi, Marc and Tucker McElroy (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: *International Journal of Forecasting* 35.3, pp. 1072–1084. URL: [https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://econpapers.repec.org/article/eeeintfor/v_3a35_3ay_3a2019_3ai_3a3_3ap_3a1072-1084.htm).
 
 
 ## Package Maintenance and contributing
@@ -271,4 +274,4 @@ pull requests should include **updated tests** and **updated documentation**. If
 
 ## Licensing
 
-The code of this project is licensed under the [European Union Public Licence (EUPL)](https://interoperable-europe.ec.europa.eu:443/collection/eupl/eupl-text-eupl-12).
+The code of this project is licensed under the [European Union Public Licence (EUPL)](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).

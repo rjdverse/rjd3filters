@@ -18,11 +18,16 @@ get_properties_function(
 
 \item{...}{unused other arguments.}
 }
+\value{
+A function that takes a frequency as input and returns the value of the selected component.
+}
 \description{
 Get properties of filters
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 filter <- lp_filter(3, kernel = "Henderson")
 sgain <- get_properties_function(filter, "Symmetric Gain")
-plot(sgain, xlim= c(0, pi/12))
+graphics::plot(sgain, xlim= c(0, pi/12))
+\dontshow{\}) # examplesIf}
 }

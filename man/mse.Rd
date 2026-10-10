@@ -2,35 +2,62 @@
 % Please edit documentation in R/fst_filters.R
 \name{mse}
 \alias{mse}
+\alias{mse.finite_filters}
 \title{Accuracy/smoothness/timeliness criteria through spectral decomposition}
 \usage{
 mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
+
+\method{mse}{finite_filters}(
+  aweights,
+  sweights = aweights@sfilter,
+  density = c("uniform", "rw"),
+  passband = pi/6,
+  sfilter = TRUE,
+  rfilters = TRUE,
+  lfilters = FALSE,
+  ...
+)
 }
 \arguments{
-\item{aweights}{\code{moving_average} object or weights of the asymmetric filter (from -n to m).}
+\item{aweights}{\code{moving_average} or \code{finite_filters} object or weights of the asymmetric filter
+(from -n to m).}
 
-\item{sweights}{\code{moving_average} object or weights of the symmetric filter (from 0 to n or -n to n).}
+\item{sweights}{\code{moving_average} object or weights of the symmetric filter
+(from 0 to n or -n to n).
+If \code{aweights} is a \code{\link[=finite_filters]{finite_filters()}} object, \code{sweights} is by default the symmetric filter.}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 
 \item{...}{other unused arguments.}
+
+\item{sfilter, rfilters, lfilters}{boolean indicating if the criteria should be computed for the symmetric filter
+(\code{sfilter = TRUE} by default), the right filters (\code{rfilters = TRUE} by default) and
+the left filters (\code{lfilters = FALSE} by default).}
 }
 \value{
-The criteria
+If \code{sweights} is a \code{\link[=finite_filters]{finite_filters()}} object, a matrix with the value of the three criteria for asymmetric and
+symmetric filters (depending on the value of \code{sfilter}, \code{rfilters} and \code{lfilters}).
+
+Otherwise, a named vector with the value of the three criteria is returned.
 }
 \description{
 Accuracy/smoothness/timeliness criteria through spectral decomposition
 }
 \examples{
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 sweights <- filter[, "q=6"]
 aweights <- filter[, "q=0"]
 mse(aweights, sweights)
 # Or to compute directly the criteria on all asymmetric filters:
 mse(filter)
+\dontshow{\}) # examplesIf}
 }
 \references{
-Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+Wildi, Marc and McElroy, Tucker (2019). “The trilemma between
+accuracy, timeliness and smoothness in real-time signal extraction”. In:
+International Journal of Forecasting 35.3, pp. 1072–1084.
 }

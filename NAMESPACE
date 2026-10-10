@@ -20,8 +20,8 @@ S3method(get_moving_average,SA)
 S3method(get_moving_average,regarima)
 S3method(get_properties_function,finite_filters)
 S3method(get_properties_function,moving_average)
-S3method(implicit_forecast,default)
-S3method(implicit_forecast,matrix)
+S3method(implicit_forecasts,default)
+S3method(implicit_forecasts,matrix)
 S3method(length,moving_average)
 S3method(mse,default)
 S3method(mse,finite_filters)
@@ -37,12 +37,14 @@ S3method(rev,moving_average)
 S3method(sum,moving_average)
 S3method(to_seasonal,default)
 S3method(to_seasonal,finite_filters)
+S3method(underlying_forecasts,default)
+S3method(underlying_forecasts,matrix)
 export(.jd2r_finitefilters)
 export(confint_filter)
 export(cp)
-export(cross_validation)
 export(cv)
 export(cve)
+export(df_var)
 export(dfa_filter)
 export(diagnostic_matrix)
 export(filter)
@@ -52,7 +54,7 @@ export(fst_filter)
 export(get_kernel)
 export(get_moving_average)
 export(get_properties_function)
-export(implicit_forecast)
+export(implicit_forecasts)
 export(impute_last_obs)
 export(is.finite_filters)
 export(is.moving_average)
@@ -76,6 +78,7 @@ export(rkhs_optimization_fun)
 export(rt)
 export(simple_ma)
 export(to_seasonal)
+export(underlying_forecasts)
 export(upper_bound)
 export(var_estimator)
 exportMethods("*")
@@ -85,27 +88,50 @@ exportMethods("/")
 exportMethods("[")
 exportMethods("[<-")
 exportMethods("^")
+exportMethods(print)
 exportMethods(show)
-import(rJava)
 importFrom(MASS,fractions)
-importFrom(graphics,axis)
-importFrom(graphics,lines)
-importFrom(graphics,matplot)
-importFrom(graphics,plot)
-importFrom(methods,is)
-importFrom(rjd3toolkit,.jd2r_matrix)
-importFrom(rjd3toolkit,.proc_data)
-importFrom(rjd3toolkit,.proc_dictionary)
-importFrom(rjd3toolkit,.r2jd_matrix)
-importFrom(stats,coef)
-importFrom(stats,coefficients)
-importFrom(stats,deltat)
-importFrom(stats,end)
-importFrom(stats,frequency)
-importFrom(stats,is.ts)
-importFrom(stats,qnorm)
-importFrom(stats,qt)
-importFrom(stats,start)
-importFrom(stats,time)
-importFrom(stats,ts)
-importFrom(stats,ts.union)
+importFrom(graphics,
+  axis,
+  lines,
+  matplot,
+  plot
+)
+importFrom(methods,
+  is,
+  new,
+  show
+)
+importFrom(rJava,
+  .jarray,
+  .jcall,
+  .jcast,
+  .jnull,
+  .jpackage,
+  J,
+  is.jnull
+)
+importFrom(rjd3jars,
+  check_java_version,
+  reload_dictionaries
+)
+importFrom(rjd3toolkit,
+  .jd2r_matrix,
+  .r2jd_matrix
+)
+importFrom(stats,
+  arima,
+  coef,
+  coefficients,
+  deltat,
+  end,
+  frequency,
+  is.ts,
+  qnorm,
+  qt,
+  start,
+  time,
+  ts,
+  ts.union
+)
+importFrom(utils,tail)
