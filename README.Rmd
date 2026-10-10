@@ -19,7 +19,7 @@ options(max.print = 1000L)
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
-[![R universe version](https://rjdverse.r-universe.dev/badges/rjd3filters)](https://rjdverse.r-universe.dev/rjd3filters)
+[![R universe version](https://rjdverse.r-universe.dev/rjd3filters/badges/version)](https://rjdverse.r-universe.dev/rjd3filters)
 [![Mentioned in Awesome Official Statistics ](https://awesome.re/mentioned-badge.svg)](https://github.com/SNStatComp/awesome-official-statistics-software)
 
 [![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yml)
