@@ -2,9 +2,21 @@
 % Please edit documentation in R/fst_filters.R
 \name{mse}
 \alias{mse}
+\alias{mse.finite_filters}
 \title{Accuracy/smoothness/timeliness criteria through spectral decomposition}
 \usage{
 mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
+
+\method{mse}{finite_filters}(
+  aweights,
+  sweights = aweights@sfilter,
+  density = c("uniform", "rw"),
+  passband = pi/6,
+  sfilter = TRUE,
+  rfilters = TRUE,
+  lfilters = FALSE,
+  ...
+)
 }
 \arguments{
 \item{aweights}{\code{moving_average} or \code{finite_filters} object or weights of the asymmetric filter
@@ -20,9 +32,16 @@ If \code{aweights} is a \code{\link[=finite_filters]{finite_filters()}} object, 
 \item{passband}{passband threshold.}
 
 \item{...}{other unused arguments.}
+
+\item{sfilter, rfilters, lfilters}{boolean indicating if the criteria should be computed for the symmetric filter
+(\code{sfilter = TRUE} by default), the right filters (\code{rfilters = TRUE} by default) and
+the left filters (\code{lfilters = FALSE} by default).}
 }
 \value{
-A vector with the value of the three criteria or a matrix if \code{sweights} is a \code{\link[=finite_filters]{finite_filters()}} object.
+If \code{sweights} is a \code{\link[=finite_filters]{finite_filters()}} object, a matrix with the value of the three criteria for asymmetric and
+symmetric filters (depending on the value of \code{sfilter}, \code{rfilters} and \code{lfilters}).
+
+Otherwise, a named vector with the value of the three criteria is returned.
 }
 \description{
 Accuracy/smoothness/timeliness criteria through spectral decomposition

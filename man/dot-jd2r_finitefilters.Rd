@@ -9,6 +9,9 @@
 \arguments{
 \item{jf}{Java linear filter object.}
 }
+\value{
+\code{.jd2r_finitefilters()} returns a \code{finite_filters} object.
+}
 \description{
 These functions are used in all JDemetra+ 3.0 packages to easily interact between R and Java objects.
 }

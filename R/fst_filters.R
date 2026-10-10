@@ -106,7 +106,7 @@ fst_filter <- function(
 #' @param passband Passband threshold for timeliness criterion.
 #' @param ... other unused arguments.
 #'
-#' @returns A vector with the values of the 3 criteria.
+#' @returns A named vector with the values of the 3 criteria.
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' fst(filter[, "q=0"])
@@ -194,8 +194,14 @@ fst.finite_filters <- function(
 #'   (= white noise, the default) or  \code{"rw"} (= random walk).
 #' @param passband passband threshold.
 #' @param ... other unused arguments.
+#' @param sfilter,rfilters,lfilters boolean indicating if the criteria should be computed for the symmetric filter
+#' (`sfilter = TRUE` by default), the right filters (`rfilters = TRUE` by default) and
+#' the left filters (`lfilters = FALSE` by default).
 #'
-#' @returns A vector with the value of the three criteria or a matrix if `sweights` is a [finite_filters()] object.
+#' @returns If `sweights` is a [finite_filters()] object, a matrix with the value of the three criteria for asymmetric and
+#' symmetric filters (depending on the value of `sfilter`, `rfilters` and `lfilters`).
+#'
+#' Otherwise, a named vector with the value of the three criteria is returned.
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' sweights <- filter[, "q=6"]
@@ -261,7 +267,7 @@ mse.default <- function(
         residual = rslt[4]
     ))
 }
-#' @noRd
+#' @name mse
 #' @export
 mse.finite_filters <- function(
     aweights,

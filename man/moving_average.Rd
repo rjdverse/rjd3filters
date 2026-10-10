@@ -55,8 +55,16 @@ to_seasonal(x, s)
 \item{s}{seasonal period for the \code{to_seasonal()} function.}
 }
 \value{
-A boolean for \code{is.moving_average()}, \code{is_symmetric()}.
-An integer for \code{length()} and \verb{numeric() for }lower_bound()\code{and}upper_bound()\verb{. A }"moving_average"\verb{object for}moving_average()\verb{, }mirror()\verb{, }rev()\code{and}to_seasonal()`.
+\code{moving_average()} returns a \code{"moving_average"} object which is an S4 class with three slots:
+\itemize{
+\item \code{coefficients}: a numeric vector of coefficients.
+\item \code{lower_bound}: an integer indicating the number of lags.
+\item \code{upper_bound}: an integer indicating the number of leads (automatically computed).
+}
+
+\code{is.moving_average()} and \code{is_symmetric()} return a boolean.
+\code{length()}, \code{numeric()}, \code{lower_bound()} and \code{upper_bound()} return an integer.
+\code{mirror()}, \code{rev()} and \code{to_seasonal()} return a \code{"moving_average"} object.
 }
 \description{
 Manipulation of moving averages

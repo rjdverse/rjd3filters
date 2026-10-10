@@ -22,6 +22,7 @@
 #' plot_phase(filter, q = c(0,3), legend = TRUE)
 #' @name plot_filters
 #' @rdname plot_filters
+#' @returns No return value, called for side effects.
 #' @export
 plot_coef <- function(
     x,

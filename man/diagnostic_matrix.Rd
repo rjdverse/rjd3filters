@@ -21,13 +21,15 @@ computed.}
 
 \item{...}{optional arguments to \code{\link{mse}}.}
 }
+\value{
+A \code{vector} of length 10 with the quality criteria.
+}
 \description{
-Function du compute a diagnostic matrix of quality criteria for asymmetric
-filters
+Function to compute a diagnostic matrix of quality criteria for asymmetric filters.
 }
 \details{
 For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
-\code{diagnostic_matrix} returns a \code{list} with the following ten criteria:
+\code{diagnostic_matrix} returns a \code{vector} with the following ten criteria:
 \itemize{
 \item{\code{b_c} } Constant bias (if \eqn{b_c=0}, \eqn{\theta} preserve constant trends)
 \deqn{\sum_{i=-p}^q\theta_i - 1}
@@ -44,6 +46,7 @@ For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
 \item{\code{T_w} } Timeliness criterium of Wildi and McElroy (2019)
 \item{\code{R_w} } Residual criterium of Wildi and McElroy (2019)
 }
+\code{A_w}, \code{S_w}, \code{T_w} and \code{R_w} are computed only if the weights of the symmetric filter are provided (\code{sweights}).
 }
 \examples{
 \dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}

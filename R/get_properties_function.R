@@ -9,7 +9,7 @@
 #' sgain <- get_properties_function(filter, "Symmetric Gain")
 #' graphics::plot(sgain, xlim= c(0, pi/12))
 #' @importFrom graphics plot
-#' @returns A function.
+#' @returns A function that takes a frequency as input and returns the value of the selected component.
 #' @export
 get_properties_function <- function(
     x,
@@ -135,8 +135,7 @@ get_properties_function.finite_filters <- function(
 #' @title Compute quality criteria for asymmetric filters
 #'
 #' @description
-#' Function du compute a diagnostic matrix of quality criteria for asymmetric
-#' filters
+#' Function to compute a diagnostic matrix of quality criteria for asymmetric filters.
 #'
 #' @param x `moving_average` object or weights of the asymmetric filter
 #'   (from -lags to m).
@@ -149,7 +148,7 @@ get_properties_function.finite_filters <- function(
 #' @param ... optional arguments to \code{\link{mse}}.
 #'
 #' @details For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
-#' \code{diagnostic_matrix} returns a \code{list} with the following ten criteria:
+#' \code{diagnostic_matrix} returns a \code{vector} with the following ten criteria:
 #' \itemize{
 #' \item{\code{b_c} } Constant bias (if \eqn{b_c=0}, \eqn{\theta} preserve constant trends)
 #' \deqn{\sum_{i=-p}^q\theta_i - 1}
@@ -166,6 +165,7 @@ get_properties_function.finite_filters <- function(
 #' \item{\code{T_w} } Timeliness criterium of Wildi and McElroy (2019)
 #' \item{\code{R_w} } Residual criterium of Wildi and McElroy (2019)
 #' }
+#' \code{A_w}, \code{S_w}, \code{T_w} and \code{R_w} are computed only if the weights of the symmetric filter are provided (`sweights`).
 #'
 #' @references Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray
 #' (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on
@@ -181,6 +181,7 @@ get_properties_function.finite_filters <- function(
 #' aweights <- filter[, "q=0"]
 #' diagnostic_matrix(aweights, sweights = sweights)
 #' @importFrom stats coef
+#' @returns A `vector` of length 10 with the quality criteria.
 #' @export
 diagnostic_matrix <- function(x, lags, passband = pi / 6, sweights = NULL, ...) {
     if (!is.moving_average(x)) {

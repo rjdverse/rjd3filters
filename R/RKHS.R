@@ -91,7 +91,8 @@ rkhs_filter <- function(
 }
 #' Optimization Function of Reproducing Kernel Hilbert Space (RKHS) Filters
 #'
-#' Export function used to compute the optimal bandwidth of Reproducing Kernel Hilbert Space (RKHS) filters
+#' Export function used to compute the optimal bandwidth of Reproducing Kernel Hilbert Space (RKHS) filters.
+#'
 #' @inheritParams rkhs_filter
 #' @inheritParams fst_filter
 #' @returns A function that takes a bandwidth as input and returns the value of the optimization criterion.
