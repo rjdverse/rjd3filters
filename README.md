@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rjd3filters)](https://CRAN.R-project.org/package=rjd3filters)
 [![R universe
-version](https://rjdverse.r-universe.dev/badges/rjd3filters)](https://rjdverse.r-universe.dev/rjd3filters)
+version](https://rjdverse.r-universe.dev/rjd3filters/badges/version)](https://rjdverse.r-universe.dev/rjd3filters)
 [![Mentioned in Awesome Official
 Statistics](https://awesome.re/mentioned-badge.svg)](https://github.com/SNStatComp/awesome-official-statistics-software)
 
