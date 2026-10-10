@@ -1,7 +1,7 @@
 Package: rjd3filters
 Type: Package
 Title: Trend-Cycle Extraction with Linear Filters with 'JDemetra+ 3.x'
-Version: 2.4.0
+Version: 2.4.0.9000
 Authors@R: c(
   person("Alain", "Quartier-la-Tente", role = c("aut", "cre", "cph"),
          email = "alain.quartier@yahoo.fr",
@@ -47,3 +47,6 @@ Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Config/roxygen2/version: 8.1.0
 Language: en-GB
+Remotes:  
+    github::rjdverse/rjd3jars,
+    github::rjdverse/rjd3toolkit
