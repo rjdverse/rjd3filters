@@ -7,8 +7,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [2.4.0] - 2026-10-10
-
 ### Added
 
 * New method `underlying_forecasts()`.
