@@ -75,12 +75,12 @@ setMethod(
 #' @rdname print.finite_filters
 #' @export
 as.matrix.finite_filters <- function(
-        x,
-        sfilter = TRUE,
-        rfilters = TRUE,
-        lfilters = FALSE,
-        zero_as_na = FALSE,
-        ...
+    x,
+    sfilter = TRUE,
+    rfilters = TRUE,
+    lfilters = FALSE,
+    zero_as_na = FALSE,
+    ...
 ) {
     sfilter_s <- rfilters_s <- lfilters_s <-
         index_s <- index_r <- index_l <- NULL
