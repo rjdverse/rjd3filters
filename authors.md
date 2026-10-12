@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/rjdverse/rjd3filters/blob/develop/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/rjdverse/rjd3filters/blob/v2.4.0/DESCRIPTION)
 
 Quartier-la-Tente A, Palate J (2026). *rjd3filters: Trend-Cycle
 Extraction with Linear Filters with 'JDemetra+ 3.x'*. R package version
